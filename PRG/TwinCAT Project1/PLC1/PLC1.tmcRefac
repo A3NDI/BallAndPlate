@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedType>
+      <Type guid="2db9162b-44e7-4540-a78b-5eb1fdae9ec7">VISUALIZATION_1__VIS</Type>
+      <From>Visualization_1__vis</From>
+      <To>VisualizationTest__vis</To>
+    </RenamedType>
+  </Renames>
+</Refactors>

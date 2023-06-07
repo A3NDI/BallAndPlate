@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <DUT Name="CyltronicProcessDataInActual" Id="{0ed9dd34-77c1-40b0-98e5-c9c1de3e9669}">
+    <Declaration><![CDATA[{attribute 'pack_mode' := '0'}
+TYPE CyltronicProcessDataInActual :
+STRUCT
+	State 							: CyltronicState;
+	Ready 							: BIT;
+	Homed 							: BIT;
+	LimitSwitchOut 					: BIT;
+	LimitSwitchIn 					: BIT;
+	MotionModeActive 				: BIT;
+	MotionCommandCompleted 			: BIT;
+	WarningActive 					: BIT;
+	TrackingErrorToleranceExceeded 	: BIT;
+	ActualPosition 					: REAL;
+	ActualSpeed 					: REAL;
+	ActualForce 					: REAL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

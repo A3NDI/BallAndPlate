@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <DUT Name="CyltronicProcessDataIn" Id="{119abf53-d5a4-4387-bc60-ba1f138774f4}">
+    <Declaration><![CDATA[TYPE CyltronicProcessDataIn :
+UNION
+	CyltronicDataInAct  : CyltronicProcessDataInActual;
+	CyltronicDataInByte : CyltronicProcessDataInBytes;
+END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

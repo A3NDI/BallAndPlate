@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <DUT Name="CyltronicMotionMode" Id="{05744f57-0311-44bb-a9d9-c6d0988817aa}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE CyltronicMotionMode :
+(
+	Off 		:= 0,
+	DIO 		:= 1,
+	Teach 		:= 2,
+	MoveOut 	:= 3,
+	MoveIn 		:= 4,
+	FreePos 	:= 5,
+	FreePosPro 	:= 6,
+	HomeDirect 	:= 7
+)USINT;
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

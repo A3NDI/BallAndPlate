@@ -1,0 +1,604 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+  <POU Name="MC" Id="{750763ef-2f3e-475d-a612-2927d09d5aff}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'TcCallAfterOutputUpdate'}
+PROGRAM MC
+VAR_INPUT
+	// Achsreferenzen
+	r_axis: AXIS_REF;
+	s_axis: AXIS_REF;
+	t_axis: AXIS_REF;
+		
+	// Hardwareankopplung Freigabe STO
+	bEsAxisR AT %I*: BOOL;// Endschalter Achse R
+	bEsAxisS AT %I*: BOOL;// Endschalter Achse S
+	bEsAxisT AT %I*: BOOL;// Endschalter Achse T
+	
+	bButtonUp AT %I*: BOOL;
+	bButtonDown AT %I*: BOOL;
+	bButtonLeft AT %I*: BOOL;
+	bButtonRight AT %I*: BOOL;
+	bButtonOkay AT %I*: BOOL;	
+	
+	bContactAvailable AT %I*: BOOL;
+	rXadc AT %I*: REAL;
+	rYadc AT %I*: REAL;
+	rZadc AT %I*: REAL;
+	iXadc AT %I*: INT;
+	iYadc AT %I*: INT;
+	iZadc AT %I*: INT;
+	
+END_VAR
+VAR_OUTPUT
+	iStep AT %Q*: INT;
+	rQ_Kalman AT %Q*: REAL := 1.0;  
+	rR_Kalman AT %Q*: REAL := 400.0;
+	
+	sStep: STRING(80);
+	bRangeError: BOOL;
+	bExtEnableRST: BOOL;
+END_VAR
+VAR
+	bRstepP: BOOL; bRstepM: BOOL;
+	bSstepP: BOOL; bSstepM: BOOL;
+	bTstepP: BOOL; bTstepM: BOOL;
+	
+	bHoming: BOOL;	
+	bOk: BOOL;
+	
+	ax_r: AXIS;
+	ax_s: AXIS;
+	ax_t: AXIS;
+	
+	touch_scale_x: TOUCH_SCALE;
+	touch_scale_y: TOUCH_SCALE;
+		
+	// Zustandsautomat Hilfsfunktionen
+	iStepError: INT;
+	iStepOld: INT;
+	bStepM0: BOOL;
+	bStepM1: BOOL;
+	bStepM2: BOOL;
+	bStepM3: BOOL;
+	tonDelay: TON := (PT:=T#250MS);
+	
+	dActPosMax: LREAL;
+	dActPosMin: LREAL;
+	dActPosDiff: LREAL;
+	bFinishTest: BOOL;
+	
+	rDummy: REAL;
+	udDummy: UDINT;
+	iDummy: INT;
+	bDummy: BOOL;
+END_VAR  ]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ax_r(axis:=r_axis);
+ax_s(axis:=s_axis);
+ax_t(axis:=t_axis);
+
+touch_scale_x(rX:=rXadc, 
+              rDistance:=363.0, 
+              rMinAdc:=100, 
+              rMaxAdc:=3890, 
+              bContactAvailable:=bContactAvailable,
+              bSensor_Deactivate:=FALSE);
+				 
+touch_scale_y(rX:=rYadc, 
+              rDistance:=286.0, 
+              rMinAdc:=100, 
+              rMaxAdc:=3900, 
+              bContactAvailable:=bContactAvailable,
+              bSensor_Deactivate:=FALSE);
+
+rDummy := rZadc;
+iDummy := iXadc;
+iDummy := iYadc;
+iDummy := iZadc;
+				 
+_STATE_MACHINE();
+]]></ST>
+    </Implementation>
+    <Action Name="_STATE_MACHINE" Id="{4dc9e574-a7eb-450d-8c85-d4c682034f9f}">
+      <Implementation>
+        <ST><![CDATA[STATE_MACHINE_VAR_TO_FALSE();
+
+CASE iStep OF
+	0:		sStep := 'Startup';
+			iStep := 100;
+			
+	100: 	// Initialisierung 
+			iStep := 110;
+								
+	110: 	sStep := 'Start der Achsen';
+			ax_r.mcp.Enable := TRUE;
+			ax_s.mcp.Enable := TRUE;
+			ax_t.mcp.Enable := TRUE;
+			IF ax_r.mcp.Status AND ax_s.mcp.Status AND ax_t.mcp.Status THEN
+				iStep := 150;
+			END_IF
+			IF ax_r.mcp.Error THEN
+				iStep := 120;
+			END_IF
+			IF ax_s.mcp.Error THEN
+				iStep := 130;
+			END_IF
+			IF ax_t.mcp.Error THEN
+				iStep := 140;
+			END_IF
+			
+	120: 	sStep := 'Reset der Achse R';
+			ax_r.mcr.Execute := TRUE;
+			IF (ax_r.mcr.Done) OR bOk THEN
+				MC.EXECUTE_TO_FALSE();
+				iStep := 110;
+			END_IF				
+	
+	130: 	sStep := 'Reset der Achse S';
+			ax_s.mcr.Execute := TRUE;
+			IF (ax_s.mcr.Done) OR bOk THEN
+				MC.EXECUTE_TO_FALSE();
+				iStep := 110;
+			END_IF				
+			
+	140: 	sStep := 'Reset der Achse T';
+			ax_t.mcr.Execute := TRUE;
+			IF (ax_t.mcr.Done) OR bOk THEN
+				MC.EXECUTE_TO_FALSE();
+				iStep := 110;
+			END_IF				
+				
+	150: 	sStep := 'Zwischenschritt';
+			tonDelay.IN := TRUE;
+			tonDelay.PT := T#100MS;
+			IF tonDelay.Q THEN
+				//iStep := 1000;
+				iStep := 200;// ToDo: Bei Projektabgabe anpassen
+			END_IF
+			
+	200:	// Homing
+			iStep := 210;
+		
+	210: 	IF bEsAxisR OR bEsAxisS OR bEsAxisT THEN
+				IF bEsAxisR THEN 
+					ax_r.mcmr.Distance := +15.0;
+				ELSE 
+					ax_r.mcmr.Distance := 0;
+				END_IF
+				IF bEsAxisS THEN 
+					ax_s.mcmr.Distance := +15.0;
+				ELSE 
+					ax_s.mcmr.Distance := 0;
+				END_IF
+				IF bEsAxisT THEN 
+					ax_t.mcmr.Distance := +15.0;
+				ELSE 
+					ax_t.mcmr.Distance := 0;
+				END_IF
+				iStep := 220; 
+			ELSE
+				iStep := 230;
+			END_IF
+	
+	220:	sStep := 'Suche Schaltpunkt des Endschalters';
+			ax_r.mcmr.Execute := TRUE;
+			ax_s.mcmr.Execute := TRUE;
+			ax_t.mcmr.Execute := TRUE;
+			IF ax_r.mcmr.Done AND ax_s.mcmr.Done AND ax_t.mcmr.Done THEN
+				MC.EXECUTE_TO_FALSE();
+				iStep := 210;
+			END_IF	
+
+	230:	sStep := 'Homing der Achsen';
+			ax_r.mch.Execute := TRUE;
+			ax_r.mch.Position := ax_r.rOffsetHoming;
+			ax_r.mch.bCalibrationCam := bEsAxisR;
+			ax_r.mch.HomingMode := MC_HomingMode.MC_DefaultHoming;
+			
+			ax_s.mch.Execute := TRUE;
+			ax_s.mch.Position := ax_s.rOffsetHoming;
+			ax_s.mch.bCalibrationCam := bEsAxisS;
+			ax_s.mch.HomingMode := MC_HomingMode.MC_DefaultHoming;
+			
+			ax_t.mch.Execute := TRUE;
+			ax_t.mch.Position := ax_t.rOffsetHoming;
+			ax_t.mch.bCalibrationCam := bEsAxisT;
+			ax_t.mch.HomingMode := MC_HomingMode.MC_DefaultHoming;
+						
+			IF ax_r.mch.Done AND ax_s.mch.Done AND ax_t.mch.Done THEN
+				MC.EXECUTE_TO_FALSE();
+				iStep := 240;
+			END_IF
+			IF bOk THEN
+				MC.EXECUTE_TO_FALSE();
+				iStep := 0;
+			END_IF
+			
+			
+	
+	240:	sStep := 'RST Bewegung auf Position 0.0';
+			ax_r.mcma.Execute := TRUE;
+			ax_r.mcma.Position := 0.0;
+			
+			ax_s.mcma.Execute := TRUE;
+			ax_s.mcma.Position := 0.0;
+			
+			ax_t.mcma.Execute := TRUE;
+			ax_t.mcma.Position := 0.0;
+			
+			IF ax_r.mcma.Done AND ax_s.mcma.Done AND ax_t.mcma.Done THEN
+				MC.EXECUTE_TO_FALSE();
+				iStep := 250;
+			END_IF
+			
+	250: 	sStep := 'Verzögerung nach dem Homing';
+			tonDelay.IN := TRUE;
+			tonDelay.PT := T#500MS;
+			IF tonDelay.Q THEN
+				iStep := 1000;
+			END_IF
+
+	1000:	// Aktionsbereich
+			sStep := 'warte auf Aktion';
+			MC.RESET_CMD();
+			MC.EXECUTE_TO_FALSE();
+			iStep := 1010;
+			
+	1010:	sStep := 'warte auf Aktion';
+			// Schrittbewegungen
+			IF bRstepP THEN ax_r.mcmr.Distance := +5.0; iStep := 2000; END_IF
+			IF bRstepM THEN ax_r.mcmr.Distance := -5.0; iStep := 2000; END_IF
+			IF bSstepP THEN ax_s.mcmr.Distance := +5.0; iStep := 2010; END_IF
+			IF bSstepM THEN ax_s.mcmr.Distance := -5.0; iStep := 2010; END_IF
+			IF bTstepP THEN ax_t.mcmr.Distance := +5.0; iStep := 2020; END_IF
+			IF bTstepM THEN ax_t.mcmr.Distance := -5.0; iStep := 2020; END_IF
+
+			// Tastbewegungen
+			IF bButtonUp THEN ax_r.mcmv.Direction := MC_Direction.MC_Positive_Direction; iStep := 2100; END_IF
+			IF bButtonDown THEN ax_r.mcmv.Direction := MC_Direction.MC_Negative_Direction; iStep := 2100; END_IF
+
+			// Absolutbewegungen
+			// ToDo
+			
+			// Homing
+			IF bHoming THEN iStep := 200; END_IF
+			
+	1100:
+		sStep := 'R-10.0';
+		ax_r.mcma.Execute := TRUE;
+		ax_r.mcma.Position := -20.0;
+		
+		IF ax_r.mcma.Done THEN
+			MC.EXECUTE_TO_FALSE();
+			iStep := 1110;
+		END_IF
+	
+	// STEP 
+	2000:	sStep := 'Bewegung R relativ => STEP';
+			ax_r.mcmr.Execute := TRUE;
+			IF ax_r.mcmr.Done THEN
+				iStep := 1000;
+			END_IF	
+			
+	2010:	sStep := 'Bewegung S relativ => STEP';
+			ax_s.mcmr.Execute := TRUE;
+			IF ax_s.mcmr.Done THEN
+				iStep := 1000;
+			END_IF	
+			
+	2020:	sStep := 'Bewegung T relativ => STEP';
+			ax_t.mcmr.Execute := TRUE;
+			IF ax_t.mcmr.Done THEN
+				iStep := 1000;
+			END_IF	
+			
+	// JOG
+	2100:	sStep := 'Bewegung R mit Vorgabegeschwindigkeit => JOG';
+			ax_r.mcmv.Execute := TRUE;
+			IF ((ax_r.mcmv.Direction = MC_Direction.MC_Positive_Direction) AND NOT bButtonUp) OR
+               ((ax_r.mcmv.Direction = MC_Direction.MC_Negative_Direction) AND NOT bButtonDown) THEN
+				ax_r.mcmv.Execute := FALSE;
+				iStep := 2110;
+			END_IF
+	
+	2110: 	sStep := 'Bewegung R mit Vorgabegeschwindigkeit => JOG';
+			ax_r.mcs.Execute := TRUE;
+			IF ax_r.mcs.Done THEN
+				ax_r.mcs.Execute := FALSE;
+				iStep := 1000;
+			END_IF										
+
+	// Bereichsüberschreitung der Achsen => Stop
+	9800: 	sStep := 'Bereichsgrenzen der Achsen überschritten => OK';
+			ax_r.mcs.Execute := TRUE;
+			ax_s.mcs.Execute := TRUE;
+			ax_t.mcs.Execute := TRUE;
+			IF ax_r.mcs.Done AND ax_s.mcs.Done AND ax_t.mcs.Done OR bOk OR TRUE THEN
+				MC.EXECUTE_TO_FALSE();
+				MC.RESET_CMD();
+				iStep := 9810;
+			END_IF
+			
+	9810:	sStep := 'Reset der Achsen';
+			ax_r.mcr.Execute := TRUE;
+			ax_s.mcr.Execute := TRUE;
+			ax_t.mcr.Execute := TRUE;
+			IF ax_r.mcr.Done AND ax_s.mcr.Done AND ax_t.mcr.Done THEN
+				MC.EXECUTE_TO_FALSE();
+				iStep := 9820;
+			END_IF	
+
+	9820: 	sStep := 'Bereichsüberschreitung Bestätigung => OK';
+			IF bOk OR TRUE THEN
+				iStep := 200;
+			END_IF
+
+	// Errorhandling
+	9900:	sStep := 'Reset der Achsen';
+			ax_r.mcr.Execute := TRUE;
+			ax_s.mcr.Execute := TRUE;
+			ax_t.mcr.Execute := TRUE;
+			IF ax_r.mcr.Done AND ax_s.mcr.Done AND ax_t.mcr.Done THEN
+				MC.EXECUTE_TO_FALSE();
+				iStep := 9910;
+			END_IF			
+
+	9910: 	sStep := 'Achsfehler  => OK';
+			IF bOk THEN
+				MC.EXECUTE_TO_FALSE();
+				iStep := 1000;
+			END_IF
+			IF (iStepError < 1000) THEN
+				MC.EXECUTE_TO_FALSE();
+				MC.RESET_CMD();
+				iStep := 0;
+			END_IF
+
+	ELSE	
+			sStep := 'Zustandsautomat in unbekanntem Schritt';
+		
+END_CASE
+
+// ============================================================================
+// Prüfen der Achsen auf einen Fehler
+IF (ax_r.bError OR ax_s.bError OR ax_t.bError) AND 
+   (iStep >= 1000) AND (iStep < 9800) THEN
+	iStepError := iStep;
+	IF (iStep = 8020) THEN
+		iStep := 8030;
+	END_IF
+	
+	IF (iStep >= 1000) AND (iStep < 8000) OR (iStep = 8040) THEN
+		iStep := 9800;
+	END_IF
+END_IF
+
+// Überwachung der absoluten Position von RST
+dActPosMax := MAX(ax_r.dActPos, ax_s.dActPos);
+dActPosMax := MAX(dActPosMax, ax_t.dActPos);
+dActPosMin := MIN(ax_r.dActPos, ax_s.dActPos);
+dActPosMin := MIN(dActPosMin, ax_t.dActPos);
+dActPosDiff := ABS(dActPosMax - dActPosMin);
+
+IF ((ax_r.dActPos < ax_r.rOffsetHoming) OR (ax_r.dActPos > 45.0)) OR
+   ((ax_s.dActPos < ax_s.rOffsetHoming) OR (ax_s.dActPos > 45.0)) OR
+   ((ax_t.dActPos < ax_t.rOffsetHoming) OR (ax_t.dActPos > 45.0)) OR 
+   (dActPosDiff > 45.0) THEN
+	
+	bRangeError := TRUE;
+	IF (iStep = 8020) THEN
+		iStep := 8030;
+	END_IF
+	
+	IF (iStep >= 1000) AND (iStep < 8000) or (iStep = 8040) THEN
+		iStep := 9800;
+	END_IF
+ELSE
+	bRangeError := FALSE;
+END_IF
+
+// ============================================================================
+// Hilfsmerker für die Abarbeitung der Schrittkette
+IF (iStepOld <> iStep) THEN
+	iStepOld := iStep;
+	bStepM0 := FALSE;
+	bStepM1 := FALSE;
+	bStepM2 := FALSE;
+	bStepM3 := FALSE;
+	tonDelay.IN := FALSE;
+END_IF
+
+// Verzögerungstimer
+tonDelay();
+(* 	Beispiel für die Verwendung einer Verzögerung
+	2030: 	tonDelay.IN := TRUE;
+			tonDelay.PT := T#250MS;
+			IF tonDelay.Q THEN
+				iStep := 2000;
+			END_IF
+*)]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="EXECUTE_TO_FALSE" Id="{ee179c2f-4004-4ffe-8cf5-cfb1b5ff3642}">
+      <Implementation>
+        <ST><![CDATA[ax_r.EXECUTE_TO_FALSE(axis:=r_axis);
+ax_s.EXECUTE_TO_FALSE(axis:=s_axis);
+ax_t.EXECUTE_TO_FALSE(axis:=t_axis);
+
+
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="RESET_CMD" Id="{b7963451-f761-4bec-83c2-5be99ba95888}">
+      <Implementation>
+        <ST><![CDATA[bRstepP := FALSE;
+bRstepM := FALSE;
+bSstepP := FALSE;
+bSstepM := FALSE;
+bTstepP := FALSE;
+bTstepM := FALSE;
+bHoming := FALSE;
+
+// ok
+bOk := FALSE;
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="STATE_MACHINE_VAR_TO_FALSE" Id="{6b5a84c0-24e2-4d49-a4a0-ab95e9da6baa}">
+      <Implementation>
+        <ST><![CDATA[// Hilfsvariablen zur State Machine
+]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="MC">
+      <LineId Id="1239" Count="16" />
+      <LineId Id="1260" Count="2" />
+      <LineId Id="1264" Count="1" />
+      <LineId Id="1256" Count="1" />
+      <LineId Id="654" Count="0" />
+    </LineIds>
+    <LineIds Name="MC._STATE_MACHINE">
+      <LineId Id="5184" Count="1" />
+      <LineId Id="4037" Count="0" />
+      <LineId Id="4039" Count="0" />
+      <LineId Id="4041" Count="0" />
+      <LineId Id="5379" Count="2" />
+      <LineId Id="4042" Count="0" />
+      <LineId Id="4071" Count="1" />
+      <LineId Id="4949" Count="1" />
+      <LineId Id="4750" Count="4" />
+      <LineId Id="4747" Count="0" />
+      <LineId Id="4952" Count="1" />
+      <LineId Id="4951" Count="0" />
+      <LineId Id="4955" Count="1" />
+      <LineId Id="4954" Count="0" />
+      <LineId Id="4959" Count="5" />
+      <LineId Id="4089" Count="0" />
+      <LineId Id="4965" Count="0" />
+      <LineId Id="4967" Count="4" />
+      <LineId Id="4966" Count="0" />
+      <LineId Id="4972" Count="0" />
+      <LineId Id="4974" Count="4" />
+      <LineId Id="4973" Count="0" />
+      <LineId Id="4788" Count="0" />
+      <LineId Id="4941" Count="0" />
+      <LineId Id="4796" Count="0" />
+      <LineId Id="4092" Count="2" />
+      <LineId Id="5046" Count="0" />
+      <LineId Id="4095" Count="0" />
+      <LineId Id="4979" Count="0" />
+      <LineId Id="5247" Count="0" />
+      <LineId Id="5259" Count="0" />
+      <LineId Id="5250" Count="0" />
+      <LineId Id="4982" Count="28" />
+      <LineId Id="5267" Count="0" />
+      <LineId Id="5271" Count="18" />
+      <LineId Id="5269" Count="0" />
+      <LineId Id="5375" Count="3" />
+      <LineId Id="5373" Count="1" />
+      <LineId Id="5032" Count="13" />
+      <LineId Id="4980" Count="0" />
+      <LineId Id="5302" Count="0" />
+      <LineId Id="5304" Count="0" />
+      <LineId Id="5308" Count="0" />
+      <LineId Id="5305" Count="2" />
+      <LineId Id="5303" Count="0" />
+      <LineId Id="4100" Count="1" />
+      <LineId Id="5382" Count="0" />
+      <LineId Id="4102" Count="6" />
+      <LineId Id="4115" Count="0" />
+      <LineId Id="5145" Count="3" />
+      <LineId Id="4125" Count="3" />
+      <LineId Id="5390" Count="0" />
+      <LineId Id="4131" Count="0" />
+      <LineId Id="5391" Count="0" />
+      <LineId Id="4805" Count="1" />
+      <LineId Id="5384" Count="0" />
+      <LineId Id="4836" Count="0" />
+      <LineId Id="5325" Count="0" />
+      <LineId Id="5338" Count="0" />
+      <LineId Id="5326" Count="1" />
+      <LineId Id="5334" Count="3" />
+      <LineId Id="5321" Count="0" />
+      <LineId Id="5323" Count="0" />
+      <LineId Id="4146" Count="3" />
+      <LineId Id="4151" Count="1" />
+      <LineId Id="5149" Count="0" />
+      <LineId Id="5151" Count="2" />
+      <LineId Id="5155" Count="0" />
+      <LineId Id="5150" Count="0" />
+      <LineId Id="5156" Count="0" />
+      <LineId Id="5158" Count="2" />
+      <LineId Id="5162" Count="0" />
+      <LineId Id="5157" Count="0" />
+      <LineId Id="4161" Count="4" />
+      <LineId Id="5392" Count="0" />
+      <LineId Id="4166" Count="9" />
+      <LineId Id="5061" Count="0" />
+      <LineId Id="5065" Count="2" />
+      <LineId Id="5130" Count="1" />
+      <LineId Id="5069" Count="1" />
+      <LineId Id="5072" Count="0" />
+      <LineId Id="5075" Count="2" />
+      <LineId Id="5132" Count="6" />
+      <LineId Id="5086" Count="0" />
+      <LineId Id="5141" Count="0" />
+      <LineId Id="5140" Count="0" />
+      <LineId Id="5142" Count="2" />
+      <LineId Id="5062" Count="0" />
+      <LineId Id="4449" Count="1" />
+      <LineId Id="5291" Count="1" />
+      <LineId Id="4451" Count="0" />
+      <LineId Id="4453" Count="7" />
+      <LineId Id="4462" Count="3" />
+      <LineId Id="4467" Count="2" />
+      <LineId Id="4588" Count="7" />
+      <LineId Id="4598" Count="0" />
+      <LineId Id="4600" Count="1" />
+      <LineId Id="5312" Count="5" />
+      <LineId Id="5311" Count="0" />
+      <LineId Id="4605" Count="0" />
+      <LineId Id="5050" Count="1" />
+      <LineId Id="5294" Count="0" />
+      <LineId Id="5296" Count="0" />
+      <LineId Id="5298" Count="2" />
+      <LineId Id="5319" Count="0" />
+      <LineId Id="5052" Count="0" />
+      <LineId Id="5128" Count="1" />
+      <LineId Id="5301" Count="0" />
+      <LineId Id="5171" Count="0" />
+      <LineId Id="5191" Count="1" />
+      <LineId Id="5177" Count="0" />
+      <LineId Id="5175" Count="0" />
+      <LineId Id="5178" Count="0" />
+      <LineId Id="5168" Count="0" />
+      <LineId Id="5056" Count="0" />
+      <LineId Id="5169" Count="0" />
+      <LineId Id="5172" Count="0" />
+      <LineId Id="5193" Count="0" />
+      <LineId Id="4606" Count="0" />
+      <LineId Id="5058" Count="0" />
+      <LineId Id="4757" Count="3" />
+      <LineId Id="4762" Count="14" />
+      <LineId Id="612" Count="0" />
+    </LineIds>
+    <LineIds Name="MC.EXECUTE_TO_FALSE">
+      <LineId Id="28" Count="0" />
+      <LineId Id="35" Count="2" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="33" Count="0" />
+    </LineIds>
+    <LineIds Name="MC.RESET_CMD">
+      <LineId Id="46" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="83" Count="3" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="78" Count="2" />
+      <LineId Id="29" Count="0" />
+    </LineIds>
+    <LineIds Name="MC.STATE_MACHINE_VAR_TO_FALSE">
+      <LineId Id="2" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

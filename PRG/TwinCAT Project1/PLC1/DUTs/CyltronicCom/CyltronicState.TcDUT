@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <DUT Name="CyltronicState" Id="{b9b4449c-63f3-4027-b5be-c41b6c09a0d0}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE CyltronicState :
+(
+	Idle 	:= 0,
+	Ready 	:= 1,
+	Active 	:= 2,
+	Error 	:= 3,
+	Teach 	:= 4
+)USINT;
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

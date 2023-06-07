@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <DUT Name="CyltronicProcessDataInBytes" Id="{3172474c-0dd7-4562-b90d-b381ef1830e5}">
+    <Declaration><![CDATA[{attribute 'pack_mode' := '0'}
+TYPE CyltronicProcessDataInBytes :
+STRUCT
+	Byte0  : BYTE;
+	Byte1  : BYTE;
+	Byte5  : BYTE;
+	Byte4  : BYTE;
+	Byte3  : BYTE;
+	Byte2  : BYTE;
+	Byte9  : BYTE;
+	Byte8  : BYTE;
+	Byte7  : BYTE;
+	Byte6  : BYTE;
+	Byte13 : BYTE;
+	Byte12 : BYTE;
+	Byte11 : BYTE;
+	Byte10 : BYTE;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
