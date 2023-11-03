@@ -6,6 +6,26 @@
         <o xml:space="preserve" t="GlobalTextListObject">
           <l n="TextList" t="ArrayList" cet="TextListRow">
             <o>
+              <v n="TextID">"658"</v>
+              <v n="TextDefault">"%.0f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"480"</v>
+              <v n="TextDefault">"%1.0f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1853"</v>
+              <v n="TextDefault">"%1.0f mm"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"929"</v>
+              <v n="TextDefault">"%1.0f N"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"340"</v>
               <v n="TextDefault">"%1.1d"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -18,6 +38,11 @@
             <o>
               <v n="TextID">"425"</v>
               <v n="TextDefault">"%1.3f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"947"</v>
+              <v n="TextDefault">"%1.4f"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -41,23 +66,48 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"96"</v>
-              <v n="TextDefault">"Acceleration"</v>
+              <v n="TextID">"762"</v>
+              <v n="TextDefault">"A DOWN"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"161"</v>
-              <v n="TextDefault">"Acknowledge"</v>
+              <v n="TextID">"1816"</v>
+              <v n="TextDefault">"A UP"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"368"</v>
-              <v n="TextDefault">"Actual Position"</v>
+              <v n="TextID">"974"</v>
+              <v n="TextDefault">"Ab"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"703"</v>
+              <v n="TextDefault">"Achse 1"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"211"</v>
+              <v n="TextDefault">"Achse 2"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1456"</v>
+              <v n="TextDefault">"Achse 3"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"984"</v>
+              <v n="TextDefault">"Achsen"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"431"</v>
               <v n="TextDefault">"aktiviert"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"467"</v>
+              <v n="TextDefault">"Allgemeine Einstellungen"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -78,6 +128,31 @@
             <o>
               <v n="TextID">"423"</v>
               <v n="TextDefault">"AntiWindUp"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"801"</v>
+              <v n="TextDefault">"Auf"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"985"</v>
+              <v n="TextDefault">"Aus"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1319"</v>
+              <v n="TextDefault">"Ausbefehl"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"677"</v>
+              <v n="TextDefault">"Auto"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1270"</v>
+              <v n="TextDefault">"Automatik"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -124,6 +199,21 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"321"</v>
+              <v n="TextDefault">"Ball and Plate"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1300"</v>
+              <v n="TextDefault">"Ball on Plate"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"144"</v>
+              <v n="TextDefault">"Ball onPlate"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"427"</v>
               <v n="TextDefault">"bEnable"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -154,6 +244,16 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"595"</v>
+              <v n="TextDefault">"Down"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"711"</v>
+              <v n="TextDefault">"DOWN"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"138"</v>
               <v n="TextDefault">"DT1"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -161,6 +261,26 @@
             <o>
               <v n="TextID">"98"</v>
               <v n="TextDefault">"e"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1361"</v>
+              <v n="TextDefault">"Ein"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"836"</v>
+              <v n="TextDefault">"Einbefehl"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"956"</v>
+              <v n="TextDefault">"Einszelansteuerung"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1324"</v>
+              <v n="TextDefault">"Einzelansteuerung"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -180,18 +300,28 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"402"</v>
-              <v n="TextDefault">"Force"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"1148"</v>
               <v n="TextDefault">"frequenz [hz]"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"376"</v>
+              <v n="TextDefault">"Geschwindigkeit"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1719"</v>
+              <v n="TextDefault">"Grundposition"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"931"</v>
               <v n="TextDefault">"Homing"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"143"</v>
+              <v n="TextDefault">"Homingposition"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -212,11 +342,6 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
             <o>
               <v n="TextID">"830"</v>
               <v n="TextDefault">"iCount"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"818"</v>
-              <v n="TextDefault">"Info"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -269,6 +394,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"203"</v>
+              <v n="TextDefault">"Istposition"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"849"</v>
               <v n="TextDefault">"KalmanFilter"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -281,6 +411,16 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
             <o>
               <v n="TextID">"1496"</v>
               <v n="TextDefault">"Kennlinie_2"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"702"</v>
+              <v n="TextDefault">"Kraft"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"44"</v>
+              <v n="TextDefault">"LEFT"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -323,13 +463,53 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"751"</v>
+              <v n="TextDefault">"Links"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"452"</v>
+              <v n="TextDefault">"Mainvisu"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"168"</v>
+              <v n="TextDefault">"Mainvisualisation"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"303"</v>
+              <v n="TextDefault">"Mainvius"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"957"</v>
+              <v n="TextDefault">"Manuel"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"136"</v>
+              <v n="TextDefault">"MAX"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"722"</v>
+              <v n="TextDefault">"MIN"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"814"</v>
               <v n="TextDefault">"Mittelwert"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"256"</v>
-              <v n="TextDefault">"Motion Command Completed"</v>
+              <v n="TextID">"941"</v>
+              <v n="TextDefault">"Motincomand compl."</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1493"</v>
+              <v n="TextDefault">"Motioncomand"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -358,8 +538,53 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"494"</v>
+              <v n="TextID">"971"</v>
               <v n="TextDefault">"Position"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"498"</v>
+              <v n="TextDefault">"Position "</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"745"</v>
+              <v n="TextDefault">"Position &amp; Zustand"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"570"</v>
+              <v n="TextDefault">"Position &amp; Zustand  Achse 1"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1430"</v>
+              <v n="TextDefault">"Position &amp; Zustand  Achse 2"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1105"</v>
+              <v n="TextDefault">"Position &amp; Zustand  Achse 3"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"100"</v>
+              <v n="TextDefault">"Position Achse 1"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"700"</v>
+              <v n="TextDefault">"Position Achse 2"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"661"</v>
+              <v n="TextDefault">"Position Achse 3"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1821"</v>
+              <v n="TextDefault">"Position Touchpanel"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -485,6 +710,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1593"</v>
+              <v n="TextDefault">"Rechts"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"97"</v>
               <v n="TextDefault">"Regler"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -500,8 +730,13 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"100"</v>
-              <v n="TextDefault">"Reset"</v>
+              <v n="TextID">"169"</v>
+              <v n="TextDefault">"Reset All"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1106"</v>
+              <v n="TextDefault">"RIGHT"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -646,6 +881,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"571"</v>
+              <v n="TextDefault">"Schrittgrösse"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"338"</v>
               <v n="TextDefault">"Setpointgenerator"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -666,23 +906,23 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"103"</v>
-              <v n="TextDefault">"Speed"</v>
+              <v n="TextID">"1218"</v>
+              <v n="TextDefault">"Sinus"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"852"</v>
+              <v n="TextDefault">"Sollposition"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"178"</v>
+              <v n="TextDefault">"Sollposition Achse 1"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"430"</v>
               <v n="TextDefault">"spiegelung an x=y"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"466"</v>
-              <v n="TextDefault">"Start"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"102"</v>
-              <v n="TextDefault">"State"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -692,19 +932,34 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1350"</v>
+              <v n="TextDefault">"Steigungswinkel!"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"796"</v>
               <v n="TextDefault">"T
 %1.01f °"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"513"</v>
-              <v n="TextDefault">"Time"</v>
+              <v n="TextID">"1575"</v>
+              <v n="TextDefault">"test"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"504"</v>
+              <v n="TextDefault">"Touch"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1104"</v>
               <v n="TextDefault">"typ"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1188"</v>
+              <v n="TextDefault">"UP"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -773,6 +1028,16 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <v n="TextID">"1016"</v>
               <v n="TextDefault">"Ypu
 %1.03f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"756"</v>
+              <v n="TextDefault">"Zustand"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"246"</v>
+              <v n="TextDefault">"Zustände"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
           </l>

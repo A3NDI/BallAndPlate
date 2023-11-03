@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <POU Name="Allgemein" Id="{67a35465-783c-49d5-9bd5-3043dcc29413}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Allgemein
+VAR
+	UP:R_TRIG;
+	Down:R_TRIG;
+	
+	//Bedienknöpfe von der Controllstation des Touchpannels
+	bButtonUp AT %I*: BOOL;
+	bButtonDown AT %I*: BOOL;
+	bButtonLeft AT %I*: BOOL;
+	bButtonRight AT %I*: BOOL;
+	bButtonOkay AT %I*: BOOL;
+	
+	//dazugehörige Variabeln
+	Auf:R_TRIG;
+	Ab:R_TRIG;
+	Links:R_TRIG;
+	Rechts:R_TRIG;
+	AAktivieren:R_TRIG;
+	
+	blinkon:ton;
+	blinkoff:tof;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Einschaltbefehl des 48V Netzschützes mit der Bedingung
+
+IF gvl.NOTAUS AND gvl.V48VDC_Einbefehl THEN
+	gvl.V48Einbefehl:=TRUE;
+ELSIF not gvl.NOTAUS THEN
+	gvl.V48Einbefehl:=FALSE;
+END_IF
+
+/////////////////////////////////////////////////////////////
+//Inputs
+Up(CLK:=gvl.UP);
+Down(CLK:=gvl.Down);
+
+//Homingposition
+IF gvl.eingabesperre THEN
+	IF NOT gvl.Automatik THEN
+		IF UP.Q THEN
+			//Achse steigt um definierten Step
+			IF gvl.Eingabe_Grundposition<199 THEN
+				gvl.Eingabe_Grundposition:=gvl.Eingabe_Grundposition + gvl.n;
+			ELSE
+				gvl.Eingabe_Grundposition:=200;
+			END_IF
+		ELSIF Down.Q THEN
+			//Achse sinkt um definierten Step
+			IF gvl.Eingabe_Grundposition>1 THEN
+				gvl.Eingabe_Grundposition:=gvl.Eingabe_Grundposition - gvl.n;
+			ELSE
+				gvl.Eingabe_Grundposition:=0;
+			END_IF
+		END_IF
+	END_IF	
+//Sollposition im allgemeinen Zustand
+ELSE
+	IF Up.Q THEN
+		IF gvl.Eingabe_Sollposition < 199 THEN
+			gvl.Eingabe_Sollposition:=gvl.Eingabe_Sollposition + gvl.n;
+		ELSE
+			gvl.Eingabe_Sollposition:=200;
+		END_IF
+	ELSIF Down.Q THEN
+		IF gvl.Eingabe_Sollposition>1 THEN
+			gvl.Eingabe_Sollposition:=gvl.Eingabe_Sollposition - gvl.n;
+		ELSE
+			gvl.Eingabe_Sollposition:=0;
+		END_IF
+	END_IF
+END_IF
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Beim Deaktivieren des individuellen Modus soll die Sollposition wieder auf die allgemeine Variable zurückgestellt werden.
+IF NOT MAIN.Axis_R.bManual THEN
+	MAIN.Axis_R.rEingabe_Sollposition:=gvl.Eingabe_Sollposition;
+END_IF
+IF NOT MAIN.Axis_S.bManual THEN
+	MAIN.Axis_S.rEingabe_Sollposition:=gvl.Eingabe_Sollposition;
+END_IF
+IF NOT MAIN.Axis_T.bManual THEN
+	MAIN.Axis_T.rEingabe_Sollposition:=gvl.Eingabe_Sollposition;
+END_IF
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Achsenverstellen Inputs
+Aaktivieren(CLK:=bButtonOkay);
+Links(CLK:=bButtonLeft);
+Rechts(CLK:=bButtonRight);
+Auf(CLK:=bButtonUP);
+Ab(CLK:=bButtonDown);
+
+//Achsenkontrolle Aktivieren
+IF gvl.AchsenkontrolleVisu OR Aaktivieren.Q THEN
+	gvl.Achsenkontrolle:=TRUE;
+END_IF
+//X-Achse verstellen
+IF gvl.Achsenkontrolle THEN
+	MAIN.Axis_R.bManual:=TRUE;
+	MAIN.Axis_S.bManual:=TRUE;
+	MAIN.Axis_T.bManual:=TRUE;
+	IF gvl.XAchseUp OR bButtonLeft THEN
+		MAIN.Axis_S.bUP:=TRUE;
+		MAIN.Axis_R.bDOWN:=TRUE;
+	ELSIF gvl.XAchseDown OR bButtonRight THEN
+		MAIN.Axis_S.bDOWN:=TRUE;
+		MAIN.Axis_R.bUP:=TRUE;
+	ELSIF gvl.YAchseUp OR bButtonUp THEN
+		MAIN.Axis_T.bDOWN:=TRUE;
+		MAIN.Axis_S.bUP:=TRUE;
+		MAIN.Axis_R.bUP:=TRUE;
+	ELSIF gvl.YAchseDown OR bButtonDown THEN
+		MAIN.Axis_T.bUP:=TRUE;
+		MAIN.Axis_S.bDOWN:=TRUE;
+		MAIN.Axis_R.bDOWN:=TRUE;
+	ELSE
+		MAIN.Axis_R.bUP:=FALSE;
+		MAIN.Axis_S.bUP:=FALSE;
+		MAIN.Axis_T.bUP:=FALSE;
+		MAIN.Axis_R.bDOWN:=FALSE;
+		MAIN.Axis_S.bDOWN:=FALSE;
+		MAIN.Axis_T.bDOWN:=FALSE;
+	END_IF
+END_IF
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Plattenschutz bei überlaufen des Maximalwinkels
+//Warnung
+IF (MAIN.Axis_R.ActualPosition - MAIN.Axis_S.ActualPosition) > 130 THEN
+	gvl.Warnung_Steigungswinkel:=TRUE;
+ELSIF (MAIN.Axis_R.ActualPosition - MAIN.Axis_S.ActualPosition) < -130 THEN
+	gvl.Warnung_Steigungswinkel:=TRUE;
+ELSIF (MAIN.Axis_R.ActualPosition - MAIN.Axis_T.ActualPosition) > 130 THEN
+	gvl.Warnung_Steigungswinkel:=TRUE;
+ELSIF (MAIN.Axis_R.ActualPosition - MAIN.Axis_T.ActualPosition) < -130 THEN
+	gvl.Warnung_Steigungswinkel:=TRUE;
+ELSIF (MAIN.Axis_T.ActualPosition - MAIN.Axis_S.ActualPosition) > 130 THEN
+	gvl.Warnung_Steigungswinkel:=TRUE;
+ELSIF (MAIN.Axis_T.ActualPosition - MAIN.Axis_S.ActualPosition) < -130 THEN
+	gvl.Warnung_Steigungswinkel:=TRUE;
+ELSE
+	gvl.Warnung_Steigungswinkel:=FALSE;
+END_IF
+
+//Abstellung
+IF MAIN.Axis_R.ActualPosition - MAIN.Axis_S.ActualPosition > 135 OR
+	MAIN.Axis_R.ActualPosition - MAIN.Axis_S.ActualPosition < -135 OR
+	MAIN.Axis_R.ActualPosition - MAIN.Axis_T.ActualPosition > 135 OR
+	MAIN.Axis_R.ActualPosition - MAIN.Axis_T.ActualPosition < -135 OR
+	MAIN.Axis_T.ActualPosition - MAIN.Axis_S.ActualPosition > 135 OR
+	MAIN.Axis_T.ActualPosition - MAIN.Axis_S.ActualPosition < -135 THEN
+	gvl.V48VDC_Einbefehl:=FALSE;
+	MAIN.Axis_R.bManual:=FALSE;
+	MAIN.Axis_S.bManual:=FALSE;
+	MAIN.Axis_T.bManual:=FALSE;
+	MAIN.Axis_R.rEingabe_Sollposition:=0;
+	MAIN.Axis_S.rEingabe_Sollposition:=0;
+	MAIN.Axis_T.rEingabe_Sollposition:=0;
+END_IF
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//Zustandssignalisation an Visu wenn...
+//Sinus aktiviert oder Teilaktiviert wird
+IF MAIN.Axis_R.Sinus_Aktiv AND MAIN.Axis_R.Sinus_Aktiv AND MAIN.Axis_T.Sinus_Aktiv THEN
+	gvl.Sinus_Aktiv:=TRUE;
+ELSIF NOT MAIN.Axis_R.Sinus_Aktiv AND NOT MAIN.Axis_R.Sinus_Aktiv AND NOT MAIN.Axis_T.Sinus_Aktiv THEN
+	gvl.Sinus_Aktiv:=FALSE;
+ELSE
+	blinkon(in:=NOT blinkon.Q, PT:=T#2S);
+	blinkoff(in:=blinkon.Q, PT:=T#1S);
+	gvl.Sinus_Aktiv:=blinkoff.Q;
+END_IF
+//Position aktiviert oder Teilaktiviert wird
+IF (MAIN.Axis_R.bManual OR MAIN.Axis_S.bManual OR MAIN.Axis_T.bManual) AND NOT GVL.Achsenkontrolle THEN
+	blinkon(in:=NOT blinkon.Q, PT:=T#2S);
+	blinkoff(in:=blinkon.Q, PT:=T#1S);
+	gvl.Position_Aktiv:=blinkoff.Q;
+ELSIF NOT MAIN.Axis_R.Position_Aktiv AND NOT MAIN.Axis_R.Position_Aktiv AND NOT MAIN.Axis_T.Position_Aktiv THEN
+	gvl.Position_Aktiv:=FALSE;
+ELSIF MAIN.Axis_R.Position_Aktiv AND MAIN.Axis_R.Position_Aktiv AND MAIN.Axis_T.Position_Aktiv THEN
+	gvl.Position_Aktiv:=TRUE;
+END_IF
+
+//Ball on Plate aktiv ist oder Teilaktiviert wird
+IF MAIN.Axis_R.BNP_Aktiv AND MAIN.Axis_R.BNP_Aktiv AND MAIN.Axis_T.BNP_Aktiv THEN
+	gvl.BNP_Aktiv:=TRUE;
+ELSIF NOT MAIN.Axis_R.BNP_Aktiv AND NOT MAIN.Axis_R.BNP_Aktiv AND NOT MAIN.Axis_T.BNP_Aktiv THEN
+	gvl.BNP_Aktiv:=FALSE;
+ELSE
+	blinkon(in:=NOT blinkon.Q, PT:=T#2S);
+	blinkoff(in:=blinkon.Q, PT:=T#1S);
+	gvl.BNP_Aktiv:=blinkoff.Q;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Allgemein">
+      <LineId Id="687" Count="168" />
+      <LineId Id="303" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

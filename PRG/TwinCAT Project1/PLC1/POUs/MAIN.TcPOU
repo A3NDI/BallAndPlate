@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <POU Name="MAIN" Id="{60bc0b30-1cdb-42b0-8bc7-ac64af597b82}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR_INPUT
+	Axis_R:FBCylTronicCylinder;
+	Axis_S:FBCyltronicCylinder;
+	Axis_T:FBCyltronicCylinder;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Axis_R(stAxisName:='Achse 1');
+Axis_S(stAxisName:='Achse 2');
+Axis_T(stAxisName:='Achse 3');
+Touchpanel();
+Allgemein();]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="28" Count="0" />
+      <LineId Id="16" Count="1" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="35" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

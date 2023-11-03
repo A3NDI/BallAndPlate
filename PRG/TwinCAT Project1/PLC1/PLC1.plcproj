@@ -20,13 +20,13 @@
     <Compile Include="DUTs\CyltronicCom\CyltronicMotionMode.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\CyltronicCom\CyltronicProcessDataIn.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DUTs\CyltronicCom\CyltronicProcessDataInActual.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\CyltronicCom\CyltronicProcessDataInBytes.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\CyltronicCom\CyltronicProcessDataIn.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\CyltronicCom\CyltronicProcessDataOut.TcDUT">
@@ -51,23 +51,68 @@
     <Compile Include="PLC_TASK.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Antrieb.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Archiv\MC.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\AXIS.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\MC.TcPOU">
+    <Compile Include="POUs\FBCylTronicCylinder.TcPOU">
+      <SubType>Code</SubType>
+      <External>false</External>
+    </Compile>
+    <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Allgemein.TcPOU">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="POUs\Touchpanel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\TOUCH_SCALE.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="VISUs\Visualization.TcVIS">
+    <Compile Include="VISUs\Achse_R.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\Achse_S.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\Achse_T.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\Archiv\Visualization.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\Archiv\Visu_Achse2S_OLD.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\Archiv\Visu_Achse3T_OLD.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\Mainvisu.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\Touch.TcVIS">
       <SubType>Code</SubType>
       <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
     </Compile>
     <Compile Include="VISUs\VisualizationManager.TcVMO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="VISUs\VisualizationTest.TcVIS">
+    <Compile Include="VISUs\Visu_Achse.TcVIS">
       <SubType>Code</SubType>
       <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
     </Compile>
@@ -79,8 +124,10 @@
     <Folder Include="DUTs" />
     <Folder Include="DUTs\CyltronicCom" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\Archiv" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
+    <Folder Include="VISUs\Archiv" />
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="#Tc2_Utilities">

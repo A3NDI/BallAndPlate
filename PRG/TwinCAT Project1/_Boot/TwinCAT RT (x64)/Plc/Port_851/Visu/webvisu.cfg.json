@@ -1,14 +1,15 @@
 
 {
 	"UpdateRate": 200,
-	"PlcAddress": "0101",
+	"PlcAddress": "851",
 	"UseLocalHost": true,
 	"Application": "Port_851",
-	"StartVisu": "Visualization",
+	"StartVisu": "Mainvisu",
 	"BestFit": false,
 	"LogLevel": "INFO",
-	"CommBufferSize": 4096,
-    "HasKeyboard": false,
+	"CommBufferSize": 50000,
+    "HasKeyboard": true,
     "TouchHandlingActive": false,
-    "ScaleTypeIsotropic": false
+    "ScaleTypeIsotropic": false,
+    "BestFitForDialogs": false
 }
