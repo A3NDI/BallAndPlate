@@ -1,8 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
   <GVL Name="GVL" Id="{8380fa4a-f210-4f07-8373-5143ffede478}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
+	//Inputs von Visu an System
+	V48VDC_Einbefehl:BOOL;
+	Automatik:BOOL;
+	Homing:BOOL;
+	Grundposition:BOoL;
+	UP:BOOL;
+	Down:BOOL;
+	Eingabe_Grundposition:REAL:=0;
+	Eingabe_Sollposition:REAL:=100;
+	Force:USINT:=176;
+	Speed:USINT:=235;
+	Acceleration:USINT:=20;
+	n:REAL:=1;
+	BndP:BOOL;
+	Sinus:BOOL;
+	YAchseUp:BOOL;
+	YAchseDown:BOOL;
+	XAchseUp:BOOL;
+	XAchseDown:BOOL;
+	AchsenkontrolleVisu:BOOL;
+	reset:BOOL;
+	
+	//Allgemeine Outputs an Visu vom System
+	Warnung_Steigungswinkel:BOOL:=FALSE;
+	
+	//Outputs von Allgemein ans System
+	eingabesperre:BOOL;
+	Achsenkontrolle:BOOL;
+	Position_Aktiv:BOOL;
+	Sinus_Aktiv:BOOL;
+	BNP_Aktiv:BOOL;
+	
+	//Inputs SPS
+	V48DC_Ein AT %I* :BOOL;
+	Netzgeraet48VOK AT %I* :BOOL;
+	NOTAUS AT %I* :BOOL;
+	
+	
+	//Outputs SPS
+	V48Einbefehl AT %Q* :BOOL;
 	
 END_VAR]]></Declaration>
   </GVL>

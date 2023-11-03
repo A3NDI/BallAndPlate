@@ -12,7 +12,8 @@ TYPE CyltronicMotionMode :
 	MoveIn 		:= 4,
 	FreePos 	:= 5,
 	FreePosPro 	:= 6,
-	HomeDirect 	:= 7
+	HomeDirect 	:= 7,
+	Reset		:= 255
 )USINT;
 END_TYPE
 ]]></Declaration>

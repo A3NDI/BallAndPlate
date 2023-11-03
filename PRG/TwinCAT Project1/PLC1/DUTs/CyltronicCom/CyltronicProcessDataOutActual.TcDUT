@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <DUT Name="CyltronicProcessDataOutActual" Id="{d7e7a496-5346-4b2d-98ee-99c7a434bdba}">
     <Declaration><![CDATA[{attribute 'pack_mode' := '0'}
 TYPE CyltronicProcessDataOutActual :

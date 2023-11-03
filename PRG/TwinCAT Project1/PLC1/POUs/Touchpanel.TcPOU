@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Touchpanel" Id="{8959fee0-1d1f-4cda-8331-278bca6d8d02}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Touchpanel
+VAR
+	bContactAvailable AT %I*: BOOL;
+	rXadc AT %I*: REAL;
+	rYadc AT %I*: REAL;
+	rZadc AT %I*: REAL;
+	iXadc AT %I*: INT;
+	iYadc AT %I*: INT;
+	iZadc AT %I*: INT;
+	
+	touch_scale_x: TOUCH_SCALE;
+	touch_scale_y: TOUCH_SCALE;
+	
+	rDummy: REAL;
+	udDummy: UDINT;
+	iDummy: INT;
+	bDummy: BOOL;
+	
+END_VAR
+
+VAR CONSTANT
+	iStep AT %Q*: INT := 1010;
+	rQ_Kalman AT %Q*: REAL := 1.0;  
+	rR_Kalman AT %Q*: REAL := 400.0;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Touchpannel, so lassen. 17.09. Burri Nicolay
+touch_scale_x(rX:=rXadc, 
+              rDistance:=363.0, 
+              rMinAdc:=100, 
+              rMaxAdc:=3890, 
+              bContactAvailable:=bContactAvailable,
+              bSensor_Deactivate:=FALSE);
+				 
+touch_scale_y(rX:=rYadc, 
+              rDistance:=286.0, 
+              rMinAdc:=100, 
+              rMaxAdc:=3900, 
+              bContactAvailable:=bContactAvailable,
+              bSensor_Deactivate:=FALSE);
+
+rDummy := rZadc;
+iDummy := iXadc;
+iDummy := iYadc;
+iDummy := iZadc;]]></ST>
+    </Implementation>
+    <LineIds Name="Touchpanel">
+      <LineId Id="19" Count="17" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
