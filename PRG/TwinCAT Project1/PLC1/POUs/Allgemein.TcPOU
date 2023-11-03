@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Allgemein" Id="{67a35465-783c-49d5-9bd5-3043dcc29413}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Allgemein
 VAR
@@ -26,7 +26,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//Einschaltbefehl des 48V Netzschützes mit der Bedingung
+      <ST><![CDATA[//Einschaltbefehl des 48V Netzschützes mit der Bedingung///
 
 IF gvl.NOTAUS AND gvl.V48VDC_Einbefehl THEN
 	gvl.V48Einbefehl:=TRUE;
