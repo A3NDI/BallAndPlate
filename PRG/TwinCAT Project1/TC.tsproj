@@ -230,6 +230,60 @@
 			</SubItem>
 		</DataType>
 		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-000000000041}" TcBaseType="true" HideSubItems="true" CName="AmsNetId">AMSNETID</Name>
+			<BitSize>48</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>6</Elements>
+			</ArrayInfo>
+			<Format>
+				<Printf>%d.%d.%d.%d.%d.%d</Printf>
+				<Parameter>[0]</Parameter>
+				<Parameter>[1]</Parameter>
+				<Parameter>[2]</Parameter>
+				<Parameter>[3]</Parameter>
+				<Parameter>[4]</Parameter>
+				<Parameter>[5]</Parameter>
+			</Format>
+		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-000000000042}" TcBaseType="true" CName="AmsAddr">AMSADDR</Name>
+			<BitSize>64</BitSize>
+			<SubItem>
+				<Name>netId</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+				<BitSize>48</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>port</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>48</BitOffs>
+			</SubItem>
+			<Format>
+				<Printf>%d.%d.%d.%d.%d.%d:%d</Printf>
+				<Parameter>.netId[0]</Parameter>
+				<Parameter>.netId[1]</Parameter>
+				<Parameter>.netId[2]</Parameter>
+				<Parameter>.netId[3]</Parameter>
+				<Parameter>.netId[4]</Parameter>
+				<Parameter>.netId[5]</Parameter>
+				<Parameter>.port</Parameter>
+			</Format>
+			<Format Name="Iec">
+				<Printf>(netId:=[%d.%d.%d.%d.%d.%d], port :=%d)</Printf>
+				<Parameter>.netId[0]</Parameter>
+				<Parameter>.netId[1]</Parameter>
+				<Parameter>.netId[2]</Parameter>
+				<Parameter>.netId[3]</Parameter>
+				<Parameter>.netId[4]</Parameter>
+				<Parameter>.netId[5]</Parameter>
+				<Parameter>.port</Parameter>
+			</Format>
+		</DataType>
+		<DataType>
 			<Name GUID="{3C78B9C9-370B-0AA5-BFE5-103C669E73C6}" AutoDeleteType="true">CyltronicMotionMode</Name>
 			<BitSize>8</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
@@ -497,6 +551,10 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>Touchpanel.iXadc</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
 							<Name>Touchpanel.rXadc</Name>
 							<Type>REAL</Type>
 						</Var>
@@ -507,10 +565,6 @@
 						<Var>
 							<Name>Touchpanel.rZadc</Name>
 							<Type>REAL</Type>
-						</Var>
-						<Var>
-							<Name>Touchpanel.iXadc</Name>
-							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>Touchpanel.iYadc</Name>
@@ -532,6 +586,10 @@
 						<Var>
 							<Name>GVL.NOTAUS</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.IO_Link_ADS</Name>
+							<Type GUID="{18071995-0000-0000-0000-000000000042}">AMSADDR</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -856,7 +914,7 @@
 										<Datatype>UINT8</Datatype>
 										<Length>8</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>wo</Access>
 										<Description/>
@@ -933,7 +991,7 @@
 										<Datatype>String</Datatype>
 										<Length>512</Length>
 										<BitOffset>0</BitOffset>
-										<Value>CTC-060-K05-xxxx</Value>
+										<Value>CTC-060-K05-0200</Value>
 										<DefaultValue>CTC-060-K05-xxxx</DefaultValue>
 										<Access>ro</Access>
 										<Description/>
@@ -950,7 +1008,7 @@
 										<Datatype>String</Datatype>
 										<Length>512</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>CTC-060-K05-0200</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description/>
@@ -984,7 +1042,7 @@
 										<Datatype>String</Datatype>
 										<Length>128</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0020</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description/>
@@ -1001,7 +1059,7 @@
 										<Datatype>String</Datatype>
 										<Length>512</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>CLR010.035_1    </Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description/>
@@ -1018,7 +1076,7 @@
 										<Datatype>String</Datatype>
 										<Length>512</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>V2.04.07</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description/>
@@ -1052,7 +1110,7 @@
 										<Datatype>UINT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description/>
@@ -1069,7 +1127,7 @@
 										<Datatype>UINT8</Datatype>
 										<Length>8</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description/>
@@ -1091,7 +1149,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>432</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1102,7 +1160,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>408</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1113,7 +1171,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>384</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1124,7 +1182,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>360</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1135,7 +1193,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>336</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1146,7 +1204,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>312</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1157,7 +1215,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>288</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1168,7 +1226,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>264</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1179,7 +1237,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>240</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1190,7 +1248,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>216</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1201,7 +1259,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>192</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1212,7 +1270,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>168</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1223,7 +1281,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>144</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1234,7 +1292,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>120</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1245,7 +1303,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>96</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1256,7 +1314,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>72</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1267,7 +1325,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>48</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1278,7 +1336,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>24</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1289,7 +1347,7 @@
 										<Datatype>OctetString</Datatype>
 										<Length>24</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>00 00 00 </Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1306,7 +1364,7 @@
 										<Datatype>UINT8</Datatype>
 										<Length>8</Length>
 										<BitOffset>104</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1317,7 +1375,7 @@
 										<Datatype>BOOL</Datatype>
 										<Length>1</Length>
 										<BitOffset>103</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1328,7 +1386,7 @@
 										<Datatype>BOOL</Datatype>
 										<Length>1</Length>
 										<BitOffset>102</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1339,7 +1397,7 @@
 										<Datatype>BOOL</Datatype>
 										<Length>1</Length>
 										<BitOffset>101</BitOffset>
-										<Value/>
+										<Value>1</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1350,7 +1408,7 @@
 										<Datatype>BOOL</Datatype>
 										<Length>1</Length>
 										<BitOffset>100</BitOffset>
-										<Value/>
+										<Value>1</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1361,7 +1419,7 @@
 										<Datatype>BOOL</Datatype>
 										<Length>1</Length>
 										<BitOffset>99</BitOffset>
-										<Value/>
+										<Value>1</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1372,7 +1430,7 @@
 										<Datatype>BOOL</Datatype>
 										<Length>1</Length>
 										<BitOffset>98</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1383,7 +1441,7 @@
 										<Datatype>BOOL</Datatype>
 										<Length>1</Length>
 										<BitOffset>97</BitOffset>
-										<Value/>
+										<Value>1</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1394,7 +1452,7 @@
 										<Datatype>BOOL</Datatype>
 										<Length>1</Length>
 										<BitOffset>96</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1405,7 +1463,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>64</BitOffset>
-										<Value/>
+										<Value>-0.011230</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1416,7 +1474,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>32</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1427,7 +1485,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1444,7 +1502,7 @@
 										<Datatype>UINT8</Datatype>
 										<Length>8</Length>
 										<BitOffset>56</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1455,7 +1513,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>24</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1466,7 +1524,7 @@
 										<Datatype>UINT8</Datatype>
 										<Length>8</Length>
 										<BitOffset>16</BitOffset>
-										<Value/>
+										<Value>235</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1477,7 +1535,7 @@
 										<Datatype>UINT8</Datatype>
 										<Length>8</Length>
 										<BitOffset>8</BitOffset>
-										<Value/>
+										<Value>176</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1488,7 +1546,7 @@
 										<Datatype>UINT8</Datatype>
 										<Length>8</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>20</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1539,7 +1597,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the global maximum speed of the actuator in the retract direction.  (0=Speed control via potentiometer)</Description>
@@ -1556,7 +1614,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the global maximum speed of the actuator in the extension direction.   (0=Speed control via potentiometer)</Description>
@@ -1573,7 +1631,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>300</Value>
+										<Value>200.000000</Value>
 										<DefaultValue>300</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the maximum speed in free positioning mode (potentiometer is ignored)</Description>
@@ -1590,7 +1648,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the maximum force of the actuator (0=Force control via potentiometer)</Description>
@@ -1607,7 +1665,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>1.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the global maximum acceleration in [meters per s^2].</Description>
@@ -1624,7 +1682,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>1.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the global maximum deceleration in [meters per s^2].</Description>
@@ -1641,7 +1699,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>5</Value>
+										<Value>5.000000</Value>
 										<DefaultValue>5</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the global maximum Tracking Error </Description>
@@ -1675,7 +1733,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0.10</Value>
+										<Value>0.100000</Value>
 										<DefaultValue>0.10</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines in which range the Actual Position must lie to the Target Position, that the state is reported as reached.The tolerance is understood as a symmetrical value around the Target Position (+/-Pos tolerance limit switch).</Description>
@@ -1692,7 +1750,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>2</Value>
+										<Value>2.000000</Value>
 										<DefaultValue>2</DefaultValue>
 										<Access>rw</Access>
 										<Description>Specifies the range in which the actual position must lie in relation to the target position of the limit switches so that the Position Out output is activated.The tolerance is understood as a symmetrical value around the setpoint position.</Description>
@@ -1709,7 +1767,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>2</Value>
+										<Value>2.000000</Value>
 										<DefaultValue>2</DefaultValue>
 										<Access>rw</Access>
 										<Description>Specifies the range in which the actual position must lie in relation to the setpoint position of the limit switches so that the Position In output is activated.The tolerance is understood as a symmetrical value around the target position.</Description>
@@ -1726,7 +1784,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>5</Value>
+										<Value>5.000000</Value>
 										<DefaultValue>5</DefaultValue>
 										<Access>rw</Access>
 										<Description>Target Position Out for the positioning operation</Description>
@@ -1743,7 +1801,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Target Position In for the positioning operation</Description>
@@ -1760,7 +1818,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>5</Value>
+										<Value>5.000000</Value>
 										<DefaultValue>5</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the position of the outer "virtual limit switch".</Description>
@@ -1777,7 +1835,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the position of the inner "virtual limit switch"</Description>
@@ -1794,7 +1852,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>5</Value>
+										<Value>5.000000</Value>
 										<DefaultValue>5</DefaultValue>
 										<Access>rw</Access>
 										<Description>Reserved for future use</Description>
@@ -1811,7 +1869,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>40</Value>
+										<Value>40.000000</Value>
 										<DefaultValue>40</DefaultValue>
 										<Access>rw</Access>
 										<Description>Learning Speed</Description>
@@ -1828,7 +1886,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>48</Value>
+										<Value>48.000000</Value>
 										<DefaultValue>48</DefaultValue>
 										<Access>rw</Access>
 										<Description>Adjustable Rated Voltage for the power circuit, from which, for example, the switch-off voltage is determined</Description>
@@ -1907,7 +1965,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>800</Value>
+										<Value>800.000000</Value>
 										<DefaultValue>800</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the maximum force of the actuator in free positioning mode (potentiometer is ignored)</Description>
@@ -1924,7 +1982,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>The Target Position to be reached in this positioning set.</Description>
@@ -1941,7 +1999,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset speed that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -1958,7 +2016,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>1.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset acceleration that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -1975,7 +2033,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>1.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset deceleration that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -1992,7 +2050,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the desired positioning time. If this value is set to zero it will be ignored and the time is defined only by the target speed</Description>
@@ -2009,7 +2067,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>The Target Position to be reached in this positioning set.</Description>
@@ -2026,7 +2084,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset speed that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -2043,7 +2101,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>1.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset acceleration that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -2060,7 +2118,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>1.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset deceleration that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -2077,7 +2135,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the desired positioning time. If this value is set to zero it will be ignored and the time is defined only by the target speed</Description>
@@ -2094,7 +2152,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>The Target Position to be reached in this positioning set.</Description>
@@ -2111,7 +2169,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset speed that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -2128,7 +2186,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>1.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset acceleration that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -2145,7 +2203,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>1.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset deceleration that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -2162,7 +2220,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the desired positioning time. If this value is set to zero it will be ignored and the time is defined only by the target speed</Description>
@@ -2179,7 +2237,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>The Target Position to be reached in this positioning set.</Description>
@@ -2196,7 +2254,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset speed that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -2213,7 +2271,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>1.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset acceleration that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -2230,7 +2288,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>1.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the preset deceleration that has to be achieved. If this is not limited by limit values (see parameterization) or is not physically achievable.</Description>
@@ -2247,7 +2305,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the desired positioning time. If this value is set to zero it will be ignored and the time is defined only by the target speed</Description>
@@ -2264,7 +2322,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Indicates how many kilometers can still be driven until lubrication is required.</Description>
@@ -2281,7 +2339,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Indicates how many kilometers can still be driven until the actuator should be replaced.</Description>
@@ -2298,7 +2356,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Reserved for future use</Description>
@@ -2315,7 +2373,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>30.230177</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the temperature of the temperature sensor on the controller board.</Description>
@@ -2332,7 +2390,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>26.715590</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the temperature of the temperature sensor on the encoder board.</Description>
@@ -2349,7 +2407,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>30.238768</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the temperature from the power electronics temperature model.</Description>
@@ -2366,7 +2424,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Reserved for future use</Description>
@@ -2383,7 +2441,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>26.723299</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the temperature from the temperature model of the motor.</Description>
@@ -2400,7 +2458,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the magnitude of the tracking error.</Description>
@@ -2417,7 +2475,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>23.000000</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the actual value of the control voltage</Description>
@@ -2434,7 +2492,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the DC link voltage in the power section (motor voltage)</Description>
@@ -2451,7 +2509,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Reserved for future use</Description>
@@ -2468,7 +2526,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>93</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns how many movements (strokes) have been executed.</Description>
@@ -2485,7 +2543,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>4</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the current Version of the EEPROM Data</Description>
@@ -2502,7 +2560,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 1</Description>
@@ -2519,7 +2577,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 2</Description>
@@ -2536,7 +2594,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 3</Description>
@@ -2553,7 +2611,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>1</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 4</Description>
@@ -2570,7 +2628,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 5</Description>
@@ -2587,7 +2645,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 6</Description>
@@ -2604,7 +2662,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 7</Description>
@@ -2621,7 +2679,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 8</Description>
@@ -2638,7 +2696,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 9</Description>
@@ -2655,7 +2713,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 10</Description>
@@ -2672,7 +2730,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 11</Description>
@@ -2689,7 +2747,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 12</Description>
@@ -2706,7 +2764,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 13</Description>
@@ -2723,7 +2781,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 14</Description>
@@ -2740,7 +2798,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 15</Description>
@@ -2757,7 +2815,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error counter 16</Description>
@@ -2774,7 +2832,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 17</Description>
@@ -2791,7 +2849,7 @@
 										<Datatype>INT16</Datatype>
 										<Length>16</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 18</Description>
@@ -2808,7 +2866,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>50.000057</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the maximum measured temperature of the controller board.</Description>
@@ -2825,7 +2883,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the maximum measured temperature of the encoder board.</Description>
@@ -2842,7 +2900,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>81.001663</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the maximum measured temperature of the power electronics.</Description>
@@ -2859,7 +2917,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0.000000</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Reserved for future use</Description>
@@ -2876,7 +2934,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>70.228180</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the maximum measured temperature of the motor.</Description>
@@ -2893,7 +2951,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 1</Description>
@@ -2910,7 +2968,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 2</Description>
@@ -2927,7 +2985,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 3</Description>
@@ -2944,7 +3002,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>93</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 4</Description>
@@ -2961,7 +3019,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 5</Description>
@@ -2978,7 +3036,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 6</Description>
@@ -2995,7 +3053,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 7</Description>
@@ -3012,7 +3070,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 8</Description>
@@ -3029,7 +3087,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 9</Description>
@@ -3046,7 +3104,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 10</Description>
@@ -3063,7 +3121,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 11</Description>
@@ -3080,7 +3138,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 12</Description>
@@ -3097,7 +3155,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 13</Description>
@@ -3114,7 +3172,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 14</Description>
@@ -3131,7 +3189,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 15</Description>
@@ -3148,7 +3206,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 16</Description>
@@ -3165,7 +3223,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 17</Description>
@@ -3182,7 +3240,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value/>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Error cycle stamp 18</Description>
@@ -3199,7 +3257,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>800</Value>
+										<Value>800.000000</Value>
 										<DefaultValue>800</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the maximum Force for this positioning set.</Description>
@@ -3216,7 +3274,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>800</Value>
+										<Value>800.000000</Value>
 										<DefaultValue>800</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the maximum Force for this positioning set.</Description>
@@ -3233,7 +3291,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>800</Value>
+										<Value>800.000000</Value>
 										<DefaultValue>800</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the maximum Force for this positioning set.</Description>
@@ -3250,7 +3308,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>800</Value>
+										<Value>800.000000</Value>
 										<DefaultValue>800</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the maximum Force for this positioning set.</Description>
@@ -3367,7 +3425,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>6110</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>ro</Access>
 										<Description>0=the target position is absolute, 1=the target position is relative to the actual position.</Description>
@@ -21414,7 +21472,7 @@
 								</PdCollections>
 							</Port>
 						</Xml>
-						<EtherCAT SlaveType="3" AdsServerAddress="c0a800210203e903" PdiType="#x0405" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" FoeType="1" VendorId="#x00000002" ProductCode="#x18503052" RevisionNo="#x00150000" InfoDataAddr="true" InfoDataNetId="true" TimeoutMailbox2="2000" GenerateOwnNetId="true" InitializeOwnNetId="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6224 (IO Link Master)" Desc="EL6224" PortABoxInfo="#x01000001">
+						<EtherCAT EtherCatAddr="1001" SlaveType="3" AdsServerAddress="c0a800210203e903" PdiType="#x0405" EtherCatAddrFixed="true" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" FoeType="1" VendorId="#x00000002" ProductCode="#x18503052" RevisionNo="#x00150000" InfoDataAddr="true" InfoDataNetId="true" TimeoutMailbox2="2000" GenerateOwnNetId="true" InitializeOwnNetId="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6224 (IO Link Master)" Desc="EL6224" PortABoxInfo="#x01000001">
 							<SyncMan>001000012600010001000000400000010001001026010000</SyncMan>
 							<SyncMan>001100012200010002000000400000010001001122010000</SyncMan>
 							<SyncMan>001218002400010003000000000000000000001224010000</SyncMan>
@@ -21430,61 +21488,61 @@
 							<MBoxUserCmdData>020003001c0000000b0000000000000000000000000000000000000000000000302080011400000035c0a1001706000011010f00cdc70000000023004f626a656374203830323000</MBoxUserCmdData>
 							<MBoxUserCmdData>020003001c0000000b0000000000000000000000000000000000000000000000303080011400000000000000000000000000000000000000000000004f626a656374203830333000</MBoxUserCmdData>
 							<Pdo Name="IO-Link Port1_in" Index="#x1a00" Flags="#x0000" SyncMan="3">
-								<Entry Name="SubIndex 001" Index="#x6000" Sub="#x01">
+								<Entry Name="SubIndex 001" BitLen="112" Index="#x6000" Sub="#x01">
 									<Type GUID="{18071995-0000-0000-0000-00030000000E}">ARRAY [0..13] OF BYTE</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="IO-Link Port2_in" Index="#x1a01" Flags="#x0000" SyncMan="3">
-								<Entry Name="SubIndex 001" Index="#x6010" Sub="#x01">
+								<Entry Name="SubIndex 001" BitLen="112" Index="#x6010" Sub="#x01">
 									<Type GUID="{18071995-0000-0000-0000-00030000000E}">ARRAY [0..13] OF BYTE</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="IO-Link Port3_in" Index="#x1a02" Flags="#x0000" SyncMan="3">
-								<Entry Name="SubIndex 001" Index="#x6020" Sub="#x01">
+								<Entry Name="SubIndex 001" BitLen="112" Index="#x6020" Sub="#x01">
 									<Type GUID="{18071995-0000-0000-0000-00030000000E}">ARRAY [0..13] OF BYTE</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="IO Inputs Ch.4" Index="#x1a03" Flags="#x0000"/>
 							<Pdo Name="DeviceState Inputs" Index="#x1a80" Flags="#x0010">
-								<Entry Name="State Ch1" Index="#xf100" Sub="#x01">
+								<Entry Name="State Ch1" BitLen="8" Index="#xf100" Sub="#x01">
 									<Type>USINT</Type>
 								</Entry>
-								<Entry Name="State Ch2" Index="#xf100" Sub="#x02">
+								<Entry Name="State Ch2" BitLen="8" Index="#xf100" Sub="#x02">
 									<Type>USINT</Type>
 								</Entry>
-								<Entry Name="State Ch3" Index="#xf100" Sub="#x03">
+								<Entry Name="State Ch3" BitLen="8" Index="#xf100" Sub="#x03">
 									<Type>USINT</Type>
 								</Entry>
-								<Entry Name="State Ch4" Index="#xf100" Sub="#x04">
+								<Entry Name="State Ch4" BitLen="8" Index="#xf100" Sub="#x04">
 									<Type>USINT</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="DeviceState Inputs" Index="#x1a81" Flags="#x0010">
-								<Entry>
+								<Entry BitLen="12">
 									<Type GUID="{18071995-0000-0000-0000-00200000000C}">ARRAY [0..11] OF BIT</Type>
 								</Entry>
-								<Entry Name="Device Diag" Index="#xf101" Sub="#x0d">
+								<Entry Name="Device Diag" BitLen="1" Index="#xf101" Sub="#x0d">
 									<Type>BIT</Type>
 								</Entry>
-								<Entry>
+								<Entry BitLen="2">
 									<Type GUID="{18071995-0000-0000-0000-002000000002}">ARRAY [0..1] OF BIT</Type>
 								</Entry>
-								<Entry Name="Device State" Index="#xf101" Sub="#x10">
+								<Entry Name="Device State" BitLen="1" Index="#xf101" Sub="#x10">
 									<Type>BIT</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="IO-Link Port1_out" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2">
-								<Entry Name="SubIndex 001" Index="#x7000" Sub="#x01">
+								<Entry Name="SubIndex 001" BitLen="64" Index="#x7000" Sub="#x01">
 									<Type GUID="{18071995-0000-0000-0000-000300000008}">ARRAY [0..7] OF BYTE</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="IO-Link Port2_out" Index="#x1601" InOut="1" Flags="#x0000" SyncMan="2">
-								<Entry Name="SubIndex 001" Index="#x7010" Sub="#x01">
+								<Entry Name="SubIndex 001" BitLen="64" Index="#x7010" Sub="#x01">
 									<Type GUID="{18071995-0000-0000-0000-000300000008}">ARRAY [0..7] OF BYTE</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="IO-Link Port3_out" Index="#x1602" InOut="1" Flags="#x0000" SyncMan="2">
-								<Entry Name="SubIndex 001" Index="#x7020" Sub="#x01">
+								<Entry Name="SubIndex 001" BitLen="64" Index="#x7020" Sub="#x01">
 									<Type GUID="{18071995-0000-0000-0000-000300000008}">ARRAY [0..7] OF BYTE</Type>
 								</Entry>
 							</Pdo>
@@ -21659,6 +21717,7 @@
 	</Project>
 	<Mappings>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030010"/>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500821000403}" Id="#x02030020"/>
 		<OwnerA Name="TIPC^PLC1^PLC1 Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 14 (ABBTS Ball and Plate)">
 				<Link VarA="PLC_TASK Inputs^Allgemein.bButtonDown" VarB="Inputs^byButtonDown" Size="1"/>
@@ -21678,6 +21737,7 @@
 				<Link VarA="PLC_TASK Outputs^Touchpanel.rR_Kalman" VarB="Outputs^rR_Kalman"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 2 (EL6224)">
+				<Link VarA="PLC_TASK Inputs^.IO_Link_ADS" VarB="InfoData^AdsAddr"/>
 				<Link VarA="PLC_TASK Inputs^MAIN.Axis_R.DataIn^CyltronicDataInByte^Byte0" VarB="IO-Link Port1_in^SubIndex 001[0]"/>
 				<Link VarA="PLC_TASK Inputs^MAIN.Axis_R.DataIn^CyltronicDataInByte^Byte1" VarB="IO-Link Port1_in^SubIndex 001[1]"/>
 				<Link VarA="PLC_TASK Inputs^MAIN.Axis_R.DataIn^CyltronicDataInByte^Byte10" VarB="IO-Link Port1_in^SubIndex 001[10]"/>

@@ -3,9 +3,19 @@
   <POU Name="MAIN" Id="{60bc0b30-1cdb-42b0-8bc7-ac64af597b82}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR_INPUT
-	Axis_R:FBCylTronicCylinder;
-	Axis_S:FBCyltronicCylinder;
-	Axis_T:FBCyltronicCylinder;
+	Axis_R			: FBCylTronicCylinder;
+	Axis_S			: FBCyltronicCylinder;
+	Axis_T			: FBCyltronicCylinder;
+END_VAR
+VAR
+	WriteADS 		: FB_IolWrite;
+	ReadADS 		: FB_IolRead;
+	ReadADSState	: INT					:= 0;
+	WriteADSState	: INT					:= 0;
+	Test			: BOOL 					:= FALSE;
+	Test1			: BOOL 					:= FALSE;
+	WriteADS_Done 	: BOOL					:= FALSE;
+	ReadADS_Done 	: BOOL					:= FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -13,13 +23,238 @@ END_VAR
 Axis_S(stAxisName:='Achse 2');
 Axis_T(stAxisName:='Achse 3');
 Touchpanel();
-Allgemein();]]></ST>
+Allgemein();
+
+AC_ReadADS();
+//AC_WriteADS();
+AC_WriteIOLink();]]></ST>
     </Implementation>
+    <Action Name="AC_ReadADS" Id="{184817bc-47ef-48de-bb6c-1c29d3d6228e}">
+      <Implementation>
+        <ST><![CDATA[CASE ReadADSState OF
+	0:	//Ready for Read
+		ReadADS(bExecute := FALSE);
+		IF NOT ReadADS.bBusy AND Test THEN
+			ReadADS(sNetId := IO_Link_AMS);//F_CreateAmsNetId(IO_Link_ADS.netId));
+			ReadADS(nIolPort := ADDRCyl1);//IO_Link_ADS.port);
+			ReadADS(nIndex := MaxSpeed_ADR);
+			ReadADS(nSubindex := nSubindex);
+			ReadADS(cbBufLen := SIZEOF(MaxSpeed));
+			ReadADS(pDSTBuf := ADR(MaxSpeed));
+			ReadADS(bExecute := TRUE);
+			ReadADS_Done := FALSE;
+			Test := FALSE;
+			bError := FALSE;
+			ErrorID := 0;
+			ReadADSState := 1;
+		END_IF
+	1:	//Reading
+		IF ReadADS.bError THEN
+			ReadADSState := 99;
+		ELSIF ReadADS.bBusy THEN
+			ReadADSState := 2;
+		END_IF;
+	2:	//Waiting for reading done
+		IF ReadADS.bError THEN
+			ReadADSState := 99;
+		ELSIF ReadADS.bDone THEN
+			ReadADS_Done := TRUE;
+			ReadADSState := 0;
+		END_IF;
+	99:	
+		ReadADS(bError=>bError);
+		ReadADS(nIolError=>ErrorID);
+		ReadADSState := 0;
+	ELSE;
+END_CASE
+
+ReadADS();]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="AC_WriteADS" Id="{41b99455-252c-42c1-b6da-b0b4dda06911}">
+      <Implementation>
+        <ST><![CDATA[//CASE WriteADSState OF
+//	0:	//Ready for Read
+//		WriteADS(Write := FALSE);
+//		IF NOT WriteADS.BUSY AND Test1 THEN
+//			WriteADS(NETID := IO_Link_AMS);//F_CreateAmsNetId(IO_Link_ADS.netId));
+//			WriteADS(Port := ADDRCyl1);//IO_Link_ADS.port);
+//			WriteADS(IDXGRP := ADS_IndexGrp);
+//			WriteADS(IDXOFFS := MaxSpeed_ADR);
+//			WriteADS(LEN := SIZEOF(MaxSpeed));
+//			WriteADS(SRCADDR := ADR(MaxSpeed));
+//			WriteADS(Write := TRUE);
+//			WriteADS_Done := FALSE;
+//			Test1 := FALSE;
+//			bError := FALSE;
+//			ErrorID := 0;
+//			WriteADSState := 1;
+//		END_IF
+//	1:	//Reading
+//		IF WriteADS.ERR THEN
+//			WriteADSState := 99;
+//		ELSIF WriteADS.BUSY THEN
+//			WriteADSState := 2;
+//		END_IF;
+//	2:	//Waiting for reading done
+//		IF WriteADS.ERR THEN
+//			WriteADSState := 99;
+//		ELSIF NOT WriteADS.BUSY THEN
+//			WriteADS_Done := TRUE;
+//			WriteADSState := 0;
+//		END_IF;
+//	99:	
+//		WriteADS(ERR=>bError);
+//		WriteADS(ERRID=>ErrorID);
+//		WriteADSState := 0;
+//	ELSE;
+//END_CASE
+
+//WriteADS();
+;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="AC_WriteIOLink" Id="{b4fe9ef8-af30-4ca8-98db-e3e99d4a74aa}">
+      <Implementation>
+        <ST><![CDATA[CASE WriteADSState OF
+	0:	//Ready for Read
+		WriteADS(bExecute := FALSE);
+		IF NOT WriteADS.bBusy AND Test1 THEN
+			WriteADS(sNetId := IO_Link_AMS);//F_CreateAmsNetId(IO_Link_ADS.netId));
+			WriteADS(nIolPort := ADDRCyl1);//IO_Link_ADS.port);
+			WriteADS(nIndex := MaxSpeed_ADR);
+			WriteADS(nSubindex := nSubindex);
+			WriteADS(cbBufLen := SIZEOF(MaxSpeed));
+			WriteADS(pSRCBuf := ADR(MaxSpeed));
+			WriteADS(bExecute := TRUE);
+			WriteADS_Done := FALSE;
+			Test1 := FALSE;
+			bError := FALSE;
+			ErrorID := 0;
+			WriteADSState := 1;
+		END_IF
+	1:	//Reading
+		IF WriteADS.bError THEN
+			WriteADSState := 99;
+		ELSIF WriteADS.bBusy THEN
+			WriteADSState := 2;
+		END_IF;
+	2:	//Waiting for reading done
+		IF WriteADS.bError THEN
+			WriteADSState := 99;
+		ELSIF WriteADS.bDone THEN
+			WriteADS_Done := TRUE;
+			WriteADSState := 0;
+		END_IF;
+	99:	
+		WriteADS(bError=>bError);
+		WriteADS(nIolError=>ErrorID);
+		WriteADSState := 0;
+	ELSE;
+END_CASE
+
+WriteADS();]]></ST>
+      </Implementation>
+    </Action>
     <LineIds Name="MAIN">
       <LineId Id="28" Count="0" />
       <LineId Id="16" Count="1" />
       <LineId Id="10" Count="0" />
       <LineId Id="35" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="47" Count="1" />
+      <LineId Id="55" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.AC_ReadADS">
+      <LineId Id="21" Count="1" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="32" Count="5" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="72" Count="1" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="61" Count="1" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="63" Count="1" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="25" Count="1" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="43" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.AC_WriteADS">
+      <LineId Id="21" Count="1" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="32" Count="5" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="72" Count="1" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="61" Count="1" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="63" Count="1" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="25" Count="1" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="75" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.AC_WriteIOLink">
+      <LineId Id="21" Count="1" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="32" Count="5" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="72" Count="1" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="61" Count="1" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="63" Count="1" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="25" Count="1" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="43" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

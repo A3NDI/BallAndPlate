@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <DUT Name="Antrieb" Id="{098877f4-c300-4c86-a6a2-ab24db1637ce}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE Antrieb :
+(
+	Off,
+	Position,
+	Homing,
+	BallundPlate,
+	Sinus,
+	Achse
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

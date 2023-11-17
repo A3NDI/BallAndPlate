@@ -15,8 +15,12 @@
     <Implicit_KindOfTask>{fca4ce86-057a-4768-a97b-eff0e86623e1}</Implicit_KindOfTask>
     <Implicit_Jitter_Distribution>{81ce9995-65a3-49cd-8c8e-f5dd05f48d5b}</Implicit_Jitter_Distribution>
     <LibraryReferences>{e97e2e47-eaf7-45e6-90bf-7ca4b90ed3c1}</LibraryReferences>
+    <Released>false</Released>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\Antrieb.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\CyltronicCom\CyltronicMotionMode.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -44,6 +48,10 @@
     <Compile Include="GlobalTextList.TcGTLO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GVLs\Config.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\GVL.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -51,18 +59,18 @@
     <Compile Include="PLC_TASK.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Antrieb.TcDUT">
+    <Compile Include="POUs\Archiv\AXIS.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Archiv\MC.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\AXIS.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\FBCylTronicCylinder.TcPOU">
       <SubType>Code</SubType>
       <External>false</External>
+    </Compile>
+    <Compile Include="POUs\Logger_RET.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
@@ -191,6 +199,10 @@
     <PlaceholderReference Include="Tc2_System">
       <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_IoLink">
+      <DefaultResolution>Tc3_IoLink, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_IoLink</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
