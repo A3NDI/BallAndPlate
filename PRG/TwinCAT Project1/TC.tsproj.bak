@@ -230,58 +230,10 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-000000000041}" TcBaseType="true" HideSubItems="true" CName="AmsNetId">AMSNETID</Name>
-			<BitSize>48</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>6</Elements>
-			</ArrayInfo>
-			<Format>
-				<Printf>%d.%d.%d.%d.%d.%d</Printf>
-				<Parameter>[0]</Parameter>
-				<Parameter>[1]</Parameter>
-				<Parameter>[2]</Parameter>
-				<Parameter>[3]</Parameter>
-				<Parameter>[4]</Parameter>
-				<Parameter>[5]</Parameter>
-			</Format>
-		</DataType>
-		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-000000000042}" TcBaseType="true" CName="AmsAddr">AMSADDR</Name>
-			<BitSize>64</BitSize>
-			<SubItem>
-				<Name>netId</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
-				<BitSize>48</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>port</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
-				<BitSize>16</BitSize>
-				<BitOffs>48</BitOffs>
-			</SubItem>
-			<Format>
-				<Printf>%d.%d.%d.%d.%d.%d:%d</Printf>
-				<Parameter>.netId[0]</Parameter>
-				<Parameter>.netId[1]</Parameter>
-				<Parameter>.netId[2]</Parameter>
-				<Parameter>.netId[3]</Parameter>
-				<Parameter>.netId[4]</Parameter>
-				<Parameter>.netId[5]</Parameter>
-				<Parameter>.port</Parameter>
-			</Format>
-			<Format Name="Iec">
-				<Printf>(netId:=[%d.%d.%d.%d.%d.%d], port :=%d)</Printf>
-				<Parameter>.netId[0]</Parameter>
-				<Parameter>.netId[1]</Parameter>
-				<Parameter>.netId[2]</Parameter>
-				<Parameter>.netId[3]</Parameter>
-				<Parameter>.netId[4]</Parameter>
-				<Parameter>.netId[5]</Parameter>
-				<Parameter>.port</Parameter>
-			</Format>
+			<Name GUID="{E73C367E-92B3-1139-8032-E11C3D2123C1}" Namespace="Tc2_System" AutoDeleteType="true">T_AmsNetID</Name>
+			<Comment><![CDATA[ TwinCAT AMS netID address string. ]]></Comment>
+			<BitSize>192</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000100000017}">STRING(23)</BaseType>
 		</DataType>
 		<DataType>
 			<Name GUID="{3C78B9C9-370B-0AA5-BFE5-103C669E73C6}" AutoDeleteType="true">CyltronicMotionMode</Name>
@@ -588,8 +540,8 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.IO_Link_ADS</Name>
-							<Type GUID="{18071995-0000-0000-0000-000000000042}">AMSADDR</Type>
+							<Name>.IO_Link_AMS</Name>
+							<Type GUID="{E73C367E-92B3-1139-8032-E11C3D2123C1}" Namespace="Tc2_System">T_AmsNetID</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -1408,7 +1360,7 @@
 										<Datatype>BOOL</Datatype>
 										<Length>1</Length>
 										<BitOffset>100</BitOffset>
-										<Value>1</Value>
+										<Value>0</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1463,7 +1415,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>64</BitOffset>
-										<Value>-0.011230</Value>
+										<Value>-0.002685</Value>
 										<DefaultValue/>
 										<Access>ro s</Access>
 										<Description/>
@@ -1631,7 +1583,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>300.000000</Value>
+										<Value>200.000000</Value>
 										<DefaultValue>300</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the maximum speed in free positioning mode (potentiometer is ignored)</Description>
@@ -1716,7 +1668,7 @@
 										<Datatype>BOOL</Datatype>
 										<Length>1</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0</Value>
+										<Value>1</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines whether the actuator should be set to an error state once the defined Tracking Error has been exceeded. In any case the contouring error bit in the process data is set when exceeded.1= Tracking Error monitoring on default: 0= off</Description>
@@ -1784,7 +1736,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>5.000000</Value>
+										<Value>200.226563</Value>
 										<DefaultValue>5</DefaultValue>
 										<Access>rw</Access>
 										<Description>Target Position Out for the positioning operation</Description>
@@ -1818,7 +1770,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>5.000000</Value>
+										<Value>200.226563</Value>
 										<DefaultValue>5</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the position of the outer "virtual limit switch".</Description>
@@ -1965,7 +1917,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>800.000000</Value>
+										<Value>0.000000</Value>
 										<DefaultValue>800</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the maximum force of the actuator in free positioning mode (potentiometer is ignored)</Description>
@@ -2373,7 +2325,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>30.230177</Value>
+										<Value>29.955467</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the temperature of the temperature sensor on the controller board.</Description>
@@ -2390,7 +2342,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>26.715590</Value>
+										<Value>26.440653</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the temperature of the temperature sensor on the encoder board.</Description>
@@ -2407,7 +2359,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>30.238768</Value>
+										<Value>29.962690</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the temperature from the power electronics temperature model.</Description>
@@ -2441,7 +2393,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>26.723299</Value>
+										<Value>26.448643</Value>
 										<DefaultValue/>
 										<Access>ro</Access>
 										<Description>Returns the temperature from the temperature model of the motor.</Description>
@@ -3425,7 +3377,7 @@
 										<Datatype>INT32</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>6110</Value>
+										<Value>6352</Value>
 										<DefaultValue>0</DefaultValue>
 										<Access>ro</Access>
 										<Description>0=the target position is absolute, 1=the target position is relative to the actual position.</Description>
@@ -21717,7 +21669,6 @@
 	</Project>
 	<Mappings>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030010"/>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500821000403}" Id="#x02030020"/>
 		<OwnerA Name="TIPC^PLC1^PLC1 Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 14 (ABBTS Ball and Plate)">
 				<Link VarA="PLC_TASK Inputs^Allgemein.bButtonDown" VarB="Inputs^byButtonDown" Size="1"/>
@@ -21737,7 +21688,6 @@
 				<Link VarA="PLC_TASK Outputs^Touchpanel.rR_Kalman" VarB="Outputs^rR_Kalman"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 2 (EL6224)">
-				<Link VarA="PLC_TASK Inputs^.IO_Link_ADS" VarB="InfoData^AdsAddr"/>
 				<Link VarA="PLC_TASK Inputs^MAIN.Axis_R.DataIn^CyltronicDataInByte^Byte0" VarB="IO-Link Port1_in^SubIndex 001[0]"/>
 				<Link VarA="PLC_TASK Inputs^MAIN.Axis_R.DataIn^CyltronicDataInByte^Byte1" VarB="IO-Link Port1_in^SubIndex 001[1]"/>
 				<Link VarA="PLC_TASK Inputs^MAIN.Axis_R.DataIn^CyltronicDataInByte^Byte10" VarB="IO-Link Port1_in^SubIndex 001[10]"/>

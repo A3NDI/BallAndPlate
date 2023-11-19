@@ -3,8 +3,7 @@
   <GVL Name="Config" Id="{44f76c76-644d-4d0d-a89e-431222c363f1}">
     <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
 VAR_GLOBAL
-	IO_Link_ADS AT %I* 	: AMSADDR ;
-	IO_Link_AMS 		: T_AmsNetId := '192.168.0.33.2.3';
+	IO_Link_AMS AT %I* 	: T_AmsNetId := '192.168.0.33.2.3';
 	ADDRCyl1			: E_IolPort := 1;
 	ADDRCyl2			: E_IolPort := 2;
 	ADDRCyl3			: E_IolPort := 3;
@@ -13,17 +12,12 @@ VAR_GLOBAL
 	MaxACC_ADR 			: BYTE := 16#44;
 	MaxDEC_ADR 			: BYTE := 16#45;
 	MaxTrackingErr_ADR 	: BYTE := 16#46;
-	
-	nSubindex			: BYTE := 0;
-	
-	MaxSpeed 			: LREAL := 300;			//max Speed in Freepositioning Mode [mm/s]
-	MaxForce 			: LREAL := 800;			//max Force [N]
-	MaxACC 				: LREAL := 15;			//max Acceleration [mm/s^2]
-	MaxDEC 				: LREAL := 15;			//max Deceleration [mm/s^2]
-	MaxTrackingErr 		: LREAL := 5;			//max Tracking Error (Schleppfehler) [mm]
-	
-	bError				: BOOL;
-	ErrorID				: UDINT;
+
+	MaxSpeed 			: REAL := 300;			//max Speed in Freepositioning Mode [mm/s]
+	MaxForce 			: REAL := 800;			//max Force [N]
+	MaxACC 				: REAL := 15;			//max Acceleration [mm/s^2]
+	MaxDEC 				: REAL := 15;			//max Deceleration [mm/s^2]
+	MaxTrackingErr 		: REAL := 5;			//max Tracking Error (Schleppfehler) [mm]
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
