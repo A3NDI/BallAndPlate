@@ -8,14 +8,10 @@ VAR_GLOBAL
 	Automatik:BOOL;
 	Homing:BOOL;
 	Grundposition:BOoL;
-	UP:BOOL;
-	Down:BOOL;
+	Down, Up:BOOL;
 	Eingabe_Grundposition:REAL:=0;
 	Eingabe_Sollposition:REAL:=100;
-	Force:USINT:=176;
-	Speed:USINT:=235;
-	Acceleration:USINT:=20;
-	n:REAL:=1;
+	StepSize:INT:=1;
 	BndP:BOOL;
 	Sinus:BOOL;
 	YAchseUp:BOOL;

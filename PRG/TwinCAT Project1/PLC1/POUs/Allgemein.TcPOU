@@ -45,14 +45,14 @@ IF gvl.eingabesperre THEN
 		IF UP.Q THEN
 			//Achse steigt um definierten Step
 			IF gvl.Eingabe_Grundposition<199 THEN
-				gvl.Eingabe_Grundposition:=gvl.Eingabe_Grundposition + gvl.n;
+				gvl.Eingabe_Grundposition:=gvl.Eingabe_Grundposition + gvl.StepSize;
 			ELSE
 				gvl.Eingabe_Grundposition:=200;
 			END_IF
 		ELSIF Down.Q THEN
 			//Achse sinkt um definierten Step
 			IF gvl.Eingabe_Grundposition>1 THEN
-				gvl.Eingabe_Grundposition:=gvl.Eingabe_Grundposition - gvl.n;
+				gvl.Eingabe_Grundposition:=gvl.Eingabe_Grundposition - gvl.StepSize;
 			ELSE
 				gvl.Eingabe_Grundposition:=0;
 			END_IF
@@ -62,13 +62,13 @@ IF gvl.eingabesperre THEN
 ELSE
 	IF Up.Q THEN
 		IF gvl.Eingabe_Sollposition < 199 THEN
-			gvl.Eingabe_Sollposition:=gvl.Eingabe_Sollposition + gvl.n;
+			gvl.Eingabe_Sollposition:=gvl.Eingabe_Sollposition + gvl.StepSize;
 		ELSE
 			gvl.Eingabe_Sollposition:=200;
 		END_IF
 	ELSIF Down.Q THEN
 		IF gvl.Eingabe_Sollposition>1 THEN
-			gvl.Eingabe_Sollposition:=gvl.Eingabe_Sollposition - gvl.n;
+			gvl.Eingabe_Sollposition:=gvl.Eingabe_Sollposition - gvl.StepSize;
 		ELSE
 			gvl.Eingabe_Sollposition:=0;
 		END_IF
@@ -78,13 +78,13 @@ END_IF
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Beim Deaktivieren des individuellen Modus soll die Sollposition wieder auf die allgemeine Variable zurückgestellt werden.
 IF NOT MAIN.Axis_R.bManual THEN
-	MAIN.Axis_R.rEingabe_Sollposition:=gvl.Eingabe_Sollposition;
+	MAIN.Axis_R.rsetPos:=gvl.Eingabe_Sollposition;
 END_IF
 IF NOT MAIN.Axis_S.bManual THEN
-	MAIN.Axis_S.rEingabe_Sollposition:=gvl.Eingabe_Sollposition;
+	MAIN.Axis_S.rsetPos:=gvl.Eingabe_Sollposition;
 END_IF
 IF NOT MAIN.Axis_T.bManual THEN
-	MAIN.Axis_T.rEingabe_Sollposition:=gvl.Eingabe_Sollposition;
+	MAIN.Axis_T.rsetPos:=gvl.Eingabe_Sollposition;
 END_IF
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,7 +100,7 @@ IF gvl.AchsenkontrolleVisu OR Aaktivieren.Q THEN
 	gvl.Achsenkontrolle:=TRUE;
 END_IF
 //X-Achse verstellen
-IF gvl.Achsenkontrolle THEN
+(*IF gvl.Achsenkontrolle THEN
 	MAIN.Axis_R.bManual:=TRUE;
 	MAIN.Axis_S.bManual:=TRUE;
 	MAIN.Axis_T.bManual:=TRUE;
@@ -126,7 +126,7 @@ IF gvl.Achsenkontrolle THEN
 		MAIN.Axis_S.bDOWN:=FALSE;
 		MAIN.Axis_T.bDOWN:=FALSE;
 	END_IF
-END_IF
+END_IF*)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Plattenschutz bei überlaufen des Maximalwinkels
@@ -155,12 +155,12 @@ IF MAIN.Axis_R.ActualPosition - MAIN.Axis_S.ActualPosition > 135 OR
 	MAIN.Axis_T.ActualPosition - MAIN.Axis_S.ActualPosition > 135 OR
 	MAIN.Axis_T.ActualPosition - MAIN.Axis_S.ActualPosition < -135 THEN
 	gvl.V48VDC_Einbefehl:=FALSE;
-	MAIN.Axis_R.bManual:=FALSE;
-	MAIN.Axis_S.bManual:=FALSE;
-	MAIN.Axis_T.bManual:=FALSE;
-	MAIN.Axis_R.rEingabe_Sollposition:=0;
-	MAIN.Axis_S.rEingabe_Sollposition:=0;
-	MAIN.Axis_T.rEingabe_Sollposition:=0;
+	MAIN.Axis_R.bEnable:=FALSE;
+	MAIN.Axis_S.bEnable:=FALSE;
+	MAIN.Axis_T.bEnable:=FALSE;
+	MAIN.Axis_R.rsetPos:=0;
+	MAIN.Axis_S.rsetPos:=0;
+	MAIN.Axis_T.rsetPos:=0;
 END_IF
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////

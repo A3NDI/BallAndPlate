@@ -622,167 +622,6 @@
                 <o n="VisualElemMemberList" t="VisualElemMemberList">
                   <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
                     <o>
-                      <v n="Id">571893170L</v>
-                      <v n="Value">""</v>
-                    </o>
-                    <o>
-                      <v n="Id">494569607L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-2830136</v>
-                          <v n="CanonicalName">"Element-Frame-Color"</v>
-                        </o>
-                      </l>
-                    </o>
-                    <o>
-                      <v n="Id">2812299069L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-1</v>
-                          <v n="CanonicalName">"Element-Fill-Color"</v>
-                        </o>
-                      </l>
-                    </o>
-                    <o>
-                      <v n="Id">135947015L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-65536</v>
-                          <v n="CanonicalName">"Element-Alarm-Frame-Color"</v>
-                        </o>
-                      </l>
-                    </o>
-                    <o>
-                      <v n="Id">493260384L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleColor">
-                        <o>
-                          <v n="Color">-12337</v>
-                          <v n="CanonicalName">"Element-Alarm-Fill-Color"</v>
-                        </o>
-                      </l>
-                    </o>
-                    <o>
-                      <v n="Id">2340015797L</v>
-                      <v n="Value">"HCENTER"</v>
-                    </o>
-                    <o>
-                      <v n="Id">2565699834L</v>
-                      <v n="Value">"VCENTER"</v>
-                    </o>
-                    <o>
-                      <v n="Id">4134387352L</v>
-                      <v n="Value">"NONE"</v>
-                    </o>
-                    <o>
-                      <v n="Id">1603690730L</v>
-                      <v n="Value">"Arial"</v>
-                    </o>
-                    <o>
-                      <v n="Id">4253639993L</v>
-                      <v n="Value" t="Int16">12</v>
-                    </o>
-                    <o>
-                      <v n="Id">2729990903L</v>
-                      <v n="Value">0U</v>
-                    </o>
-                    <o>
-                      <v n="Id">1213979116L</v>
-                      <v n="Value">0U</v>
-                    </o>
-                    <o>
-                      <v n="Id">3488306084L</v>
-                      <v n="Value">4278190080U</v>
-                    </o>
-                    <o>
-                      <v n="Id">1999528970L</v>
-                      <v n="Value">"&lt;toggle/tap variable&gt;"</v>
-                    </o>
-                    <o>
-                      <v n="Id">3719097617L</v>
-                      <v n="Value">0</v>
-                    </o>
-                    <o>
-                      <v n="Id">1649127785L</v>
-                      <v n="Value">350</v>
-                    </o>
-                    <o>
-                      <v n="Id">357335551L</v>
-                      <v n="Value">120</v>
-                    </o>
-                    <o>
-                      <v n="Id">2422045748L</v>
-                      <v n="Value">150</v>
-                    </o>
-                    <o>
-                      <v n="Id">2134141914L</v>
-                      <v n="Value">30</v>
-                    </o>
-                    <o>
-                      <v n="Id">3729828405L</v>
-                      <l n="Value" t="ArrayList" cet="NamedStyleFont">
-                        <o>
-                          <v n="FontStyle">0</v>
-                          <v n="AdditionalFontStyle" t="UInt16">0</v>
-                          <v n="ExplicitColor">-16777216</v>
-                          <v n="CanonicalName">"Font-Standard"</v>
-                          <v n="FontName">"Arial"</v>
-                          <v n="FontSize">12</v>
-                          <v n="ScriptIdentification">0</v>
-                          <v n="DoubleFontSize" t="Double">0</v>
-                          <o n="NamedColor" t="NamedStyleColor">
-                            <v n="Color">-16777216</v>
-                            <v n="CanonicalName">"Font-Default-Color"</v>
-                          </o>
-                        </o>
-                      </l>
-                    </o>
-                    <o>
-                      <v n="Id">1337389588L</v>
-                      <v n="Value">"FROM_STYLE"</v>
-                    </o>
-                    <o>
-                      <v n="Id">2678395525L</v>
-                      <v n="Value">1U</v>
-                    </o>
-                    <o>
-                      <v n="Id">390574330L</v>
-                      <v n="Value">"%1.0f mm"</v>
-                    </o>
-                    <o>
-                      <v n="Id">2477733581L</v>
-                      <v n="Value">"Axis.rEingabe_Sollposition"</v>
-                    </o>
-                    <o>
-                      <v n="Id">2597686782L</v>
-                      <v n="Value">false</v>
-                    </o>
-                    <o>
-                      <v n="Id">823443203L</v>
-                      <v n="Value">"1853"</v>
-                    </o>
-                  </l>
-                </o>
-                <v n="VisualElementName">"Textfield"</v>
-                <v n="VisualElementTypeName">"VisuFbElemTextfield"</v>
-                <v n="VisualElementIsRectangle">true</v>
-                <v n="VisualElementIdentifier">"GenElemInst_12"</v>
-                <n n="VisualElementOfflinePaintCommands" />
-                <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" />
-                <v n="VisualElementIdentification">{ade73a0e-3bb2-46ee-b23f-c77a5b9a43f6}</v>
-                <v n="VisualElementOwningObjectGuid">{36645ab4-a1e8-4b07-807e-2f552a651f05}</v>
-                <a n="LMGuids" et="Guid" />
-                <d n="SubElements" t="Hashtable" />
-                <v n="VisualElementId">11</v>
-                <l n="UserManagementAccessRights" t="ArrayList" />
-              </o>
-              <o>
-                <a n="ConfiguredComplexInputs" et="ComplexInput" />
-                <l n="Elements" t="ArrayList" />
-                <n n="VisualElementDescription" />
-                <o n="VisualElemMemberList" t="VisualElemMemberList">
-                  <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
-                    <o>
                       <v n="Id">2340015797L</v>
                       <v n="Value">"HCENTER"</v>
                     </o>
@@ -1142,9 +981,9 @@
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_BarOrientation</v>
-                                <v>Category</v>
-                                <v>Simple|Standard</v>
                                 <v>RebuildPropertiesOnChanges</v>
+                                <v></v>
+                                <v>UseInitValue</v>
                                 <v></v>
                                 <v>ElementOrientation</v>
                                 <v></v>
@@ -1152,8 +991,8 @@
                                 <v>False</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.Orientation</v>
-                                <v>UseInitValue</v>
-                                <v></v>
+                                <v>Category</v>
+                                <v>Simple|Standard</v>
                                 <v>''NORMAL__COMMENT</v>
                                 <v> The orientation of the bar
  The property tree needs a rebuilt after change of this component, because the
@@ -1204,14 +1043,14 @@
                                 <v> The running direction if the orientation is horizontal</v>
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_RunningDirection</v>
+                                <v>Category</v>
+                                <v>Simple|Standard</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.RunningDirection</v>
                                 <v>VisibleIf</v>
                                 <v>ValueOfNodeWithAttr,ElementOrientation,String,HORIZONTAL</v>
                                 <v>UseInitValue</v>
                                 <v></v>
-                                <v>Category</v>
-                                <v>Simple|Standard</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -1255,14 +1094,14 @@
                                 <v> The running direction if the orientation is vertical.</v>
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_RunningDirection</v>
+                                <v>Category</v>
+                                <v>Simple|Standard</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.RunningDirection</v>
                                 <v>VisibleIf</v>
                                 <v>ValueOfNodeWithAttr,ElementOrientation,String,VERTICAL</v>
                                 <v>UseInitValue</v>
                                 <v></v>
-                                <v>Category</v>
-                                <v>Simple|Standard</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -1295,6 +1134,8 @@
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_BarOptimumSize</v>
+                                <v>Category</v>
+                                <v>Standard</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.BarOptimumSize</v>
                                 <v>VisibleIf</v>
@@ -1303,8 +1144,6 @@
                                 <v> not visible for flat style and white style</v>
                                 <v>UseInitValue</v>
                                 <v></v>
-                                <v>Category</v>
-                                <v>Standard</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -1553,12 +1392,12 @@
                                       <v>TL_ElementProperties.Color</v>
                                       <v>EditorType</v>
                                       <v>Color</v>
-                                      <v>DescriptionTextId</v>
-                                      <v>TL_ElementProperties.Desc_AreaColor</v>
-                                      <v>''DOCU__COMMENT</v>
-                                      <v> The background color of the color area</v>
                                       <v>UseInitValue</v>
                                       <v></v>
+                                      <v>''DOCU__COMMENT</v>
+                                      <v> The background color of the color area</v>
+                                      <v>DescriptionTextId</v>
+                                      <v>TL_ElementProperties.Desc_AreaColor</v>
                                     </d>
                                     <v n="ConvDone">false</v>
                                   </o>
@@ -4189,10 +4028,10 @@
               <d n="FbMethods" t="CaseInsensitiveHashtable_1" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>75e20979-61b6-40f1-9cb8-074ceefd6b94</v>
-                <v>FB_Reinit</v>
-                <v>3c224c5d-6035-4c05-a2ae-c652640fe21e</v>
                 <v>FB_Exit</v>
                 <v>c1b73e43-58c6-43cc-9275-d798c21daf95</v>
+                <v>FB_Reinit</v>
+                <v>3c224c5d-6035-4c05-a2ae-c652640fe21e</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{dd5ac3c6-4526-492b-8d29-2c3c17b5e5a3}</v>
@@ -4236,7 +4075,7 @@
             </o>
             <v n="DialogDut">{5319fd50-5e08-48e4-92e0-baf116b08674}</v>
           </o>
-          <v n="LastUsedIdForIdentifier">63</v>
+          <v n="LastUsedIdForIdentifier">67</v>
           <o n="TextDocument" t="TextDocument">
             <a n="TextLines" cet="TextLine">
               <o>

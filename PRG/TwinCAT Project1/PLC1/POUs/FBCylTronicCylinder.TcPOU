@@ -9,12 +9,16 @@ VAR_INPUT
 	rSetForce		: REAL;
 	rSetAcc			: REAL;
 	bEnable			: BOOL;
+	bReset			: BOOL;
 	stAxisName		: STRING;
 END_VAR
 VAR_OUTPUT
 	DataOut AT %Q* : CyltronicProcessDataOut;
 END_VAR
 VAR
+	bManual, bUp, bDown				: BOOL;
+	UpTRIG, DownTRIG				: R_TRIG;
+	iPosOffset						: INT	:= 0;
 	ActualForce						: REAL;
 	ActualPosition					: REAL;
 	ActualSpeed						: REAL;
@@ -29,45 +33,74 @@ VAR
 	Position_Aktiv					: BOOL;
 	Sinus_Aktiv						: BOOL;
 	BNP_Aktiv						: BOOL;
-	Mode							: Antrieb	:= Antrieb.Off;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-IF NOT bEnable THEN
-	DataOut.CyltronicDataOutAct.MotionMode := CyltronicMotionMode.Off;
-	DataOut.CyltronicDataOutAct.TargetPosition := DataIn.CyltronicDataInAct.ActualPosition;
-ELSE
-	DataOut.CyltronicDataOutAct.AccelerationOverride 	:= LIMIT(1,REAL_TO_USINT(rSetAcc/MaxACC),255);
-	DataOut.CyltronicDataOutAct.ForceOverride 			:= LIMIT(1,REAL_TO_USINT(rSetForce/MaxForce),255);
-	DataOut.CyltronicDataOutAct.SpeedOverride 			:= LIMIT(1,REAL_TO_USINT(rSetVelo/MaxVelo),255);
-	DataOut.CyltronicDataOutAct.TargetPosition			:= LIMIT(0,rSetPos,MaxTravel);
-	DataOut.CyltronicDataOutAct.MotionMode				:= CyltronicMotionMode.FreePosPro;
-END_IF
-//Outputs
+      <ST><![CDATA[UpTRIG(CLK:=bUp);
+DownTRIG(CLK:=bDown);
 
-ActualForce:=DataIn.CyltronicDataInAct.ActualForce;
-ActualPosition:=DataIn.CyltronicDataInAct.ActualPosition;
-ActualSpeed:=DataIn.CyltronicDataInAct.ActualSpeed;
-LimitSwitchIn:=DataIn.CyltronicDataInAct.LimitSwitchIn;
-LimitSwitchOut:=DataIn.CyltronicDataInAct.LimitSwitchOut;
-MotionCommandCompleted:=DataIn.CyltronicDataInAct.MotionCommandCompleted;
-MotionModeActive:=DataIn.CyltronicDataInAct.MotionModeActive;
-Ready:=DataIn.CyltronicDataInAct.Ready;
-WarningActive:=DataIn.CyltronicDataInAct.WarningActive;
-TrackingErrorToleranceExceeded:=DataIn.CyltronicDataInAct.TrackingErrorToleranceExceeded;
-CylState:=DataIn.CyltronicDataInAct.State;]]></ST>
+IF NOT bEnable THEN
+	DataOut.CyltronicDataOutAct.MotionMode 			:= CyltronicMotionMode.Off;
+	DataOut.CyltronicDataOutAct.TargetPosition 		:= DataIn.CyltronicDataInAct.ActualPosition;
+	bManual 										:= FALSE;
+ELSIF bReset THEN
+	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.Reset;
+	bReset 											:= FALSE;
+ELSIF NOT bManual THEN
+	DataOut.CyltronicDataOutAct.TargetPosition		:= LIMIT(0,rSetPos,MaxTravel);
+	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.FreePosPro;
+ELSE
+	IF UpTrig.Q AND iPosOffset < MaxTravel THEN
+		iPosOffset := iPosOffset + GVL.StepSize;
+	ELSIF DownTrig.Q AND iPosOffset > - MaxTravel THEN
+		iPosOffset := iPosOffset - GVL.StepSize;
+	END_IF
+	DataOut.CyltronicDataOutAct.TargetPosition		:= LIMIT(0,rSetPos + iPosOffset,MaxTravel);
+	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.FreePosPro;
+	iPosOffset := 0;
+END_IF
+
+//Outputs
+DataOut.CyltronicDataOutAct.AccelerationOverride 	:= LIMIT(1, REAL_TO_USINT(rSetAcc / MaxACC * 100), 255);
+DataOut.CyltronicDataOutAct.ForceOverride 			:= LIMIT(1, REAL_TO_USINT(rSetForce / MaxForce * 100), 255);
+DataOut.CyltronicDataOutAct.SpeedOverride 			:= LIMIT(1, REAL_TO_USINT(rSetVelo / MaxVelo * 100), 255);
+
+ActualForce											:= DataIn.CyltronicDataInAct.ActualForce;
+ActualPosition										:= DataIn.CyltronicDataInAct.ActualPosition;
+ActualSpeed											:= DataIn.CyltronicDataInAct.ActualSpeed;
+LimitSwitchIn										:= DataIn.CyltronicDataInAct.LimitSwitchIn;
+LimitSwitchOut										:= DataIn.CyltronicDataInAct.LimitSwitchOut;
+MotionCommandCompleted								:= DataIn.CyltronicDataInAct.MotionCommandCompleted;
+MotionModeActive									:= DataIn.CyltronicDataInAct.MotionModeActive;
+Ready												:= DataIn.CyltronicDataInAct.Ready;
+WarningActive										:= DataIn.CyltronicDataInAct.WarningActive;
+TrackingErrorToleranceExceeded						:= DataIn.CyltronicDataInAct.TrackingErrorToleranceExceeded;
+CylState											:= DataIn.CyltronicDataInAct.State;]]></ST>
     </Implementation>
     <LineIds Name="FBCylTronicCylinder">
+      <LineId Id="5494" Count="1" />
       <LineId Id="5235" Count="0" />
       <LineId Id="5432" Count="0" />
       <LineId Id="5434" Count="0" />
       <LineId Id="5436" Count="0" />
-      <LineId Id="5438" Count="1" />
-      <LineId Id="5441" Count="2" />
+      <LineId Id="5501" Count="0" />
+      <LineId Id="5504" Count="1" />
+      <LineId Id="5508" Count="0" />
+      <LineId Id="5438" Count="0" />
+      <LineId Id="5443" Count="0" />
       <LineId Id="5445" Count="0" />
+      <LineId Id="5476" Count="0" />
+      <LineId Id="5488" Count="0" />
+      <LineId Id="5496" Count="1" />
+      <LineId Id="5489" Count="1" />
+      <LineId Id="5481" Count="0" />
+      <LineId Id="5477" Count="0" />
+      <LineId Id="5487" Count="0" />
       <LineId Id="5435" Count="0" />
+      <LineId Id="5482" Count="0" />
       <LineId Id="5418" Count="0" />
+      <LineId Id="5483" Count="1" />
       <LineId Id="5431" Count="0" />
+      <LineId Id="5485" Count="0" />
       <LineId Id="5419" Count="9" />
       <LineId Id="260" Count="0" />
     </LineIds>
