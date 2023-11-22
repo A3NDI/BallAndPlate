@@ -23,78 +23,194 @@ Allgemein();
 
 ]]></ST>
     </Implementation>
-    <Action Name="AC_WriteConfig" Id="{2b447170-4d2f-4568-8b79-9c47d2e36ec8}">
+    <Action Name="AC_ModeSelection" Id="{2f31f6c9-d783-4214-bd42-62c52be136ef}">
       <Implementation>
-        <ST><![CDATA[CASE TestState OF
-	0:
-		IF Test THEN
-			Test := FALSE;
-			TestState := TestState + 1;
+        <ST><![CDATA[//Allgemeiner Teil mit individuellem Teil gemischt
+
+//Allgemeine Eingabe 
+trigUP(clk:=bUP); 
+trigDown(clk:=bDOWN);
+DataOut.CyltronicDataOutAct.SpeedOverride:=gvl.Speed;
+DataOut.CyltronicDataOutAct.ForceOverride:=gvl.Force;
+DataOut.CyltronicDataOutAct.AccelerationOverride:=gvl.Acceleration;
+
+//Sollposition Eingabe
+IF trigUP.Q AND bManual THEN
+	IF rEingabe_Sollposition < 199 THEN
+		rEingabe_Sollposition:=rEingabe_Sollposition+gvl.n;
+	ELSE
+		rEingabe_Sollposition:=200;
+	END_IF
+ELSIF trigDown.Q AND bManual THEN
+	IF rEingabe_Sollposition > 1 THEN
+		rEingabe_Sollposition:=rEingabe_Sollposition-gvl.n;
+	ELSE
+		rEingabe_Sollposition:=0;
+	END_IF
+END_IF
+
+//Bei Steigungswinkel wieder auf Homing Position
+IF GVL.BndP  THEN
+	achse:=Antrieb.Homing;
+END_IF
+
+//Ausschaltbedingungen (Prio 1)
+IF NOT gvl.V48VDC_Einbefehl OR NOT gvl.NOTAUS THEN
+	Achse:=Antrieb.Off;
+	gvl.V48VDC_Einbefehl:=FALSE;
+	bManual:=FALSE;
+END_IF
+
+//Resetbefehl
+IF gvl.reset THEN
+	dataout.CyltronicDataOutAct.MotionMode:=255;
+	Achse:=Antrieb.Off;
+	gvl.V48VDC_Einbefehl:=FALSE;
+END_IF
+
+CASE Achse OF
+	Antrieb.Off:
+	GVL.Achsenkontrolle:=FALSE;
+	Position_Aktiv:=FALSE;
+	//Ausschalten der Achse
+	IF gvl.NOTAUS THEN
+		DataOut.CyltronicDataOutAct.TargetPosition:=0;
+		IF DataIn.CyltronicDataInAct.LimitSwitchIn THEN
+			DataOut.CyltronicDataOutAct.MotionMode:=0;
 		END_IF
-	1:
-		AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl1, Buffer := ADR(MaxSpeed		), BufferSize := SIZEOF(MaxSpeed		), Index := MaxSpeed_ADR		, bExecute := TRUE);
-		TestState := TestState + 1;
+	END_IF
+		
+	//Nächster Zustand (Einschaltbefehl)
+	IF gvl.V48Einbefehl AND gvl.V48VDC_Einbefehl THEN
+		//Lernfahrt beim Einschalten
+		DataOut.CyltronicDataOutAct.MotionMode:=2;
+		IF DataIn.CyltronicDataInAct.LimitSwitchIn THEN
+			DataOut.CyltronicDataOutAct.MotionMode:=6;
+			Achse:=Antrieb.Homing;
+		END_IF
+	END_IF
 	
-	2:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl1, Buffer := ADR(MaxForce		), BufferSize := SIZEOF(MaxForce		), Index := MaxForce_ADR		, bExecute := TRUE) THEN
-			TestState := TestState + 1;
+	Antrieb.Homing:
+	//Beim Einschalten das Homing für die Grundposition
+	gvl.eingabesperre:=TRUE;
+	BNP_Aktiv:=FALSE;
+	Sinus_Aktiv:=FALSE;
+	gvl.Achsenkontrolle:=FALSE;
+	Position_Aktiv:=FALSE;
+	IF gvl.Automatik THEN
+		//Sobald der Zylinder Ready ist wird die Grundposition (Homingposition) welche vordefiniert wrude eingenommen
+		IF DataIn.CyltronicDataInAct.Ready AND DataIn.CyltronicDataInAct.Homed  THEN
+			DataOut.CyltronicDataOutAct.MotionMode:=6;
+			DataOut.CyltronicDataOutAct.TargetPosition:=gvl.Eingabe_Grundposition;
+			//Sobald die Positionierung stattgefunden hat, wird der Zustand Positionierung freigeschaltet
+			IF to_int(DataIn.CyltronicDataInAct.ActualPosition) = to_int(gvl.Eingabe_Grundposition) THEN
+				Achse:=Antrieb.Position;
+				gvl.eingabesperre:=FALSE;
+			END_IF
 		END_IF
-	3:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl1, Buffer := ADR(MaxACC		), BufferSize := SIZEOF(MaxACC			), Index := MaxACC_ADR			, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	4:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl1, Buffer := ADR(MaxDEC		), BufferSize := SIZEOF(MaxDEC			), Index := MaxDEC_ADR			, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	5:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl1, Buffer := ADR(MaxTrackingErr), BufferSize := SIZEOF(MaxTrackingErr	), Index := MaxTrackingErr_ADR	, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	6:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl2, Buffer := ADR(MaxSpeed		), BufferSize := SIZEOF(MaxSpeed		), Index := MaxSpeed_ADR		, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	7:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl2, Buffer := ADR(MaxForce		), BufferSize := SIZEOF(MaxForce		), Index := MaxForce_ADR		, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	8:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl2, Buffer := ADR(MaxACC		), BufferSize := SIZEOF(MaxACC			), Index := MaxACC_ADR			, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	9:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl2, Buffer := ADR(MaxDEC		), BufferSize := SIZEOF(MaxDEC			), Index := MaxDEC_ADR			, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	10:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl2, Buffer := ADR(MaxTrackingErr), BufferSize := SIZEOF(MaxTrackingErr	), Index := MaxTrackingErr_ADR	, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	11:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl3, Buffer := ADR(MaxSpeed		), BufferSize := SIZEOF(MaxSpeed		), Index := MaxSpeed_ADR		, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	12:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl3, Buffer := ADR(MaxForce		), BufferSize := SIZEOF(MaxForce		), Index := MaxForce_ADR		, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	13:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl3, Buffer := ADR(MaxACC		), BufferSize := SIZEOF(MaxACC			), Index := MaxACC_ADR			, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	14:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl3, Buffer := ADR(MaxDEC		), BufferSize := SIZEOF(MaxDEC			), Index := MaxDEC_ADR			, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	15:
-		IF AC_WriteIOL(IO_Link_AMS := IO_Link_AMS, ADDR := ADDRCyl3, Buffer := ADR(MaxTrackingErr), BufferSize := SIZEOF(MaxTrackingErr	), Index := MaxTrackingErr_ADR	, bExecute := TRUE) THEN
-			TestState := TestState + 1;
-		END_IF
-	16:	
-		TestState := 0;
-END_CASE
-]]></ST>
+	END_IF
+			
+	Antrieb.Position:
+	//Eingabe für eine eingegebene Sollposition
+	Position_Aktiv:=TRUE;
+	
+	
+	IF gvl.Automatik THEN
+		DataOut.CyltronicDataOutAct.MotionMode:=6;
+		//Eingabe Sollposition --> Istposition anfahren
+		DataOut.CyltronicDataOutAct.TargetPosition:=rEingabe_Sollposition;
+	END_IF
+	
+	//Aktivierung Ball on Plate
+	IF gvl.BndP THEN
+		Achse:=Antrieb.BallundPlate;
+		Position_Aktiv:=FALSE;
+	END_IF
+	
+	//Aktivierung Sinus
+	IF gvl.Sinus THEN
+		Achse:=Antrieb.Sinus;
+		Position_Aktiv:=FALSE;
+	END_IF
+	
+	//Aktivierung von Achsenbewegung
+	IF gvl.Achsenkontrolle THEN
+		Achse:=Antrieb.Achse;
+		Position_Aktiv:=FALSE;
+	END_IF
+	
+	//Homingbefehl
+	IF gvl.Homing THEN
+		Achse:=Antrieb.Homing;
+		Position_Aktiv:=FALSE;
+	END_IF
+	
+	Antrieb.Achse:
+	//Achsenbewegung
+	DataOut.CyltronicDataOutAct.MotionMode:=6;
+	dataout.CyltronicDataOutAct.TargetPosition:=rEingabe_Sollposition;
+	
+	IF gvl.Homing THEN
+		gvl.Achsenkontrolle:=FALSE;
+		Achse:=Antrieb.Homing;
+		bManual:=FALSE;
+	END_IF
+	
+	IF gvl.Grundposition THEN
+		gvl.Achsenkontrolle:=FALSE;
+		Achse:=Antrieb.Position;
+		bManual:=FALSE;
+	END_IF
+	
+	Antrieb.Sinus:
+	//Sinus-Wellenbewegung
+	IF Achse=Antrieb.Sinus THEN
+		Sinus_Aktiv:=TRUE;
+	ELSE
+		Sinus_Aktiv:=FALSE;
+	END_IF
+	
+	IF DataIn.CyltronicDataInAct.ActualPosition<199 AND Q THEN
+		DataOut.CyltronicDataOutAct.TargetPosition:=DataOut.CyltronicDataOutAct.TargetPosition+1;
+	ELSIF DataIn.CyltronicDataInAct.ActualPosition>2 THEN
+		Q:=FALSE;
+		DataOut.CyltronicDataOutAct.TargetPosition:=DataOut.CyltronicDataOutAct.TargetPosition-1;
+	ELSE
+		Q:=TRUE;
+	END_IF
+	
+	//Homingbefehl
+	IF gvl.Homing THEN
+		Sinus_Aktiv:=FALSE;
+		Achse:=Antrieb.Homing;
+	END_IF
+	
+	IF gvl.Grundposition THEN
+		Sinus_Aktiv:=FALSE;
+		Achse:=Antrieb.Position;
+	END_IF
+	
+	
+	Antrieb.BallundPlate: //für spätere Zwecke oder wenn noch zeit
+	//Code für die Ball and Plate
+	IF Achse=Antrieb.BallundPlate THEN
+		BNP_Aktiv:=TRUE;
+	ELSE
+		BNP_Aktiv:=FALSE;
+	END_IF
+		
+	
+	//Homingbefehl
+	IF gvl.Homing THEN
+		Achse:=Antrieb.Homing;
+		BNP_Aktiv:=FALSE;
+	END_IF
+	
+	IF gvl.Grundposition THEN
+		BNP_Aktiv:=FALSE;
+		Achse:=Antrieb.Position;
+	END_IF
+END_CASE]]></ST>
       </Implementation>
     </Action>
     <Method Name="AC_WriteIOL" Id="{c734cd2c-844f-4cd9-8083-7e72d93ab94e}">
@@ -162,60 +278,8 @@ WriteIOL();]]></ST>
       <LineId Id="154" Count="2" />
       <LineId Id="151" Count="0" />
     </LineIds>
-    <LineIds Name="MAIN.AC_WriteConfig">
-      <LineId Id="25" Count="0" />
-      <LineId Id="45" Count="0" />
-      <LineId Id="26" Count="0" />
-      <LineId Id="95" Count="0" />
-      <LineId Id="93" Count="1" />
-      <LineId Id="28" Count="0" />
-      <LineId Id="49" Count="1" />
-      <LineId Id="103" Count="0" />
-      <LineId Id="29" Count="0" />
-      <LineId Id="52" Count="1" />
-      <LineId Id="51" Count="0" />
-      <LineId Id="30" Count="0" />
-      <LineId Id="55" Count="1" />
-      <LineId Id="54" Count="0" />
-      <LineId Id="31" Count="0" />
-      <LineId Id="58" Count="1" />
-      <LineId Id="57" Count="0" />
-      <LineId Id="32" Count="0" />
-      <LineId Id="61" Count="1" />
-      <LineId Id="60" Count="0" />
-      <LineId Id="33" Count="0" />
-      <LineId Id="64" Count="1" />
-      <LineId Id="63" Count="0" />
-      <LineId Id="34" Count="0" />
-      <LineId Id="67" Count="1" />
-      <LineId Id="66" Count="0" />
-      <LineId Id="35" Count="0" />
-      <LineId Id="70" Count="1" />
-      <LineId Id="69" Count="0" />
-      <LineId Id="36" Count="0" />
-      <LineId Id="73" Count="1" />
-      <LineId Id="72" Count="0" />
-      <LineId Id="37" Count="0" />
-      <LineId Id="76" Count="1" />
-      <LineId Id="75" Count="0" />
-      <LineId Id="38" Count="0" />
-      <LineId Id="79" Count="1" />
-      <LineId Id="78" Count="0" />
-      <LineId Id="39" Count="0" />
-      <LineId Id="82" Count="1" />
-      <LineId Id="81" Count="0" />
-      <LineId Id="40" Count="0" />
-      <LineId Id="85" Count="1" />
-      <LineId Id="84" Count="0" />
-      <LineId Id="42" Count="0" />
-      <LineId Id="88" Count="1" />
-      <LineId Id="87" Count="0" />
-      <LineId Id="41" Count="0" />
-      <LineId Id="91" Count="1" />
-      <LineId Id="90" Count="0" />
-      <LineId Id="96" Count="1" />
-      <LineId Id="27" Count="0" />
-      <LineId Id="20" Count="0" />
+    <LineIds Name="MAIN.AC_ModeSelection">
+      <LineId Id="2" Count="185" />
     </LineIds>
     <LineIds Name="MAIN.AC_WriteIOL">
       <LineId Id="137" Count="36" />

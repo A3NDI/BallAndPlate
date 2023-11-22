@@ -1583,7 +1583,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>200.000000</Value>
+										<Value>300.000000</Value>
 										<DefaultValue>300</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the maximum speed in free positioning mode (potentiometer is ignored)</Description>
@@ -1617,7 +1617,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1.000000</Value>
+										<Value>15.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the global maximum acceleration in [meters per s^2].</Description>
@@ -1634,7 +1634,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1.000000</Value>
+										<Value>15.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the global maximum deceleration in [meters per s^2].</Description>
@@ -1917,7 +1917,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>0.000000</Value>
+										<Value>800.000000</Value>
 										<DefaultValue>800</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the maximum force of the actuator in free positioning mode (potentiometer is ignored)</Description>
@@ -8534,7 +8534,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>15.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the global maximum acceleration in [meters per s^2].</Description>
@@ -8551,7 +8551,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>15.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the global maximum deceleration in [meters per s^2].</Description>
@@ -15451,7 +15451,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>15.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the global maximum acceleration in [meters per s^2].</Description>
@@ -15468,7 +15468,7 @@
 										<Datatype>Float</Datatype>
 										<Length>32</Length>
 										<BitOffset>0</BitOffset>
-										<Value>1</Value>
+										<Value>15.000000</Value>
 										<DefaultValue>1</DefaultValue>
 										<Access>rw</Access>
 										<Description>Defines the global maximum deceleration in [meters per s^2].</Description>
@@ -21424,7 +21424,7 @@
 								</PdCollections>
 							</Port>
 						</Xml>
-						<EtherCAT EtherCatAddr="1001" SlaveType="3" AdsServerAddress="c0a800210203e903" PdiType="#x0405" EtherCatAddrFixed="true" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" FoeType="1" VendorId="#x00000002" ProductCode="#x18503052" RevisionNo="#x00150000" InfoDataAddr="true" InfoDataNetId="true" TimeoutMailbox2="2000" GenerateOwnNetId="true" InitializeOwnNetId="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6224 (IO Link Master)" Desc="EL6224" PortABoxInfo="#x01000001">
+						<EtherCAT EtherCatAddr="1001" SlaveType="3" AdsServerAddress="c0a800210203e903" PdiType="#x0405" EtherCatAddrFixed="true" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" FoeType="1" VendorId="#x00000002" ProductCode="#x18503052" RevisionNo="#x00150000" InfoDataAddr="true" InfoDataNetId="true" InfoDataDcTimes="true" TimeoutMailbox2="2000" GenerateOwnNetId="true" InitializeOwnNetId="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6224 (IO Link Master)" Desc="EL6224" PortABoxInfo="#x01000001">
 							<SyncMan>001000012600010001000000400000010001001026010000</SyncMan>
 							<SyncMan>001100012200010002000000400000010001001122010000</SyncMan>
 							<SyncMan>001218002400010003000000000000000000001224010000</SyncMan>
@@ -21435,10 +21435,6 @@
 							<BootStrapData>0010f400f410f400</BootStrapData>
 							<DcMode>4672656552756e0000000000000000004672656552756e00000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 							<DcMode>4443000000000000000000000000000044432d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000000010100000000000000000000000000000000000000000000000000000000000000</DcMode>
-							<MBoxUserCmdData>020003001c0000000b0000000000000000000000000000000000000000000000300080011400000035c0a1001706000011010f00cdc70000000023004f626a656374203830303000</MBoxUserCmdData>
-							<MBoxUserCmdData>020003001c0000000b0000000000000000000000000000000000000000000000301080011400000035c0a1001706000011010f00cdc70000000023004f626a656374203830313000</MBoxUserCmdData>
-							<MBoxUserCmdData>020003001c0000000b0000000000000000000000000000000000000000000000302080011400000035c0a1001706000011010f00cdc70000000023004f626a656374203830323000</MBoxUserCmdData>
-							<MBoxUserCmdData>020003001c0000000b0000000000000000000000000000000000000000000000303080011400000000000000000000000000000000000000000000004f626a656374203830333000</MBoxUserCmdData>
 							<Pdo Name="IO-Link Port1_in" Index="#x1a00" Flags="#x0000" SyncMan="3">
 								<Entry Name="SubIndex 001" BitLen="112" Index="#x6000" Sub="#x01">
 									<Type GUID="{18071995-0000-0000-0000-00030000000E}">ARRAY [0..13] OF BYTE</Type>

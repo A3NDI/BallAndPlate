@@ -13,11 +13,11 @@ VAR_GLOBAL
 	MaxDEC_ADR 			: BYTE := 16#45;
 	MaxTrackingErr_ADR 	: BYTE := 16#46;
 
-	MaxSpeed 			: REAL := 300;			//max Speed in Freepositioning Mode [mm/s]
-	MaxForce 			: REAL := 800;			//max Force [N]
-	MaxACC 				: REAL := 15;			//max Acceleration [mm/s^2]
-	MaxDEC 				: REAL := 15;			//max Deceleration [mm/s^2]
-	MaxTrackingErr 		: REAL := 5;			//max Tracking Error (Schleppfehler) [mm]
+	MaxVelo 			: REAL := 300/255;			//max Speed in Freepositioning Mode [mm/s]
+	MaxForce 			: REAL := 800/255;			//max Force [N]
+	MaxACC 				: REAL := 15/255;			//max Acceleration [mm/s^2]
+	MaxTrackingErr 		: REAL := 5;				//max Tracking Error (Schleppfehler) [mm]
+	MaxTravel			: REAL := 200;				//max Travel of Axis [mm]
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
