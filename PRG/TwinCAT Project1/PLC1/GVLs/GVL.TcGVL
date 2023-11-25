@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
 	//Inputs von Visu an System
-	V48VDC_Einbefehl:BOOL;
+	Einbefehl: BOOL;
 	Automatik:BOOL;
 	Homing:BOOL;
 	Grundposition:BOoL;

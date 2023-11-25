@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FBCylTronicCylinder" Id="{065cd091-3563-4a4f-b586-4eea2d97404e}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FBCylTronicCylinder
 VAR_INPUT
@@ -10,6 +10,7 @@ VAR_INPUT
 	rSetAcc			: REAL;
 	bEnable			: BOOL;
 	bReset			: BOOL;
+	bHoming			: BOOL;
 	stAxisName		: STRING;
 END_VAR
 VAR_OUTPUT
@@ -38,13 +39,15 @@ END_VAR]]></Declaration>
       <ST><![CDATA[UpTRIG(CLK:=bUp);
 DownTRIG(CLK:=bDown);
 
-IF NOT bEnable THEN
+IF bReset THEN
+	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.Reset;
+	bReset 											:= FALSE;
+ELSIF NOT bEnable THEN
 	DataOut.CyltronicDataOutAct.MotionMode 			:= CyltronicMotionMode.Off;
 	DataOut.CyltronicDataOutAct.TargetPosition 		:= DataIn.CyltronicDataInAct.ActualPosition;
 	bManual 										:= FALSE;
-ELSIF bReset THEN
-	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.Reset;
-	bReset 											:= FALSE;
+ELSIF bHoming THEN
+	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.MoveIn;
 ELSIF NOT bManual THEN
 	DataOut.CyltronicDataOutAct.TargetPosition		:= LIMIT(0,rSetPos,MaxTravel);
 	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.FreePosPro;
@@ -78,14 +81,15 @@ CylState											:= DataIn.CyltronicDataInAct.State;]]></ST>
     </Implementation>
     <LineIds Name="FBCylTronicCylinder">
       <LineId Id="5494" Count="1" />
+      <LineId Id="5541" Count="2" />
       <LineId Id="5235" Count="0" />
       <LineId Id="5432" Count="0" />
       <LineId Id="5434" Count="0" />
       <LineId Id="5436" Count="0" />
       <LineId Id="5501" Count="0" />
-      <LineId Id="5504" Count="1" />
-      <LineId Id="5508" Count="0" />
       <LineId Id="5438" Count="0" />
+      <LineId Id="5546" Count="0" />
+      <LineId Id="5544" Count="0" />
       <LineId Id="5443" Count="0" />
       <LineId Id="5445" Count="0" />
       <LineId Id="5476" Count="0" />

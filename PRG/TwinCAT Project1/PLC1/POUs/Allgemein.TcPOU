@@ -26,15 +26,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//Einschaltbefehl des 48V Netzschützes mit der Bedingung
-
-IF gvl.NOTAUS AND gvl.V48VDC_Einbefehl THEN
-	gvl.V48Einbefehl:=TRUE;
-ELSIF not gvl.NOTAUS THEN
-	gvl.V48Einbefehl:=FALSE;
-END_IF
-
-/////////////////////////////////////////////////////////////
+      <ST><![CDATA[
 //Inputs
 Up(CLK:=gvl.UP);
 Down(CLK:=gvl.Down);
@@ -154,7 +146,7 @@ IF MAIN.Axis_R.ActualPosition - MAIN.Axis_S.ActualPosition > 135 OR
 	MAIN.Axis_R.ActualPosition - MAIN.Axis_T.ActualPosition < -135 OR
 	MAIN.Axis_T.ActualPosition - MAIN.Axis_S.ActualPosition > 135 OR
 	MAIN.Axis_T.ActualPosition - MAIN.Axis_S.ActualPosition < -135 THEN
-	gvl.V48VDC_Einbefehl:=FALSE;
+	gvl.Einbefehl:=FALSE;
 	MAIN.Axis_R.bEnable:=FALSE;
 	MAIN.Axis_S.bEnable:=FALSE;
 	MAIN.Axis_T.bEnable:=FALSE;
@@ -198,7 +190,7 @@ ELSE
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="Allgemein">
-      <LineId Id="687" Count="168" />
+      <LineId Id="695" Count="160" />
       <LineId Id="303" Count="0" />
     </LineIds>
   </POU>
