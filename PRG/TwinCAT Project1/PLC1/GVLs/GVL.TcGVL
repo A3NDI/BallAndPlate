@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <GVL Name="GVL" Id="{8380fa4a-f210-4f07-8373-5143ffede478}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
@@ -18,7 +18,7 @@ VAR_GLOBAL
 	YAchseDown:BOOL;
 	XAchseUp:BOOL;
 	XAchseDown:BOOL;
-	AchsenkontrolleVisu:BOOL;
+	Tilt:BOOL;
 	reset:BOOL;
 	
 	//Allgemeine Outputs an Visu vom System

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.25">
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.53">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{E8D6B432-6F90-E847-C1B3-1B957F89B887}" AutoDeleteType="true">CyltronicState</Name>
@@ -411,7 +411,7 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-00200000000C}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..11] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-00200000000C}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..11] OF BIT</Name>
 			<BitSize>12</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -460,7 +460,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{D16E3D51-9F38-4EE8-A05B-F051BC982C40}" Name="PLC1" PrjFilePath="PLC1\PLC1.plcproj" TmcFilePath="PLC1\PLC1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="PLC1\PLC1.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="PLC1\PLC1.tmc" TmcHash="{23DBEED3-EF4B-76CB-FD7F-229A46496293}">
 					<Name>PLC1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -601,7 +601,7 @@
 					<RetainDataMapping AreaNo="4" OTCID="#x03020006"/>
 					<Contexts>
 						<Context>
-							<Id NeedCalleeCall="true">0</Id>
+							<Id>0</Id>
 							<Name>PLC_TASK</Name>
 							<ManualConfig>
 								<OTCID>#x02010030</OTCID>
@@ -610,7 +610,7 @@
 							<CycleTime>1000000</CycleTime>
 						</Context>
 						<Context>
-							<Id NeedCalleeCall="true">1</Id>
+							<Id>1</Id>
 							<Name>VISU_TASK</Name>
 							<ManualConfig>
 								<OTCID>#x02010060</OTCID>
@@ -637,6 +637,14 @@
 						<BaseAddr>0</BaseAddr>
 						<BusNo>65535</BusNo>
 						<SlotNo>0</SlotNo>
+						<TimeSize>128</TimeSize>
+						<TimeOffs>1024</TimeOffs>
+						<GpioSize>32</GpioSize>
+						<GpioOffs>768</GpioOffs>
+						<EepromSize>32</EepromSize>
+						<EepromOffs>512</EepromOffs>
+						<IntCtrlSize>16</IntCtrlSize>
+						<IntCtrlOffs>640</IntCtrlOffs>
 					</Ccat>
 				</AddressInfo>
 				<Image Id="1" AddrType="9" ImageType="3">

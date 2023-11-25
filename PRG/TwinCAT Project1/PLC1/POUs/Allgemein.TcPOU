@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Allgemein" Id="{67a35465-783c-49d5-9bd5-3043dcc29413}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Allgemein
 VAR
@@ -96,11 +96,11 @@ Auf(CLK:=bButtonUP);
 Ab(CLK:=bButtonDown);
 
 //Achsenkontrolle Aktivieren
-IF gvl.AchsenkontrolleVisu OR Aaktivieren.Q THEN
+(*IF Tilt OR Aaktivieren.Q THEN
 	gvl.Achsenkontrolle:=TRUE;
 END_IF
 //X-Achse verstellen
-(*IF gvl.Achsenkontrolle THEN
+IF gvl.Achsenkontrolle THEN
 	MAIN.Axis_R.bManual:=TRUE;
 	MAIN.Axis_S.bManual:=TRUE;
 	MAIN.Axis_T.bManual:=TRUE;

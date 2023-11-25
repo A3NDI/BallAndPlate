@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="MAIN" Id="{60bc0b30-1cdb-42b0-8bc7-ac64af597b82}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR_INPUT
@@ -65,14 +65,14 @@ Axis_T.rSetVelo		:= rSetVelo;
 
 IF NOT Axis_R.Ready OR NOT Axis_S.Ready OR NOT Axis_T.Ready THEN
 	;// Axis Not Ready
-ELSIF gvl.Grundposition THEN
+ELSIF GVL.Grundposition THEN
 	Modus := Mode.Position;
 ELSIF gvl.BndP THEN
 	Modus:=Mode.BallundPlate;
 ELSIF gvl.Sinus THEN
 	Modus:=Mode.Sinus;
-ELSIF gvl.Achsenkontrolle THEN
-	Modus:=Mode.Achse;
+ELSIF GVL.Tilt THEN
+	Modus:=Mode.Tilt;
 ELSIF gvl.Homing THEN
 	Modus:=Mode.Homing;
 END_IF
@@ -82,7 +82,7 @@ GVL.BNP_Aktiv	:= FALSE;
 
 CASE Modus OF
 	Mode.Off:
-		Modus:=Mode.Position;
+		;
 		
 	Mode.Homing:
 		Axis_R.bEnable := TRUE;
@@ -96,11 +96,10 @@ CASE Modus OF
 			rSetPos	:= gvl.Eingabe_Sollposition;
 		END_IF
 	
-	Mode.Achse:
-		rSetPos := gvl.Eingabe_Sollposition;
+	Mode.Tilt:
+		;
 	
 	Mode.Sinus:
-		GVL.Sinus_Aktiv:=TRUE;
 		SinusParams.eSignalType := E_CTRL_SIGNAL_TYPE.eCTRL_SINUS;
 		SinusParams.fAmplitude := MaxTravel - 2;
 		SinusParams.fOffset := 1;
@@ -112,8 +111,7 @@ CASE Modus OF
 		rSetPos := LREAL_TO_REAL(Sinus.fOut);
 	
 	Mode.BallundPlate:
-		GVL.BNP_Aktiv:=TRUE;
-
+		;
 END_CASE
 Axis_R.rSetPos	:= rSetPos;
 Axis_S.rSetPos	:= rSetPos;
@@ -221,17 +219,15 @@ WriteIOL();]]></ST>
       <LineId Id="287" Count="0" />
       <LineId Id="290" Count="1" />
       <LineId Id="316" Count="1" />
-      <LineId Id="447" Count="0" />
+      <LineId Id="462" Count="0" />
       <LineId Id="321" Count="0" />
       <LineId Id="334" Count="0" />
       <LineId Id="337" Count="0" />
-      <LineId Id="340" Count="0" />
       <LineId Id="455" Count="4" />
       <LineId Id="341" Count="0" />
       <LineId Id="460" Count="1" />
       <LineId Id="350" Count="0" />
       <LineId Id="363" Count="0" />
-      <LineId Id="366" Count="0" />
       <LineId Id="370" Count="0" />
       <LineId Id="187" Count="0" />
       <LineId Id="450" Count="1" />
