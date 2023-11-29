@@ -11,11 +11,13 @@ END_VAR
 VAR
 	Sinus				: FB_CTRL_SIGNAL_GENERATOR;
 	SinusParams			: ST_CTRL_SIGNAL_GENERATOR_PARAMS;
-	SinusMode			: E_CTRL_MODE := E_CTRL_MODE.eCTRL_MODE_IDLE;
+	SinusMode			: E_CTRL_MODE := E_CTRL_MODE.eCTRL_MODE_ACTIVE;
 	rSetVelo			: REAL := 300;
 	rSetAcc				: REAL := 15;
 	rSetForce			: REAL := 800;
-	rSetPos				: REAL := 0;
+	rSetPos_R			: REAL := 0;
+	rSetPos_S			: REAL := 0;
+	rSetPos_T			: REAL := 0;
 	Modus				: Mode;
 	trigDown, trigUp	: R_TRIG;
 	bDOWN, bUp			: BOOL;
@@ -98,7 +100,7 @@ CASE Modus OF
 		
 	Mode.Position:
 		IF gvl.Automatik THEN
-			rSetPos	:= gvl.Eingabe_Sollposition;
+			rSetPos_R := rSetPos_S := rSetPos_T	:= gvl.Eingabe_Sollposition;
 		END_IF
 	
 	Mode.Tilt:
@@ -106,21 +108,21 @@ CASE Modus OF
 	
 	Mode.Sinus:
 		SinusParams.eSignalType := E_CTRL_SIGNAL_TYPE.eCTRL_SINUS;
-		SinusParams.fAmplitude := MaxTravel - 2;
-		SinusParams.fOffset := 1;
-		SinusParams.tCtrlCycleTime := T#0S;
-		SinusParams.tCylceDuration := T#10S;
-		SinusParams.tTaskCycleTime := T#1mS;
+		SinusParams.fAmplitude := (MaxTravel - 2 ) / 2;
+		SinusParams.fOffset := MaxTravel / 2;
+		SinusParams.tCtrlCycleTime := T#1MS;
+		SinusParams.tCylceDuration := T#2S;
+		SinusParams.tTaskCycleTime := T#1MS;
 		Sinus(stParams := SinusParams);
 		Sinus.eMode := SinusMode;
-		rSetPos := LREAL_TO_REAL(Sinus.fOut);
+		rSetPos_R := rSetPos_S := rSetPos_T := LREAL_TO_REAL(Sinus.fOut);
 	
 	Mode.BallundPlate:
 		;
 END_CASE
-Axis_R.rSetPos	:= rSetPos;
-Axis_S.rSetPos	:= rSetPos;
-Axis_T.rSetPos	:= rSetPos;]]></ST>
+Axis_R.rSetPos	:= rSetPos_R;
+Axis_S.rSetPos	:= rSetPos_S;
+Axis_T.rSetPos	:= rSetPos_T;]]></ST>
       </Implementation>
     </Action>
     <Method Name="AC_WriteIOL" Id="{c734cd2c-844f-4cd9-8083-7e72d93ab94e}">
@@ -231,7 +233,7 @@ WriteIOL();]]></ST>
       <LineId Id="290" Count="1" />
       <LineId Id="316" Count="1" />
       <LineId Id="462" Count="0" />
-      <LineId Id="321" Count="0" />
+      <LineId Id="500" Count="0" />
       <LineId Id="334" Count="0" />
       <LineId Id="337" Count="0" />
       <LineId Id="455" Count="4" />
