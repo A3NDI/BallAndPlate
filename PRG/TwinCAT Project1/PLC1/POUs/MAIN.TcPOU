@@ -24,8 +24,8 @@ VAR
 	Modus				: Mode;
 	trigDown, trigUp	: R_TRIG;
 	bDOWN, bUp			: BOOL;
-	Test				: BOOL;
-	TestState			: INT	:= 0;
+	bBallOnPlate		: BOOL;
+	bBallonPlateButton	: BOOL := FALSE;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[Axis_R(stAxisName:='Achse 1');
@@ -90,6 +90,9 @@ END_IF
 
 GVL.Sinus_Aktiv := FALSE;
 GVL.BNP_Aktiv	:= FALSE;
+IF Modus <> Mode.BallundPlate THEN
+	bBallOnPlateButton := FALSE;
+END_IF
 
 CASE Modus OF
 	Mode.Off:
@@ -124,6 +127,8 @@ CASE Modus OF
 		rSetPos_R := rSetPos_S := rSetPos_T := LREAL_TO_REAL(Sinus.fOut);
 	
 	Mode.BallundPlate:
+		bBallOnPlate := bBallOnPlateButton;
+	
 		;
 END_CASE
 Axis_R.rSetPos	:= rSetPos_R;
@@ -166,7 +171,9 @@ Axis_T.rSetPos	:= rSetPos_T;]]></ST>
       <LineId Id="389" Count="0" />
       <LineId Id="452" Count="0" />
       <LineId Id="445" Count="0" />
-      <LineId Id="453" Count="1" />
+      <LineId Id="453" Count="0" />
+      <LineId Id="505" Count="2" />
+      <LineId Id="502" Count="0" />
       <LineId Id="240" Count="1" />
       <LineId Id="261" Count="0" />
       <LineId Id="417" Count="0" />
@@ -190,6 +197,8 @@ Axis_T.rSetPos	:= rSetPos_T;]]></ST>
       <LineId Id="460" Count="1" />
       <LineId Id="350" Count="0" />
       <LineId Id="363" Count="0" />
+      <LineId Id="501" Count="0" />
+      <LineId Id="504" Count="0" />
       <LineId Id="370" Count="0" />
       <LineId Id="187" Count="0" />
       <LineId Id="450" Count="1" />
