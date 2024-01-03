@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="eReglertyp" Id="{7f317934-ba09-467c-a948-3427cda6fac7}">
+    <Declaration><![CDATA[TYPE eReglertyp :
+(
+	P := 1,
+	I := 2,
+	PI := 3,
+	PDT1 := 4,
+	PIDT1 := 5
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

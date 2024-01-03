@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Regler" Id="{44949a79-438d-422a-b907-5d94ba8e8929}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide_all_locals' := ''}
+{attribute 'FBVisuCreator' := ''}
+{attribute 'FBVisuCreatorPrefix' := 'RET_VISU_'}
+FUNCTION_BLOCK Regler
+VAR_INPUT
+	/// Regelfehler e
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fE: REAL;
+	/// Vorsteuerung
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fY_FF: REAL;
+	{attribute 'FBVisuCreatorFormatString' := 'd'}
+	eTyp: eReglertyp;
+	{attribute 'FBVisuCreatorBoolColor' := 'Red'}
+	bReset: BOOL;
+	/// Verstärkung Kr
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fKr: REAL;
+	/// Nachstellzeit Tn
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fTn: REAL;
+	/// Vorhaltezeit Tv
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fTv: REAL;
+	/// Zeitkonstante T1 für reales DT1-Verhalten
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fTvz: REAL;
+	/// Aktivierung Anti-WindUp
+	{attribute 'FBVisuCreatorBoolColor' := 'Red'}
+	bEnable_AWU: BOOL := TRUE;
+	/// Oberes Limit Anti-WindUp
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fYlim_max: REAL;
+	/// Unteres Limit Anti-WindUp
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fYlim_min: REAL;
+END_VAR
+VAR_OUTPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fY_RE: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fProportional: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fIntegral: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fDifferential: REAL;
+	{attribute 'FBVisuCreatorBoolColor' := 'Red'}
+	bAct_UL: BOOL := FALSE;
+	{attribute 'FBVisuCreatorBoolColor' := 'Red'}
+	bAct_LL: BOOL := FALSE;
+END_VAR
+VAR
+	{attribute 'hide'}
+	dt1: DT1;
+	/// Freigabesignal P-Anteil
+	{attribute 'hide'}
+	bEnKr: BOOL;
+	/// Freigabesignal I-Anteil
+	{attribute 'hide'}
+	bEnTn: BOOL;
+	/// Freigabesignal D-Anteil
+	{attribute 'hide'}
+	bEnTv: BOOL;
+	{attribute 'hide'}
+	fIntegralCalc: REAL;
+	{attribute 'hide'}
+	fDy: REAL;
+	{attribute 'hide'}
+	fDx: REAL;
+	{attribute 'hide'}
+	fXeAlt: REAL;
+	{attribute 'hide'}
+	fYcalc: REAL;
+	{attribute 'hide'}
+	fYcalc_lim: REAL;
+	{attribute 'hide'}
+	fAvoidZero: REAL := 0.001;
+	///tonStartup: TON;
+	{attribute 'hide'}
+	bResetTvz: BOOL;
+	{attribute 'hide'}
+	bP_Regler: BOOL;
+	{attribute 'hide'}
+	bI_Regler: BOOL;
+	{attribute 'hide'}
+	bPI_Regler: BOOL;
+	{attribute 'hide'}
+	bPDT1_Regler: BOOL;
+	{attribute 'hide'}
+	bPIDT1_Regler: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Revisionhistory:
+// -------------------------------------------------------------------------------------------------------------
+// 2020-12-02, tr
+// - Struktur/Implementation entspricht 1:1 derjenigen von BORIS mit Begrenzung Anti-WindUp Halt
+// - Anti-WindUp komplett innerhalb dieses FB implementiert
+// - zusätzliche Eingangsgrösse (rY_FF) für Einkopplung Vorsteuerungsanteil der Stellgrösse
+
+// Grundlegende Reglerstruktur PID-T1-Regler:
+// G(jw) = Kr*[1+1/(Tn*jw)+(Tv*jw/(1+Tvz*jw)]
+
+Reglertyp();
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Berechnung P-Anteil
+IF bEnKr THEN // P-Anteil aktiv?
+	fProportional := fKr*fE;
+ELSE
+	fKr := 1.0; // muss gesetzt werden, da sonst I-Anteil bei reinem I-Regler, aufgrund Struktur, nicht funktionieren würde.
+	fProportional := 0;
+END_IF
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Berechnung I-Anteil
+IF bEnTn THEN // I-Anteil aktiv?
+	fIntegralCalc := fKr*(fE*RET_COMMON.fDt)/MAX(fTn,fAvoidZero);
+ELSE
+	fIntegral := 0;
+END_IF
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Auswertung Anti-WindUp, angepasst: 1.12.2020, tr
+IF (fIntegral + fY_FF) >= (fYlim_max - fY_FF) AND fE > 0 AND bEnable_AWU THEN // I-Anteil halten, im Fall yI (nur I-Anteil) am oberen Limit und w > x
+	fIntegral := fIntegral;
+ELSIF (fIntegral + fY_FF) <= (fYlim_min + fY_FF) AND fE < 0 AND bEnable_AWU THEN // I-Anteil halten, im Fall yI (nur I-Anteil) am unteren Limit und w < x
+	fIntegral := fIntegral;
+ELSE
+	fIntegral := fIntegral+ fIntegralCalc; // Integrieren / Summieren
+END_IF
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Berechnung DT1-Anteil, neu mittels Aufruf DT1-Grundglied realisiert
+IF bEnTv AND (fTvz >= 2.0*RET_COMMON.fDt) THEN
+	dt1(fE:=fKr*fE, fTv:=fTv , fTvz:=fTvz, fA=>fDifferential);
+ELSE
+	fDifferential := 0;
+END_IF
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Addition aller drei Teilkomponenten (P,I und DT1-Anteil)
+// Die Implementation der Begrenzung (Anti-WindUp) entspricht der Umsetzung von BORIS, d.h. solange die Summe
+// der beiden Anteile (P + I) ausserhalb der Limits sind wird das entsprechende Limit + D-Anteil als 
+// Stellgrösse ausgegeben -> siehe nachfolgende Zeilen. Ansonsten werden sämtliche drei Anteile (P + I + D)
+// addiert. Anpassung: 1.12.2020, tr
+IF fProportional + fIntegral + fY_FF >= (fYlim_max - fY_FF) AND bEnable_AWU THEN
+	fYcalc := fYlim_max + fDifferential;
+
+ELSIF fProportional + fIntegral + fY_FF <= (fYlim_min + fY_FF) AND bEnable_AWU  THEN
+	fYcalc := fYlim_min + fDifferential;
+
+ELSE
+	fYcalc := fProportional + fIntegral + fY_FF + fDifferential;
+END_IF
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Anti-WindUp
+IF bEnable_AWU THEN
+	IF fYcalc <= fYlim_max AND fYcalc >= fYlim_min THEN
+		bAct_UL := FALSE;
+		bAct_LL := FALSE;
+	ELSIF fYcalc > fYlim_max THEN
+			bAct_UL := TRUE;
+			bAct_LL := FALSE;
+	ELSIF fYcalc < fYlim_min THEN
+		bAct_LL := TRUE;
+		bAct_UL := FALSE;
+	END_IF
+	fY_RE := LIMIT(fYlim_min, fYcalc, fYlim_max);
+ELSE
+	fY_RE := fYcalc;
+	bAct_LL := FALSE;
+	bAct_UL := FALSE;
+END_IF
+
+IF bReset THEN
+	this^.reset();
+END_IF
+]]></ST>
+    </Implementation>
+    <Action Name="Reglertyp" Id="{cdad1591-340c-4c4a-bb2b-d9d9d48e0e3c}">
+      <Implementation>
+        <ST><![CDATA[// Auswahl möglicher Reglerkonfigurationen
+CASE eTyp OF
+	 eReglertyp.P:
+	 	bP_Regler := TRUE;
+		bI_Regler := FALSE;
+		bPI_Regler := FALSE;
+		bPDT1_Regler := FALSE;
+		bPIDT1_Regler := FALSE;
+		bEnKr := TRUE; // Freigabesignal P-Anteil
+		bEnTn := FALSE; // Freigabesignal I-Anteil
+		bEnTv := FALSE; // Freigabesignal D-Anteil;
+
+	eReglertyp.I:
+		bP_Regler := FALSE;
+		bI_Regler := TRUE;
+		bPI_Regler := FALSE;
+		bPDT1_Regler := FALSE;
+		bPIDT1_Regler := FALSE;
+	 	bEnKr := FALSE; // Freigabesignal P-Anteil
+		bEnTn := TRUE; // Freigabesignal I-Anteil
+		bEnTv := FALSE; // Freigabesignal D-Anteil
+		
+		
+	 eReglertyp.PI:
+	 	bP_Regler := FALSE;
+		bI_Regler := FALSE;
+		bPI_Regler := TRUE;
+		bPDT1_Regler := FALSE;
+		bPIDT1_Regler := FALSE;
+	 	bEnKr := TRUE; // Freigabesignal P-Anteil
+		bEnTn := TRUE; // Freigabesignal I-Anteil
+		bEnTv := FALSE; // Freigabesignal D-Anteil
+				
+	eReglertyp.PDT1:
+		bP_Regler := FALSE;
+		bI_Regler := FALSE;
+		bPI_Regler := FALSE;
+		bPDT1_Regler := TRUE;
+		bPIDT1_Regler := FALSE;
+	 	bEnKr := TRUE; // Freigabesignal P-Anteil
+		bEnTn := FALSE; // Freigabesignal I-Anteil
+		bEnTv := TRUE; // Freigabesignal D-Anteil
+		
+	eReglertyp.PIDT1:
+		bP_Regler := FALSE;
+		bI_Regler := FALSE;
+		bPI_Regler := FALSE;
+		bPDT1_Regler := FALSE;
+		bPIDT1_Regler := TRUE;
+	 	bEnKr := TRUE; // Freigabesignal P-Anteil
+		bEnTn := TRUE; // Freigabesignal I-Anteil
+		bEnTv := TRUE; // Freigabesignal D-Anteil
+	
+END_CASE]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="reset" Id="{3fbc0eee-6ede-4ab6-bbe2-ee3c1f837bc0}">
+      <Implementation>
+        <ST><![CDATA[fProportional := 0.0;
+fIntegral := 0.0;
+fDifferential := 0.0;
+dt1.reset();
+//fTv := 0.0;
+fY_RE := 0.0;]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="Regler">
+      <LineId Id="3" Count="86" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Regler.Reglertyp">
+      <LineId Id="2" Count="52" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="Regler.reset">
+      <LineId Id="2" Count="4" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

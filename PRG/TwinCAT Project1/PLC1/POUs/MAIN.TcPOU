@@ -31,6 +31,7 @@ Axis_T(stAxisName:='Achse 3');
 Touchpanel();
 //Allgemein();
 AC_ModeSelection();
+CONTROLLER();
 
 ]]></ST>
     </Implementation>
@@ -187,7 +188,9 @@ WriteIOL();]]></ST>
     </Method>
     <LineIds Name="MAIN">
       <LineId Id="146" Count="4" />
-      <LineId Id="155" Count="1" />
+      <LineId Id="155" Count="0" />
+      <LineId Id="179" Count="0" />
+      <LineId Id="156" Count="0" />
       <LineId Id="151" Count="0" />
     </LineIds>
     <LineIds Name="MAIN.AC_ModeSelection">

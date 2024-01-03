@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="P" Id="{677e4a91-4bf3-4262-8ac1-b303329eb64f}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide_all_locals' := ''}
+{attribute 'FBVisuCreator' := ''}
+{attribute 'FBVisuCreatorPrefix' := 'RET_VISU_'}
+FUNCTION_BLOCK P
+VAR_INPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fX: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fK: REAL;
+	{attribute 'FBVisuCreatorBoolColor' := 'Red'}
+	bReset: BOOL;
+END_VAR
+VAR_OUTPUT
+	fY: REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fY := fX*fK;
+IF bReset THEN
+	fY := 0.0;
+END_IF
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="P">
+      <LineId Id="3" Count="4" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

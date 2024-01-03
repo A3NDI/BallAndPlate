@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="eFiltertyp" Id="{44d1ec65-7fd9-45d9-a612-819cb16c8945}">
+    <Declaration><![CDATA[TYPE eFiltertyp :
+(
+	NONE_ := 1,
+	TIEFPASS := 2,
+	HOCHPASS := 3
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

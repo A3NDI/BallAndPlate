@@ -65,11 +65,17 @@
     <Compile Include="POUs\Archiv\MC.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\CONTROLLER.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControllerNew.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FBCylTronicCylinder.TcPOU">
       <SubType>Code</SubType>
       <External>false</External>
     </Compile>
-    <Compile Include="POUs\Logger_RET.TcPOU">
+    <Compile Include="POUs\FB_Transformation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
@@ -78,6 +84,115 @@
     <Compile Include="POUs\Allgemein.TcPOU">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\DT1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\eFiltertyp.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\eReglertyp.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\eSignalform.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\Integrator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\Kennlinie.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\Logger_RET.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\P.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\PT1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\PT2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\PT2s.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\PTt.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\Rauschen.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\Regler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\RET_COMMON.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\Signalgenerator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\Strecke.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\RET_VISU_DT1.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\RET_VISU_Integrator.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\RET_VISU_Kennlinie.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\RET_VISU_P.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\RET_VISU_PT1.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\RET_VISU_PT2.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\RET_VISU_PT2s.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\RET_VISU_PTt.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\RET_VISU_Regler.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\RET_VISU_Signalgenerator.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\RET_VISU_Strecke.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\TextListForCombobox_eReglertyp.TcTLO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\TextListForCombobox_eSignalform.TcTLO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\VISU_HELPER_Combobox_eReglertyp.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\visu\VISU_HELPER_Combobox_eSignalform.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
     </Compile>
     <Compile Include="POUs\Touchpanel.TcPOU">
       <SubType>Code</SubType>
@@ -133,6 +248,8 @@
     <Folder Include="DUTs\CyltronicCom" />
     <Folder Include="GVLs" />
     <Folder Include="POUs\Archiv" />
+    <Folder Include="POUs\Regelungstechnik" />
+    <Folder Include="POUs\Regelungstechnik\visu" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
     <Folder Include="VISUs\Archiv" />

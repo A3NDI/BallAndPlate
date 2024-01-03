@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Transformation" Id="{4ca8fcaa-4746-4fdc-a140-519d23111a4d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Transformation
+VAR_INPUT
+rAxisPos_R		:REAL;
+rAxisPos_S		:REAL;
+rAxisPos_T		:REAL;
+rMarblePos_X	:REAL;
+rMarblePos_Y	:REAL;
+rSetPos_X		:REAL;
+rSetPos_y		:REAL;
+rAlpha_X		:REAL;
+rAlpha_Y		:REAL;
+END_VAR
+VAR
+rPos_X			:REAL;
+rPos_Y			:REAL;
+END_VAR
+VAR_OUTPUT
+rSetPos_R		:REAL;
+rSetPos_S		:REAL;
+rSetPos_T		:REAL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rPos_X := Touchpanel.touch_scale_x / COS(rAlpha_X);
+rPos_Y := Touchpanel.touch_scale_y / COS(rAlpha_Y);
+rSetPos_R := ((1 - rPos_X) * rSetPos_X) + ((0 - rPos_Y) * rSetPos_Y);
+rSetPos_S := ((-0.5 - rPos_X) * rSetPos_X) + ((0.8660254037844386 - rPos_Y) * rSetPos_Y);
+rSetPos_T := ((-0.5 - rPos_X) * rSetPos_X) + ((-0.8660254037844386 - rPos_Y) * rSetPos_Y);]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Transformation">
+      <LineId Id="30" Count="3" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

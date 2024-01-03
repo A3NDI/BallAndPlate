@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PT2" Id="{f520261a-a140-46b2-9086-039644bf6556}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide_all_locals' := ''}
+{attribute 'FBVisuCreator' := ''}
+{attribute 'FBVisuCreatorPrefix' := 'RET_VISU_'}
+FUNCTION_BLOCK PT2
+VAR_INPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fX: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fK: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fT1: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fT2: REAL;
+	{attribute 'FBVisuCreatorBoolColor' := 'Red'}
+	bReset: BOOL;
+END_VAR
+VAR_OUTPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fY: REAL;
+END_VAR
+VAR
+	{attribute 'hide'}
+	fZeta: REAL;
+	{attribute 'hide'}
+	fOmega: REAL;
+	{attribute 'hide'}
+	fXX: REAL;
+	{attribute 'hide'}
+	fDx: REAL;
+	{attribute 'hide'}
+	fDy: REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Umrechnung der Faktoren in PT2s
+fOmega := 1/SQRT(MAX(fT1*fT2, 0.001));
+fZeta := fOmega*(fT1+fT2)/2.0;
+
+IF bReset THEN
+	reset();
+END_IF
+
+fDy := RET_COMMON.fDt*fOmega*fXX;
+fDx := RET_COMMON.fDt*fOmega*(fK*fX - fY - 2*fZeta*fXX);
+fXX := fXX + fDx;
+fY := fY + fDy;
+
+]]></ST>
+    </Implementation>
+    <Action Name="reset" Id="{bc5adeb1-ba6c-4c92-92b4-d47a83fa97cb}">
+      <Implementation>
+        <ST><![CDATA[fXX := 0.0;
+fY := 0.0;]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="PT2">
+      <LineId Id="3" Count="12" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PT2.reset">
+      <LineId Id="2" Count="0" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
