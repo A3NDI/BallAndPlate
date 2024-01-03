@@ -12,6 +12,9 @@ VAR
 	Sinus				: FB_CTRL_SIGNAL_GENERATOR;
 	SinusParams			: ST_CTRL_SIGNAL_GENERATOR_PARAMS;
 	SinusMode			: E_CTRL_MODE := E_CTRL_MODE.eCTRL_MODE_ACTIVE;
+	rXBallPos			: REAL; //normated Ball Position X Axis
+	rYBallPos			: REAL; //normated Ball Position Y Axis
+	rMaxTouchPos		: REAL := 363 / 2;
 	rSetVelo			: REAL := 300;
 	rSetAcc				: REAL := 15;
 	rSetForce			: REAL := 800;
@@ -31,6 +34,8 @@ Axis_T(stAxisName:='Achse 3');
 Touchpanel();
 //Allgemein();
 AC_ModeSelection();
+rXBallPos := Touchpanel.touch_scale_y.rX_mm / rMaxTouchPos;
+rYBallPos := Touchpanel.touch_scale_y.rX_mm / rMaxTouchPos;
 CONTROLLER();
 
 ]]></ST>
@@ -126,69 +131,10 @@ Axis_S.rSetPos	:= rSetPos_S;
 Axis_T.rSetPos	:= rSetPos_T;]]></ST>
       </Implementation>
     </Action>
-    <Method Name="AC_WriteIOL" Id="{c734cd2c-844f-4cd9-8083-7e72d93ab94e}">
-      <Declaration><![CDATA[METHOD AC_WriteIOL : BOOL
-VAR_INPUT
-	IO_Link_AMS 	: T_AmsNetId;
-	ADDR 			: E_IolPort;
-	Index			: BYTE;
-	Buffer			: PVOID;
-	BufferSize		: UDINT;
-	bExecute		: BOOL 			:= FALSE;
-END_VAR
-VAR
-	nSubindex		: BYTE 			:= 0;
-	WriteIOL 		: FB_IolWrite;
-	WriteIOLState	: INT			:= 0;
-END_VAR
-VAR_OUTPUT
-	bError			: BOOL			:= FALSE;
-	ErrorID			: UDINT			:= 0;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[CASE WriteIOLState OF
-	0:	//Ready for Read
-		WriteIOL(bExecute := FALSE);
-		IF NOT WriteIOL.bBusy AND bExecute THEN
-			WriteIOL(sNetId := IO_Link_AMS);
-			WriteIOL(nIolPort := ADDR);
-			WriteIOL(nIndex := Index);
-			WriteIOL(nSubindex := nSubindex);
-			WriteIOL(cbBufLen := BufferSize);
-			WriteIOL(pSRCBuf := Buffer);
-			WriteIOL(bExecute := TRUE);
-			AC_WriteIOL := FALSE;
-			bExecute := FALSE;
-			bError := FALSE;
-			ErrorID := 0;
-			WriteIOLState := 1;
-		END_IF
-	1:	//Reading
-		IF WriteIOL.bError THEN
-			WriteIOLState := 99;
-		ELSIF WriteIOL.bBusy THEN
-			WriteIOLState := 2;
-		END_IF;
-	2:	//Waiting for reading done
-		IF WriteIOL.bError THEN
-			WriteIOLState := 99;
-		ELSIF WriteIOL.bDone THEN
-			AC_WriteIOL := TRUE;
-			WriteIOLState := 0;
-		END_IF;
-	99:	
-		WriteIOL(bError=>bError);
-		WriteIOL(nIolError=>ErrorID);
-		WriteIOLState := 0;
-	ELSE;
-END_CASE
-
-WriteIOL();]]></ST>
-      </Implementation>
-    </Method>
     <LineIds Name="MAIN">
       <LineId Id="146" Count="4" />
       <LineId Id="155" Count="0" />
+      <LineId Id="180" Count="1" />
       <LineId Id="179" Count="0" />
       <LineId Id="156" Count="0" />
       <LineId Id="151" Count="0" />
@@ -248,10 +194,6 @@ WriteIOL();]]></ST>
       <LineId Id="187" Count="0" />
       <LineId Id="450" Count="1" />
       <LineId Id="449" Count="0" />
-    </LineIds>
-    <LineIds Name="MAIN.AC_WriteIOL">
-      <LineId Id="137" Count="36" />
-      <LineId Id="5" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedSymbol>
+      <Type guid="b84ebbff-e801-44b3-94c3-a0d8fc24ee45">xy_RST_Transformation_dynamisch</Type>
+      <From>kx_norm</From>
+      <To>rKx</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="b84ebbff-e801-44b3-94c3-a0d8fc24ee45">xy_RST_Transformation_dynamisch</Type>
+      <From>ky_norm</From>
+      <To>rKy</To>
+    </RenamedSymbol>
+  </Renames>
+</Refactors>

@@ -450,7 +450,7 @@
 				<IoIdleTask Priority="8" CycleTime="20000"/>
 			</Settings>
 			<Tasks>
-				<Task Id="3" Priority="1" CycleTime="10000" AmsPort="350" DisableFpExceptions="true" AdtTasks="true">
+				<Task Id="3" Priority="1" CycleTime="20000" AmsPort="350" DisableFpExceptions="true" AdtTasks="true">
 					<Name>PLC_TASK</Name>
 				</Task>
 				<Task Id="6" Priority="12" CycleTime="2000000" AmsPort="351" DisableFpExceptions="true" AdtTasks="true">
@@ -607,7 +607,7 @@
 								<OTCID>#x02010030</OTCID>
 							</ManualConfig>
 							<Priority>1</Priority>
-							<CycleTime>1000000</CycleTime>
+							<CycleTime>2000000</CycleTime>
 						</Context>
 						<Context>
 							<Id>1</Id>

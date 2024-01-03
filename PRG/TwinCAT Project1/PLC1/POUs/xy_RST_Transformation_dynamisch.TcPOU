@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="xy_RST_Transformation_dynamisch" Id="{b84ebbff-e801-44b3-94c3-a0d8fc24ee45}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK xy_RST_Transformation_dynamisch
+VAR_INPUT
+	rX_X_pu: REAL;  // Aktuelle Position x-Achse (normiert auf die halbe Achslänge)
+	rX_Y_pu: REAL;  // Aktuelle Position y-Achse (normiert auf die halbe Achslänge)
+	rT_x: REAL; // Winkel x-Achse
+	rT_y: REAL; // Winkel y-Achse
+END_VAR
+VAR_OUTPUT
+	rT_r: REAL; // Winkel R-Achse
+	rT_s: REAL; // Winkel S-Achse
+	rT_t: REAL; // Winkel T-Achse	
+END_VAR
+VAR CONSTANT
+	PI		: REAL := 4 * ATAN(1);
+END_VAR
+VAR
+	rKx : REAL; //
+	rKy : REAL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rKx := (rX_X_pu / COS(rT_x / 180 * PI));
+rKy := (rX_Y_pu / COS(rT_y / 180 * PI));
+
+rT_r := (1 - rKx) * rT_x + (0 - rKy) * rT_y;
+rT_s := (-0.5 - rKx)* rT_x + ((SQRT(3) / 2) - rKy) * rT_y;
+rT_t := (-0.5 - rKx)* rT_x - ((SQRT(3) / 2) + rKy) * rT_y;]]></ST>
+    </Implementation>
+    <LineIds Name="xy_RST_Transformation_dynamisch">
+      <LineId Id="74" Count="4" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
