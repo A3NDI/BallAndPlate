@@ -59,7 +59,7 @@ ELSE
 	END_IF
 	DataOut.CyltronicDataOutAct.TargetPosition		:= LIMIT(0,rSetPos + iPosOffset,MaxTravel);
 	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.FreePosPro;
-	iPosOffset := 0;
+	//iPosOffset := 0;
 END_IF
 
 //Outputs

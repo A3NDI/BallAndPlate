@@ -21,8 +21,8 @@ VAR
 	rKy : REAL;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[rKx := (rX_X_pu / COS(rT_x / 180 * PI));
-rKy := (rX_Y_pu / COS(rT_y / 180 * PI));
+      <ST><![CDATA[rKx := (rX_X_pu / COS((rT_x / 3) / 180 * PI));
+rKy := (rX_Y_pu / COS((rT_y / 3) / 180 * PI));
 
 rT_r := (1 - rKx) * rT_x + (0 - rKy) * rT_y;
 rT_s := (-0.5 - rKx)* rT_x + ((SQRT(3) / 2) - rKy) * rT_y;

@@ -26,8 +26,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-//Inputs
+      <ST><![CDATA[//Inputs
 Up(CLK:=gvl.UP);
 Down(CLK:=gvl.Down);
 
@@ -190,7 +189,7 @@ ELSE
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="Allgemein">
-      <LineId Id="695" Count="160" />
+      <LineId Id="1039" Count="159" />
       <LineId Id="303" Count="0" />
     </LineIds>
   </POU>

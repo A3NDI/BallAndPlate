@@ -5,7 +5,7 @@
 PROGRAM RET_COMMON
 VAR_INPUT
 	/// Zykluszeit Main-Task
-	fDt: REAL := 0.002;
+	fDt: REAL := 0.001;
 END_VAR
 ]]></Declaration>
     <Implementation>

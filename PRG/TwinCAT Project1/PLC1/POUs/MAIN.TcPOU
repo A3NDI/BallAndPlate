@@ -3,9 +3,12 @@
   <POU Name="MAIN" Id="{60bc0b30-1cdb-42b0-8bc7-ac64af597b82}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR_INPUT
-	Axis_R				: FBCylTronicCylinder;
-	Axis_S				: FBCyltronicCylinder;
+	Axis_S				: FBCylTronicCylinder;
 	Axis_T				: FBCyltronicCylinder;
+	Axis_R				: FBCyltronicCylinder;
+	rSetPos_R			: REAL := 0;
+	rSetPos_S			: REAL := 0;
+	rSetPos_T			: REAL := 0;
 END_VAR
 
 VAR
@@ -18,9 +21,6 @@ VAR
 	rSetVelo			: REAL := 300;
 	rSetAcc				: REAL := 15;
 	rSetForce			: REAL := 800;
-	rSetPos_R			: REAL := 0;
-	rSetPos_S			: REAL := 0;
-	rSetPos_T			: REAL := 0;
 	Modus				: Mode;
 	trigDown, trigUp	: R_TRIG;
 	bDOWN, bUp			: BOOL;
@@ -34,8 +34,8 @@ Axis_T(stAxisName:='Achse 3');
 Touchpanel();
 //Allgemein();
 AC_ModeSelection();
-rXBallPos := Touchpanel.touch_scale_y.rX_mm / rMaxTouchPos;
-rYBallPos := Touchpanel.touch_scale_y.rX_mm / rMaxTouchPos;
+rXBallPos := (Touchpanel.touch_scale_x.rX_mm - rMaxTouchPos) / rMaxTouchPos;
+rYBallPos := (Touchpanel.touch_scale_y.rX_mm - (294/2)) / rMaxTouchPos;
 CONTROLLER();
 
 ]]></ST>
@@ -92,6 +92,7 @@ GVL.Sinus_Aktiv := FALSE;
 GVL.BNP_Aktiv	:= FALSE;
 IF Modus <> Mode.BallundPlate THEN
 	bBallOnPlateButton := FALSE;
+	bBallOnPlate := FALSE;
 END_IF
 
 CASE Modus OF
@@ -119,9 +120,9 @@ CASE Modus OF
 		SinusParams.eSignalType := E_CTRL_SIGNAL_TYPE.eCTRL_SINUS;
 		SinusParams.fAmplitude := (MaxTravel - 2 ) / 2;
 		SinusParams.fOffset := MaxTravel / 2;
-		SinusParams.tCtrlCycleTime := T#1MS;
+		SinusParams.tCtrlCycleTime := T#2MS;
 		SinusParams.tCylceDuration := T#2S;
-		SinusParams.tTaskCycleTime := T#1MS;
+		SinusParams.tTaskCycleTime := T#2MS;
 		Sinus(stParams := SinusParams);
 		Sinus.eMode := SinusMode;
 		rSetPos_R := rSetPos_S := rSetPos_T := LREAL_TO_REAL(Sinus.fOut);
@@ -172,7 +173,9 @@ Axis_T.rSetPos	:= rSetPos_T;]]></ST>
       <LineId Id="452" Count="0" />
       <LineId Id="445" Count="0" />
       <LineId Id="453" Count="0" />
-      <LineId Id="505" Count="2" />
+      <LineId Id="505" Count="1" />
+      <LineId Id="508" Count="0" />
+      <LineId Id="507" Count="0" />
       <LineId Id="502" Count="0" />
       <LineId Id="240" Count="1" />
       <LineId Id="261" Count="0" />
