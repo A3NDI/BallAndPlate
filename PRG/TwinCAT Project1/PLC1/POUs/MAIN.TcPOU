@@ -34,8 +34,8 @@ Axis_T(stAxisName:='Achse 3');
 Touchpanel();
 //Allgemein();
 AC_ModeSelection();
-rXBallPos := (Touchpanel.touch_scale_x.rX_mm - rMaxTouchPos) / rMaxTouchPos;
-rYBallPos := (Touchpanel.touch_scale_y.rX_mm - (294/2)) / rMaxTouchPos;
+rXBallPos := (Touchpanel.touch_scale_x.rX_mm - rMaxTouchPos);// / rMaxTouchPos;
+rYBallPos := (Touchpanel.touch_scale_y.rX_mm - (294/2)); // / rMaxTouchPos;
 CONTROLLER();
 
 ]]></ST>

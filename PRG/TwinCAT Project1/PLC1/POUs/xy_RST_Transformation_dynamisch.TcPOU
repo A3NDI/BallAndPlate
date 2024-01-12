@@ -5,31 +5,63 @@
 VAR_INPUT
 	rX_X_pu: REAL;  // Aktuelle Position x-Achse (normiert auf die halbe Achslänge)
 	rX_Y_pu: REAL;  // Aktuelle Position y-Achse (normiert auf die halbe Achslänge)
-	rT_x: REAL; // Winkel x-Achse
-	rT_y: REAL; // Winkel y-Achse
+	rT_x: REAL; // Sollpos x-Achse
+	rT_y: REAL; // Sollpos y-Achse
+	rT_R_act: REAL; // Actual Position R-Axis 
+	rT_S_act: REAL; // Actual Position S-Axis 
+	rT_T_act: REAL; // Actual Position T-Axis 
+	
 END_VAR
 VAR_OUTPUT
-	rT_r: REAL; // Winkel R-Achse
-	rT_s: REAL; // Winkel S-Achse
-	rT_t: REAL; // Winkel T-Achse	
+	
+	rT_r: REAL; // Sollpos R-Achse
+	rT_s: REAL; // Sollpos S-Achse
+	rT_t: REAL; // Sollpos T-Achse	
 END_VAR
-VAR CONSTANT
+VAR 
+	a 		: REAL := 200; //distance to mittle of ground from Axis
+	c 		: REAL := 165; //distance to middle of plate from Axis
+	d		: REAL := 371; // Axis lenght when all the was in
+	alpha	: REAL := 85.75; // Angle of Axis to Ground
+	offset	: REAL := 34.905; // offset of axis on ground when 100mm out
 	PI		: REAL := 4 * ATAN(1);
 END_VAR
 VAR
+	r_h_R : REAL; //height of Axis plumb
+	r_h_S : REAL; //height of Axis plumb
+	r_h_T : REAL; //height of Axis plumb
+	
+	rmiddle: REAL; // hight of the middle of the plate
+	rAngx : REAL; //angle for X Axis
+	rAngy : REAL; //angle for Y Axis
 	rKx : REAL; //
 	rKy : REAL;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[rKx := (rX_X_pu / COS((rT_x / 3) / 180 * PI));
-rKy := (rX_Y_pu / COS((rT_y / 3) / 180 * PI));
+      <ST><![CDATA[r_h_R := SQRT((d+rT_R_act)*(d+rT_R_act)-2*(d+rT_R_act)*offset*COS(alpha)+offset*offset);
+r_h_S := SQRT((d+rT_S_act)*(d+rT_S_act)-2*(d+rT_S_act)*offset*COS(alpha)+offset*offset);
+r_h_T := SQRT((d+rT_T_act)*(d+rT_T_act)-2*(d+rT_T_act)*offset*COS(alpha)+offset*offset);
+
+rmiddle := (r_h_R + r_h_S + r_h_T)/3;
+rAngx := RAD_TO_DEG(SIN((r_h_R - rmiddle)/c));
+rAngy := RAD_TO_DEG(TAN((r_h_T - r_h_S)/285.788));
+rKx := (rX_X_pu / COS(rAngx / 180 * PI));
+rKy := (rX_Y_pu / COS(rAngy / 180 * PI));
 
 rT_r := (1 - rKx) * rT_x + (0 - rKy) * rT_y;
 rT_s := (-0.5 - rKx)* rT_x + ((SQRT(3) / 2) - rKy) * rT_y;
 rT_t := (-0.5 - rKx)* rT_x - ((SQRT(3) / 2) + rKy) * rT_y;]]></ST>
     </Implementation>
     <LineIds Name="xy_RST_Transformation_dynamisch">
-      <LineId Id="74" Count="4" />
+      <LineId Id="104" Count="0" />
+      <LineId Id="113" Count="1" />
+      <LineId Id="125" Count="0" />
+      <LineId Id="115" Count="1" />
+      <LineId Id="120" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="77" Count="1" />
       <LineId Id="9" Count="0" />
     </LineIds>
   </POU>
