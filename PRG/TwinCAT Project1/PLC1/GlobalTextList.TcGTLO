@@ -209,6 +209,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1072"</v>
+              <v n="TextDefault">"Ball is placed"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"1300"</v>
               <v n="TextDefault">"Ball on Plate"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -753,6 +758,16 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"646"</v>
+              <v n="TextDefault">"press this button when you have placed the ball on the plate"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1491"</v>
+              <v n="TextDefault">"press this button when you have placed the ball on the plate. the machine will then start to balance it"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"767"</v>
               <v n="TextDefault">"PT1"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -1088,6 +1103,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
             <o>
               <v n="TextID">"430"</v>
               <v n="TextDefault">"spiegelung an x=y"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"561"</v>
+              <v n="TextDefault">"start logger"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

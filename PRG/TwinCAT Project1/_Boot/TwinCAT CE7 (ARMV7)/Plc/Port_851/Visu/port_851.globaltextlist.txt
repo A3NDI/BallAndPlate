@@ -39,6 +39,7 @@ Id;Default
 949;bAct_UL
 515;bAktiviert
 321;Ball and Plate
+1072;Ball is placed
 1300;Ball on Plate
 144;Ball onPlate
 427;bEnable
@@ -145,6 +146,8 @@ Id;Default
 700;Position Achse 2
 661;Position Achse 3
 1821;Position Touchpanel
+646;press this button when you have placed the ball on the plate
+1491;press this button when you have placed the ball on the plate. the machine will then start to balance it
 767;PT1
 618;PT2
 924;PT2s
@@ -212,6 +215,7 @@ Id;Default
 852;Sollposition
 178;Sollposition Achse 1
 430;spiegelung an x=y
+561;start logger
 930;Status R$R$N%x
 1350;Steigungswinkel!
 224;Strecke

@@ -15,11 +15,11 @@ VAR
 	Sinus				: FB_CTRL_SIGNAL_GENERATOR;
 	SinusParams			: ST_CTRL_SIGNAL_GENERATOR_PARAMS;
 	SinusMode			: E_CTRL_MODE := E_CTRL_MODE.eCTRL_MODE_ACTIVE;
-	rXBallPos			: REAL; //normated Ball Position X Axis
-	rYBallPos			: REAL; //normated Ball Position Y Axis
+	rXBallPos			: REAL; //Ball Position X Axis in mm
+	rYBallPos			: REAL; //Ball Position Y Axis in mm
 	rMaxTouchPos		: REAL := 363 / 2;
 	rSetVelo			: REAL := 300;
-	rSetAcc				: REAL := 15;
+	rSetAcc				: REAL := 5;
 	rSetForce			: REAL := 800;
 	Modus				: Mode;
 	trigDown, trigUp	: R_TRIG;

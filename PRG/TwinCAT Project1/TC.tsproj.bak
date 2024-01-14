@@ -460,7 +460,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{D16E3D51-9F38-4EE8-A05B-F051BC982C40}" Name="PLC1" PrjFilePath="PLC1\PLC1.plcproj" TmcFilePath="PLC1\PLC1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="PLC1\PLC1.tmc" TmcHash="{18E2DF41-30AB-6B55-56F3-11CD8E128D97}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="PLC1\PLC1.tmc" TmcHash="{F4D7405D-5F7A-9C95-F295-828EA02903D7}">
 					<Name>PLC1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -493,10 +493,6 @@
 						<Var>
 							<Name>MAIN.Axis_T.DataIn</Name>
 							<Type GUID="{20E1FD31-F60E-D12A-D8C7-377CDE31349E}">CyltronicProcessDataIn</Type>
-						</Var>
-						<Var>
-							<Name>GVL.NOTAUS</Name>
-							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.Axis_R.DataIn</Name>
@@ -541,6 +537,10 @@
 						</Var>
 						<Var>
 							<Name>GVL.Netzgeraet48VOK</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL.NOTAUS</Name>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
