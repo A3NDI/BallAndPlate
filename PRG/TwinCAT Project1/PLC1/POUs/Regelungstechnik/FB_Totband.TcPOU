@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Totband" Id="{d9f76d3a-a277-4758-908c-b76ba2d94149}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Totband
+VAR_INPUT
+	rTotband : REAL := 2;
+	rPos : REAL;
+END_VAR
+VAR_OUTPUT
+	rPosFilt : REAL := 0;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF rPos > rTotband OR rPos < -rTotband THEN
+	rPosFilt := rPos;
+ELSE
+	rPosFilt := 0;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Totband">
+      <LineId Id="9" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="14" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

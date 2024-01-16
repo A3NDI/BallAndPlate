@@ -91,6 +91,9 @@
     <Compile Include="POUs\Regelungstechnik\eSignalform.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Regelungstechnik\FB_Totband.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Regelungstechnik\Integrator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
