@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_ReglerParam" Id="{5f26ae31-e15a-4209-a4e6-217379265502}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ReglerParam
+VAR_INPUT
+	ControllerNum : UINT := 0;
+END_VAR
+VAR_OUTPUT
+	rTotband : REAL := 1;
+	Reglertyp : eReglertyp := eReglertyp.PIDT1;
+	KP : REAL := -0.1;
+	Ti : REAL := 10;
+	Td : REAL := 0.9;
+	Tvz : REAL := 0.05;
+END_VAR
+VAR
+	T_rTotband : REAL := 1;
+	T_Reglertyp : eReglertyp := eReglertyp.PIDT1;
+	T_KP : REAL := -0.1;
+	T_Ti : REAL := 10;
+	T_Td : REAL := 0.9;
+	T_Tvz : REAL := 0.05;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE ControllerNum OF
+	0:
+		rTotband	:= 0;
+		Reglertyp 	:= eReglertyp.PIDT1;
+		KP			:= -0.1;
+		Ti			:= 10;
+		Td			:= 0.9;
+		Tvz			:= 0.05;
+	1:
+		rTotband	:= T_rTotband;                  
+		Reglertyp 	:= T_Reglertyp; 	
+		KP			:= T_KP;
+		Ti			:= T_Ti;		
+		Td			:= T_Td;		
+		Tvz			:= T_Tvz;			
+	2:
+		rTotband	:= 0;
+		Reglertyp 	:= eReglertyp.PIDT1;
+		KP			:= -0.043;
+		Ti			:= 10;
+		Td			:= 1.13;
+		Tvz			:= 0.05;
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="FB_ReglerParam">
+      <LineId Id="9" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="23" Count="4" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="35" Count="4" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="41" Count="3" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="19" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

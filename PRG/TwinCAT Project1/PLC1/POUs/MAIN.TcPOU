@@ -32,10 +32,14 @@ END_VAR]]></Declaration>
 Axis_S(stAxisName:='Achse 2');
 Axis_T(stAxisName:='Achse 3');
 Touchpanel();
-//Allgemein();
 AC_ModeSelection();
-rXBallPos := (Touchpanel.touch_scale_x.rX_mm - rMaxTouchPos);// / rMaxTouchPos;
-rYBallPos := (Touchpanel.touch_scale_y.rX_mm - (294/2)); // / rMaxTouchPos;
+IF CONTROLLER.bReAktiv THEN
+	rXBallPos := (Touchpanel.touch_scale_x.rX_mm - rMaxTouchPos);
+	rYBallPos := (Touchpanel.touch_scale_y.rX_mm - (294/2));
+ELSE
+	rXBallPos := -180;
+	rYBallPos := -142;
+END_IF
 CONTROLLER();
 
 ]]></ST>
@@ -138,9 +142,14 @@ Axis_T.rSetPos	:= rSetPos_T;]]></ST>
       </Implementation>
     </Action>
     <LineIds Name="MAIN">
-      <LineId Id="146" Count="4" />
+      <LineId Id="146" Count="3" />
       <LineId Id="155" Count="0" />
-      <LineId Id="180" Count="1" />
+      <LineId Id="180" Count="0" />
+      <LineId Id="207" Count="0" />
+      <LineId Id="181" Count="0" />
+      <LineId Id="208" Count="1" />
+      <LineId Id="211" Count="0" />
+      <LineId Id="210" Count="0" />
       <LineId Id="179" Count="0" />
       <LineId Id="156" Count="0" />
       <LineId Id="151" Count="0" />

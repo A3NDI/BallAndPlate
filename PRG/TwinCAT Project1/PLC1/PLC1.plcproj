@@ -76,6 +76,9 @@
       <SubType>Code</SubType>
       <External>false</External>
     </Compile>
+    <Compile Include="POUs\FB_ReglerParam.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -89,6 +92,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Regelungstechnik\eSignalform.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Regelungstechnik\FB_Figures.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Regelungstechnik\FB_Totband.TcPOU">
