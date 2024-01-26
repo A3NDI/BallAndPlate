@@ -45,6 +45,13 @@ END_VAR
 		Ti			:= 10;
 		Td			:= 1.13;
 		Tvz			:= 0.05;
+	3:
+		rTotband	:= 0;
+		Reglertyp 	:= eReglertyp.PIDT1;
+		KP			:= -0.08;
+		Ti			:= 10;
+		Td			:= 1.13;
+		Tvz			:= 0.05;
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_ReglerParam">
@@ -59,6 +66,8 @@ END_CASE]]></ST>
       <LineId Id="45" Count="0" />
       <LineId Id="41" Count="3" />
       <LineId Id="21" Count="0" />
+      <LineId Id="67" Count="5" />
+      <LineId Id="66" Count="0" />
       <LineId Id="19" Count="0" />
     </LineIds>
   </POU>

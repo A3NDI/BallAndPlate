@@ -2,45 +2,23 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="TOUCH_SCALE" Id="{71c40a65-c64c-4ba4-8987-c19dffd73ba3}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK TOUCH_SCALE
-(*
-
-*)
 VAR_INPUT
 	rX: REAL;  // ADC-Wert
 	rDistance: REAL;  // physikalisch, gültige Länge [mm]
 	rMinAdc: REAL;  // kleinster, gültiger ADC-Wert
 	rMaxAdc: REAL;  // grösster, gültiger ADC-Wert
-	bContactAvailable: BOOL;
-	bSensor_Deactivate: BOOL;  // Sensorsignal deaktivieren und auf 0 forcieren
+	rOffset : REAL;
 END_VAR
 VAR_OUTPUT
 	rX_mm: REAL;  // Skalierung in mm
-	rX_pu: REAL;  // Skalierung normiert (p.u.) mit Bezug zu rDistance
-	
 END_VAR
-VAR 
 
-END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-IF bSensor_Deactivate THEN
-	rX_mm := 0.0;
-	rX_pu := 0.0;
-ELSE
-	rX_mm := (rX - rMinAdc) * rDistance/(rMaxAdc - rMinAdc);
-	rX_pu := rX_mm / rDistance;
-END_IF 
-
-]]></ST>
+      <ST><![CDATA[rX_mm := (rX - rMinAdc) * rDistance/(rMaxAdc - rMinAdc) - rOffset;]]></ST>
     </Implementation>
     <LineIds Name="TOUCH_SCALE">
-      <LineId Id="747" Count="2" />
-      <LineId Id="779" Count="0" />
-      <LineId Id="750" Count="1" />
-      <LineId Id="781" Count="0" />
-      <LineId Id="752" Count="1" />
-      <LineId Id="758" Count="0" />
+      <LineId Id="751" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

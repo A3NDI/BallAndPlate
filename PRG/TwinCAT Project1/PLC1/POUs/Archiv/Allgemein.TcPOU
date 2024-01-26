@@ -26,7 +26,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//Inputs
+      <ST><![CDATA[(*//Inputs
 Up(CLK:=gvl.UP);
 Down(CLK:=gvl.Down);
 
@@ -144,7 +144,8 @@ IF MAIN.Axis_R.ActualPosition - MAIN.Axis_S.ActualPosition > 135 OR
 	MAIN.Axis_R.ActualPosition - MAIN.Axis_T.ActualPosition > 135 OR
 	MAIN.Axis_R.ActualPosition - MAIN.Axis_T.ActualPosition < -135 OR
 	MAIN.Axis_T.ActualPosition - MAIN.Axis_S.ActualPosition > 135 OR
-	MAIN.Axis_T.ActualPosition - MAIN.Axis_S.ActualPosition < -135 THEN
+	MAIN.Axis_T.ActualPosition - MAIN.Axis_S.ActualPosition < -135 OR
+	NOT GVL.NOTAUS THEN
 	gvl.Einbefehl:=FALSE;
 	MAIN.Axis_R.bEnable:=FALSE;
 	MAIN.Axis_S.bEnable:=FALSE;
@@ -186,10 +187,12 @@ ELSE
 	blinkon(in:=NOT blinkon.Q, PT:=T#2S);
 	blinkoff(in:=blinkon.Q, PT:=T#1S);
 	gvl.BNP_Aktiv:=blinkoff.Q;
-END_IF]]></ST>
+END_IF*)]]></ST>
     </Implementation>
     <LineIds Name="Allgemein">
-      <LineId Id="1039" Count="159" />
+      <LineId Id="1039" Count="118" />
+      <LineId Id="1222" Count="0" />
+      <LineId Id="1158" Count="40" />
       <LineId Id="303" Count="0" />
     </LineIds>
   </POU>

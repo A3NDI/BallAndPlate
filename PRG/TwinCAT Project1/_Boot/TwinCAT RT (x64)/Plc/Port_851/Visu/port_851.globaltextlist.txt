@@ -37,14 +37,19 @@ Id;Default
 784;bActAntiWindUp_UL
 959;bAct_LL
 949;bAct_UL
+515;bAktiviert
 321;Ball and Plate
+1072;Ball is placed
 1300;Ball on Plate
 144;Ball onPlate
 427;bEnable
+377;bEnable_AWU
 337;bFrg
+1151;bNichtlinear
 347;bOut
 1170;bRauschen
 158;bReset
+514;bSpiegelungXgY
 897;CX-4B8894 (192.168.0.101.1.1)
 595;Down
 711;DOWN
@@ -54,10 +59,39 @@ Id;Default
 836;Einbefehl
 956;Einszelansteuerung
 1324;Einzelansteuerung
+963;eTyp
+22;fA
+1901;fAmplitude
 557;fdasd$R$Nhttp://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
+921;fDifferential
+18;fE
+1909;fFrequenz
 710;filtertyp
+208;fIntegral
+1487;fK
+375;fKr
 939;FL_vorfilter
+958;fOffset
+265;fOmega
+1014;fPhi
+207;fProportional
+1926;fRauschen
 1148;frequenz [hz]
+351;fT
+68;fT1
+69;fT2
+407;fTi
+493;fTn
+817;fTt
+19;fTv
+20;fTvz
+406;fX
+356;fY
+378;fYlim_max
+379;fYlim_min
+962;fY_FF
+380;fY_RE
+264;fZeta
 376;Geschwindigkeit
 1719;Grundposition
 931;Homing
@@ -112,6 +146,8 @@ Id;Default
 700;Position Achse 2
 661;Position Achse 3
 1821;Position Touchpanel
+646;press this button when you have placed the ball on the plate
+1491;press this button when you have placed the ball on the plate. the machine will then start to balance it
 767;PT1
 618;PT2
 924;PT2s
@@ -179,8 +215,10 @@ Id;Default
 852;Sollposition
 178;Sollposition Achse 1
 430;spiegelung an x=y
+561;start logger
 930;Status R$R$N%x
 1350;Steigungswinkel!
+224;Strecke
 796;T$R$N%1.01f °
 1575;test
 504;Touch

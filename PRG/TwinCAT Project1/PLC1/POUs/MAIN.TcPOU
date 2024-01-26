@@ -26,6 +26,7 @@ VAR
 	bDOWN, bUp			: BOOL;
 	bBallOnPlate		: BOOL;
 	bBallonPlateButton	: BOOL := FALSE;
+	FB_FigureGenerator	: FB_FigureGenerator;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[Axis_R(stAxisName:='Achse 1');
@@ -33,14 +34,9 @@ Axis_S(stAxisName:='Achse 2');
 Axis_T(stAxisName:='Achse 3');
 Touchpanel();
 AC_ModeSelection();
-IF CONTROLLER.bReAktiv THEN
-	rXBallPos := (Touchpanel.touch_scale_x.rX_mm - rMaxTouchPos);
-	rYBallPos := (Touchpanel.touch_scale_y.rX_mm - (294/2));
-ELSE
-	rXBallPos := -180;
-	rYBallPos := -142;
-END_IF
+AC_TouchPos();
 CONTROLLER();
+FB_FigureGenerator();
 
 ]]></ST>
     </Implementation>
@@ -54,6 +50,10 @@ IF NOT gvl.Einbefehl OR NOT gvl.NOTAUS THEN
 	Axis_T.bEnable := FALSE;
 	Modus := Mode.Off;
 	GVL.V48Einbefehl := FALSE;
+END_IF
+
+IF NOT GVL.NOTAUS THEN
+	GVL.Einbefehl := FALSE;
 END_IF
 
 //Resetbefehl
@@ -141,16 +141,23 @@ Axis_S.rSetPos	:= rSetPos_S;
 Axis_T.rSetPos	:= rSetPos_T;]]></ST>
       </Implementation>
     </Action>
+    <Action Name="AC_TouchPos" Id="{a5abb554-29a7-45b2-a1a8-90708d4f4208}">
+      <Implementation>
+        <ST><![CDATA[IF CONTROLLER.bReAktiv THEN
+	rXBallPos := Touchpanel.touch_scale_x.rX_mm;
+	rYBallPos := Touchpanel.touch_scale_y.rX_mm;
+ELSE
+	rXBallPos := -180;
+	rYBallPos := -142;
+END_IF]]></ST>
+      </Implementation>
+    </Action>
     <LineIds Name="MAIN">
       <LineId Id="146" Count="3" />
       <LineId Id="155" Count="0" />
-      <LineId Id="180" Count="0" />
-      <LineId Id="207" Count="0" />
-      <LineId Id="181" Count="0" />
-      <LineId Id="208" Count="1" />
-      <LineId Id="211" Count="0" />
       <LineId Id="210" Count="0" />
       <LineId Id="179" Count="0" />
+      <LineId Id="236" Count="0" />
       <LineId Id="156" Count="0" />
       <LineId Id="151" Count="0" />
     </LineIds>
@@ -159,7 +166,11 @@ Axis_T.rSetPos	:= rSetPos_T;]]></ST>
       <LineId Id="382" Count="1" />
       <LineId Id="416" Count="0" />
       <LineId Id="466" Count="0" />
-      <LineId Id="231" Count="3" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="510" Count="0" />
+      <LineId Id="509" Count="0" />
+      <LineId Id="511" Count="1" />
+      <LineId Id="232" Count="2" />
       <LineId Id="384" Count="1" />
       <LineId Id="235" Count="1" />
       <LineId Id="238" Count="0" />
@@ -215,6 +226,10 @@ Axis_T.rSetPos	:= rSetPos_T;]]></ST>
       <LineId Id="187" Count="0" />
       <LineId Id="450" Count="1" />
       <LineId Id="449" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.AC_TouchPos">
+      <LineId Id="2" Count="5" />
+      <LineId Id="1" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

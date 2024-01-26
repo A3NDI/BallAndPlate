@@ -47,6 +47,7 @@ ELSIF NOT bEnable THEN
 	DataOut.CyltronicDataOutAct.TargetPosition 		:= DataIn.CyltronicDataInAct.ActualPosition;
 	bManual 										:= FALSE;
 ELSIF bHoming THEN
+	
 	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.MoveIn;
 ELSIF NOT bManual THEN
 	DataOut.CyltronicDataOutAct.TargetPosition		:= LIMIT(0,rSetPos,MaxTravel);
@@ -88,6 +89,7 @@ CylState											:= DataIn.CyltronicDataInAct.State;]]></ST>
       <LineId Id="5436" Count="0" />
       <LineId Id="5501" Count="0" />
       <LineId Id="5438" Count="0" />
+      <LineId Id="5580" Count="0" />
       <LineId Id="5546" Count="0" />
       <LineId Id="5544" Count="0" />
       <LineId Id="5443" Count="0" />

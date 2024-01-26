@@ -40,6 +40,7 @@ VAR_GLOBAL
 	//Outputs SPS
 	V48Einbefehl AT %Q* :BOOL;
 	
+	rTasktime : REAL := 0.001; // Tasktime [s]
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

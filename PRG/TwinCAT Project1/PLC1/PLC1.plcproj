@@ -18,6 +18,9 @@
     <Released>false</Released>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\Figure.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\Mode.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -75,6 +78,9 @@
     <Compile Include="POUs\FBCylTronicCylinder.TcPOU">
       <SubType>Code</SubType>
       <External>false</External>
+    </Compile>
+    <Compile Include="POUs\FB_FigureGenerator.TcPOU">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_ReglerParam.TcPOU">
       <SubType>Code</SubType>

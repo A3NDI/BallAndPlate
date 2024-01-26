@@ -10,14 +10,10 @@ VAR
 	iXadc AT %I*: INT;
 	iYadc AT %I*: INT;
 	iZadc AT %I*: INT;
-	
+	rMaxTouchPosX: REAL := 363 / 2;
+	rMaxTouchPosY: REAL := 294 / 2;
 	touch_scale_x: TOUCH_SCALE;
 	touch_scale_y: TOUCH_SCALE;
-	
-	rDummy: REAL;
-	udDummy: UDINT;
-	iDummy: INT;
-	bDummy: BOOL;
 	
 END_VAR
 
@@ -27,29 +23,23 @@ VAR CONSTANT
 	rR_Kalman AT %Q*: REAL := 400.0;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// Touchpannel, so lassen. 17.09. Burri Nicolay
-touch_scale_x(rX:=rXadc, 
+      <ST><![CDATA[touch_scale_x(rX:=rXadc, 
               rDistance:=363.0, 
               rMinAdc:=100, 
-              rMaxAdc:=3890, 
-              bContactAvailable:=bContactAvailable,
-              bSensor_Deactivate:=FALSE);
+              rMaxAdc:=3890,
+			  rOffset:=rMaxTouchPosX);
 				 
 touch_scale_y(rX:=rYadc, 
               rDistance:=286.0, 
               rMinAdc:=100, 
-              rMaxAdc:=3900, 
-              bContactAvailable:=bContactAvailable,
-              bSensor_Deactivate:=FALSE);
-
-rDummy := rZadc;
-iDummy := iXadc;
-iDummy := iYadc;
-iDummy := iZadc;]]></ST>
+              rMaxAdc:=3900,
+			  rOffset:=rMaxTouchPosY);]]></ST>
     </Implementation>
     <LineIds Name="Touchpanel">
-      <LineId Id="19" Count="17" />
-      <LineId Id="5" Count="0" />
+      <LineId Id="20" Count="3" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="26" Count="4" />
+      <LineId Id="63" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
