@@ -460,7 +460,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{D16E3D51-9F38-4EE8-A05B-F051BC982C40}" Name="PLC1" PrjFilePath="PLC1\PLC1.plcproj" TmcFilePath="PLC1\PLC1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="PLC1\PLC1.tmc" TmcHash="{6EB199E8-58FA-B9AF-FF27-796669F48191}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="PLC1\PLC1.tmc" TmcHash="{B186A97D-D47F-6346-4BFF-BB52F4D4DE28}">
 					<Name>PLC1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">

@@ -240,6 +240,10 @@
       <SubType>Code</SubType>
       <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
     </Compile>
+    <Compile Include="VISUs\Polygon.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
+    </Compile>
     <Compile Include="VISUs\Touch.TcVIS">
       <SubType>Code</SubType>
       <DependentUpon>VISUs\VisualizationManager.TcVMO</DependentUpon>
