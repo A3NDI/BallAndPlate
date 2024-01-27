@@ -460,32 +460,11 @@
 		</System>
 		<Plc>
 			<Project GUID="{D16E3D51-9F38-4EE8-A05B-F051BC982C40}" Name="PLC1" PrjFilePath="PLC1\PLC1.plcproj" TmcFilePath="PLC1\PLC1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="PLC1\PLC1.tmc" TmcHash="{C9379578-78F1-DDAA-6171-49F3E10A92D8}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" TmcPath="PLC1\PLC1.tmc" TmcHash="{C37362D2-4B14-011C-73A4-F35D69412255}">
 					<Name>PLC1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PLC_TASK Inputs</Name>
-						<Var>
-							<Name>Allgemein.bButtonUp</Name>
-							<Comment><![CDATA[Bedienknöpfe von der Controllstation des Touchpannels]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>Allgemein.bButtonDown</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>Allgemein.bButtonLeft</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>Allgemein.bButtonRight</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>Allgemein.bButtonOkay</Name>
-							<Type>BOOL</Type>
-						</Var>
 						<Var>
 							<Name>MAIN.Axis_S.DataIn</Name>
 							<Type GUID="{20E1FD31-F60E-D12A-D8C7-377CDE31349E}">CyltronicProcessDataIn</Type>
@@ -21671,11 +21650,6 @@
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500830000403}" Id="#x02030010"/>
 		<OwnerA Name="TIPC^PLC1^PLC1 Instance">
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Box 14 (ABBTS Ball and Plate)">
-				<Link VarA="PLC_TASK Inputs^Allgemein.bButtonDown" VarB="Inputs^byButtonDown" Size="1"/>
-				<Link VarA="PLC_TASK Inputs^Allgemein.bButtonLeft" VarB="Inputs^byButtonLeft" Size="1"/>
-				<Link VarA="PLC_TASK Inputs^Allgemein.bButtonOkay" VarB="Inputs^byButtonOkay" Size="1"/>
-				<Link VarA="PLC_TASK Inputs^Allgemein.bButtonRight" VarB="Inputs^byButtonRight" Size="1"/>
-				<Link VarA="PLC_TASK Inputs^Allgemein.bButtonUp" VarB="Inputs^byButtonUp" Size="1"/>
 				<Link VarA="PLC_TASK Inputs^Touchpanel.bContactAvailable" VarB="Inputs^byContactAvailable" Size="1"/>
 				<Link VarA="PLC_TASK Inputs^Touchpanel.iXadc" VarB="Inputs^iXraw"/>
 				<Link VarA="PLC_TASK Inputs^Touchpanel.iYadc" VarB="Inputs^iYraw"/>

@@ -62,16 +62,6 @@
     <Compile Include="PLC_TASK.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Archiv\Allgemein.TcPOU">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
-    <Compile Include="POUs\Archiv\AXIS.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Archiv\MC.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\CONTROLLER.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -80,6 +70,9 @@
       <External>false</External>
     </Compile>
     <Compile Include="POUs\FB_FigureGenerator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_FigurePlayer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_ReglerParam.TcPOU">
@@ -100,16 +93,10 @@
     <Compile Include="POUs\Regelungstechnik\eSignalform.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Regelungstechnik\FB_Figures.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\Regelungstechnik\FB_Totband.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Regelungstechnik\Integrator.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Regelungstechnik\Kennlinie.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Regelungstechnik\Logger_RET.TcPOU">
@@ -263,7 +250,6 @@
     <Folder Include="DUTs" />
     <Folder Include="DUTs\CyltronicCom" />
     <Folder Include="GVLs" />
-    <Folder Include="POUs\Archiv" />
     <Folder Include="POUs\Regelungstechnik" />
     <Folder Include="POUs\Regelungstechnik\visu" />
     <Folder Include="VISUs" />

@@ -324,11 +324,11 @@
                     </o>
                     <o>
                       <v n="Id">3560616238L</v>
-                      <v n="Value">"-Touchpanel.touch_scale_x.rX_mm"</v>
+                      <v n="Value">"Touchpanel.touch_scale_x.rX_mm"</v>
                     </o>
                     <o>
                       <v n="Id">2738717112L</v>
-                      <v n="Value">"Touchpanel.touch_scale_y.rX_mm"</v>
+                      <v n="Value">"-Touchpanel.touch_scale_y.rX_mm"</v>
                     </o>
                     <o>
                       <v n="Id">2880254039L</v>

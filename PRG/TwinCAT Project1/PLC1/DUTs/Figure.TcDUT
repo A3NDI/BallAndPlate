@@ -4,8 +4,8 @@
     <Declaration><![CDATA[TYPE Figure :
 STRUCT
 	length : INT := 0;
-    X : ARRAY[0..9999] OF REAL := [10000(0)];
-    Y : ARRAY[0..9999] OF REAL := [10000(0)];
+    X : ARRAY[0..99999] OF REAL := [10000(0)];
+    Y : ARRAY[0..99999] OF REAL := [10000(0)];
 	Visu : ARRAY[0..200] OF VisuElems.VisuStructPoint;
 END_STRUCT
 END_TYPE

@@ -19,7 +19,7 @@ VAR
 	rYBallPos			: REAL; //Ball Position Y Axis in mm
 	rMaxTouchPos		: REAL := 363 / 2;
 	rSetVelo			: REAL := 300;
-	rSetAcc				: REAL := 5;
+	rSetAcc				: REAL := 2;
 	rSetForce			: REAL := 800;
 	Modus				: Mode;
 	trigDown, trigUp	: R_TRIG;
