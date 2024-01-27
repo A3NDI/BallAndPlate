@@ -1,0 +1,240 @@
+Id;Default
+658;%.0f
+480;%1.0f
+1853;%1.0f mm
+929;%1.0f N
+340;%1.1d
+1155;%1.1f
+425;%1.3f
+947;%1.4f
+1140;%1.5f
+141;%d
+715;%i
+506;%s
+762;A DOWN
+1816;A UP
+974;Ab
+703;Achse 1
+211;Achse 2
+1456;Achse 3
+984;Achsen
+431;aktiviert
+467;Allgemeine Einstellungen
+1133;amplitude
+1204;anti-windup ll
+1195;anti-windup ul
+423;AntiWindUp
+801;Auf
+985;Aus
+1319;Ausbefehl
+677;Auto
+1270;Automatik
+311;AWU
+301;Axis R Error ID$R$N%x
+731;Axis S Error ID$R$N%x
+1070;Axis T Error ID$R$N%x
+799;bActAntiWindUp_LL
+784;bActAntiWindUp_UL
+959;bAct_LL
+949;bAct_UL
+515;bAktiviert
+321;Ball and Plate
+1072;Ball is placed
+1300;Ball on Plate
+144;Ball onPlate
+427;bEnable
+377;bEnable_AWU
+337;bFrg
+1151;bNichtlinear
+347;bOut
+1170;bRauschen
+158;bReset
+514;bSpiegelungXgY
+897;CX-4B8894 (192.168.0.101.1.1)
+595;Down
+711;DOWN
+138;DT1
+98;e
+1361;Ein
+836;Einbefehl
+956;Einszelansteuerung
+1324;Einzelansteuerung
+963;eTyp
+22;fA
+1901;fAmplitude
+557;fdasd$R$Nhttp://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
+921;fDifferential
+18;fE
+1909;fFrequenz
+710;filtertyp
+208;fIntegral
+1487;fK
+375;fKr
+939;FL_vorfilter
+958;fOffset
+265;fOmega
+1014;fPhi
+207;fProportional
+1926;fRauschen
+1148;frequenz [hz]
+351;fT
+68;fT1
+69;fT2
+407;fTi
+493;fTn
+817;fTt
+19;fTv
+20;fTvz
+406;fX
+356;fY
+378;fYlim_max
+379;fYlim_min
+962;fY_FF
+380;fY_RE
+264;fZeta
+376;Geschwindigkeit
+1719;Grundposition
+931;Homing
+143;Homingposition
+894;http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
+793;http://localhost/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
+155;I
+830;iCount
+424;Instance: %s
+484;Integrator
+721;iOrdnung
+785;iStep %1.1d
+769;iStep =$R$N %1.1d
+889;iStep =$R$N%1.1d
+534;iStep = $R$N%1.1f
+309;iStep = $R$N%1.1f °
+403;iStep = %1.1d
+203;Istposition
+849;KalmanFilter
+429;Kennlinie
+1496;Kennlinie_2
+702;Kraft
+44;LEFT
+940;Limitierung
+827;Link zum Aufruf der Konfigurationsoberfläche$R$Nhttp://192.168.0.33/config$R$NBenutername: Administrator$R$NPasswort: 1
+384;Link zum Aufruf der Konfigurationsoberfläche$R$Nhttp://192.168.0.33/config$R$NNutzername: Administrator$R$NPasswort: 1
+701;Link zum Aufruf der Visualisierung im Browser$R$Nhttp://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
+797;Link zum Aufruf im Browser$R$Nhttp://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
+993;Link zum Aufruf in der Website$R$Nhttp://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
+751;Links
+452;Mainvisu
+168;Mainvisualisation
+303;Mainvius
+957;Manuel
+136;MAX
+722;MIN
+814;Mittelwert
+941;Motincomand compl.
+1493;Motioncomand
+1111;offset
+1119;offset_rampe
+370;OK
+600;P
+1162;phasenverschiebung [°]
+971;Position
+498;Position 
+745;Position & Zustand
+570;Position & Zustand  Achse 1
+1430;Position & Zustand  Achse 2
+1105;Position & Zustand  Achse 3
+100;Position Achse 1
+700;Position Achse 2
+661;Position Achse 3
+1821;Position Touchpanel
+646;press this button when you have placed the ball on the plate
+1491;press this button when you have placed the ball on the plate. the machine will then start to balance it
+767;PT1
+618;PT2
+924;PT2s
+475;PTt
+334;pulserTime
+1046;R$R$N%1.01f °
+1024;R$R$N%1.1f °
+645;R + 10
+714;R - 10
+596;R = %1.1f °
+497;rA
+131;rA0
+132;rA1
+133;rA2
+134;rA3
+1126;rampensteilheit
+521;Rauschen
+298;rB
+135;rB0
+1357;rB1
+1366;rB2
+1376;rB3
+1385;rB4
+139;rE
+1593;Rechts
+97;Regler
+99;reglertyp
+496;reset
+169;Reset All
+1106;RIGHT
+822;rIn
+606;rK
+1213;rKr
+177;rOmega
+845;rOut
+346;rPuls
+838;rPulsTime
+850;rQ
+851;rR
+1177;rRauschenVerstaerkung
+50;rT
+1036;rT1
+1045;rT2
+157;rTi
+1222;rTn
+915;rTt
+140;rTv
+800;rTvz
+525;rVerstaerkung
+156;rX
+426;rY
+783;rYlim
+782;rYmax
+428;rYmin
+1235;rY_FF
+1231;rY_RE
+175;rZeta
+90;S$R$N%1.01f °
+571;Schrittgrösse
+338;Setpointgenerator
+705;Signalfilter
+1028;Signalflussgraph
+1097;Signalgenerator
+1218;Sinus
+852;Sollposition
+178;Sollposition Achse 1
+430;spiegelung an x=y
+561;start logger
+930;Status R$R$N%x
+1350;Steigungswinkel!
+224;Strecke
+796;T$R$N%1.01f °
+1575;test
+504;Touch
+1104;typ
+1188;UP
+230;Vorsteuerung
+210;X$R$N%1.01f mm
+330;X$R$N%1.01f °
+319;X-Achse
+320;X-Achse Position$R$N%3.2f mm
+300;xmax
+299;xmin
+142;Xpu$R$N%1.01f mm
+196;Xpu$R$N%1.03f
+151;Y$R$N%1.01f mm
+517;Ypu$R$N%1.01f mm
+1016;Ypu$R$N%1.03f
+756;Zustand
+246;Zustände

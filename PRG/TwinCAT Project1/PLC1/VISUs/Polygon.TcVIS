@@ -1080,7 +1080,7 @@
                     </o>
                     <o>
                       <v n="Id">3184209983L</v>
-                      <v n="Value">"MAIN.FB_FigureGenerator.Figure.length"</v>
+                      <v n="Value">"MAIN.FB_FigureGenerator.nCornerCount +1"</v>
                     </o>
                     <o>
                       <v n="Id">3560616238L</v>
