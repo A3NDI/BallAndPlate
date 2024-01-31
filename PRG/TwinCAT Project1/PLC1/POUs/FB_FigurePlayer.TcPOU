@@ -11,7 +11,7 @@ VAR_OUTPUT
 	rW_y : REAL;
 END_VAR
 VAR
-	counter: INT;
+	counter: UDINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
