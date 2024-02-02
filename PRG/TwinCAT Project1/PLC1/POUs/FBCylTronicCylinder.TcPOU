@@ -34,10 +34,12 @@ VAR
 	Position_Aktiv					: BOOL;
 	Sinus_Aktiv						: BOOL;
 	BNP_Aktiv						: BOOL;
+	TonError						: TON;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[UpTRIG(CLK:=bUp);
 DownTRIG(CLK:=bDown);
+TonError(IN := bHoming, PT := T#20MS);
 
 IF bReset THEN
 	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.Reset;
@@ -47,8 +49,12 @@ ELSIF NOT bEnable THEN
 	DataOut.CyltronicDataOutAct.TargetPosition 		:= DataIn.CyltronicDataInAct.ActualPosition;
 	bManual 										:= FALSE;
 ELSIF bHoming THEN
-	
-	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.MoveIn;
+	IF DataIn.CyltronicDataInAct.State = CyltronicState.Error AND NOT TonError.Q THEN
+		DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.Reset;
+		DataOut.CyltronicDataOutAct.TargetPosition		:= DataIn.CyltronicDataInAct.ActualPosition;
+	ELSE
+		DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.MoveIn;
+	END_IF
 ELSIF NOT bManual THEN
 	DataOut.CyltronicDataOutAct.TargetPosition		:= LIMIT(0,rSetPos,MaxTravel);
 	DataOut.CyltronicDataOutAct.MotionMode			:= CyltronicMotionMode.FreePosPro;
@@ -82,6 +88,7 @@ CylState											:= DataIn.CyltronicDataInAct.State;]]></ST>
     </Implementation>
     <LineIds Name="FBCylTronicCylinder">
       <LineId Id="5494" Count="1" />
+      <LineId Id="5622" Count="0" />
       <LineId Id="5541" Count="2" />
       <LineId Id="5235" Count="0" />
       <LineId Id="5432" Count="0" />
@@ -89,8 +96,12 @@ CylState											:= DataIn.CyltronicDataInAct.State;]]></ST>
       <LineId Id="5436" Count="0" />
       <LineId Id="5501" Count="0" />
       <LineId Id="5438" Count="0" />
+      <LineId Id="5615" Count="0" />
+      <LineId Id="5614" Count="0" />
       <LineId Id="5580" Count="0" />
+      <LineId Id="5617" Count="0" />
       <LineId Id="5546" Count="0" />
+      <LineId Id="5618" Count="0" />
       <LineId Id="5544" Count="0" />
       <LineId Id="5443" Count="0" />
       <LineId Id="5445" Count="0" />

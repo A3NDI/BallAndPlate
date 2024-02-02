@@ -8,6 +8,7 @@ STRUCT
     Y : ARRAY[0..999999] OF REAL := [100000(0)];
 	Visu : ARRAY[0..999] OF VisuElems.VisuStructPoint;
 	VisuLenght : INT := 0;
+	pVisu : POINTER TO ARRAY[0..999] OF VisuElems.VisuStructPoint;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

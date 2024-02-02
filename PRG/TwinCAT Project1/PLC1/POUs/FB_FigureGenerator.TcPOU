@@ -7,7 +7,7 @@ VAR_INPUT
 	bStar			: BOOL; // generate Star if True
 	bClockwise		: BOOL; // clockwise Figure
 	bContinus		: BOOL; // Figure continus or Point to Point?
-	nCornerCountInp	: INT := 5; //how many corners to generate
+	nCornerCountInp	: UINT := 5; //how many corners to generate
 	rRadius1		: REAL := 50;  //Radius from center to a corner
 	rRadius2		: REAL := 10;  //Radius from center to a corner
 	rAngleOffset	: REAL := 0; //Offset of the Figure angle
@@ -37,9 +37,20 @@ VAR
 	rEdgeTime : REAL;
 	points_on_edge : UDINT;
 	adjusted_a : REAL;
+	counterOffset : REAL;
+	counterOffser_next : REAL;
 	a : REAL;
+	rAngleOffsetRad	: REAL;
 	nDir : INT := 1;
-	pVisu : POINTER TO ARRAY[0..200] OF VisuElems.VisuStructPoint;
+	Visu : ARRAY[0..999] OF VisuElems.VisuStructPoint;
+	VisuLenght : INT := 0;
+	pVisu : POINTER TO ARRAY[0..999] OF VisuElems.VisuStructPoint;
+	bStarOld			: BOOL; 
+	bClockwiseOld		: BOOL; 
+	nCornerCountInpOld	: UINT;
+	rRadius1Old			: REAL;
+	rRadius2Old			: REAL;
+	rAngleOffsetOld		: REAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -49,21 +60,9 @@ n = 10 // Number of corners
 r = 80  // Radius from center to a corner*)
 pFigure := ADR(Figure);
 rFigureTime := LIMIT(0.01,rFigureTime, 100);
+nCornerCountInp := LIMIT(3,nCornerCountInp, 100);
 rEdgeTime := rFigureTime / nCornerCount *1000;
 counter2 := 0;
-IF bClockwise THEN
-	nDir := -1;
-ELSE
-	nDir := 1;
-END_IF
-
-IF bStar THEN
-	nCornerCount := 2 * nCornercountInp;
-	bStarIntern := TRUE;
-ELSE
-	nCornerCount := nCornercountInp;
-	bStarIntern := FALSE;
-END_IF
 
 IF bGenerate THEN
 	FOR counter := 0 TO nCornerCount-1 BY 1 DO
@@ -78,30 +77,30 @@ IF bGenerate THEN
 			rRadius_next := rRadius1;
 		END_IF
 		// Calculate corner coordinates
-		angle := 2 * PI * counter / nCornerCount * nDir;
+		angle := 2 * PI * (UINT_TO_REAL(counter) / UINT_TO_REAL(nCornerCount) + rAngleOffsetRad) * INT_TO_REAL(nDir) ;
 		x_corner := rRadius * COS(angle);
 		y_corner := rRadius * SIN(angle);
 	
 		// Calculate next corner coordinates
-		angle_next := 2 * PI * (counter + 1) / nCornerCount * nDir;
+		angle_next := 2 * PI * (UINT_TO_REAL(counter + 1) / UINT_TO_REAL(nCornerCount)+ rAngleOffsetRad) * INT_TO_REAL(nDir) ;
 		x_corner_next := rRadius_next * COS(angle_next);
 		y_corner_next := rRadius_next * SIN(angle_next);
 	
 		// Calculate the distance between corners (edge length)
-		edge_length := SQRT(EXPT(x_corner_next - x_corner,2) + EXPT(y_corner_next - y_corner,2));
+		edge_length := LREAL_TO_REAL(SQRT(EXPT(x_corner_next - x_corner,2) + EXPT(y_corner_next - y_corner,2)));
 	
 		// Adjust a for this edge to fit perfectly
 		a:= edge_length / rEdgeTime;
 		points_on_edge := REAL_TO_UINT(edge_length / a); 
-		adjusted_a := edge_length / points_on_edge;   
+		adjusted_a := edge_length / UDINT_TO_REAL(points_on_edge);   
 	
 		// Generate points on this edge
 		Figure.Visu[counter].iX := REAL_TO_INT((x_corner)+ 392/2)*3;
-		Figure.Visu[counter].iY := REAL_TO_INT((y_corner)+ 318/2)*3;
+		Figure.Visu[counter].iY := REAL_TO_INT((-y_corner)+ 318/2)*3;
 		FOR counter1 := 0 TO points_on_edge-1 DO
 			IF bContinus THEN
-				Figure.X[counter2] := x_corner + counter1 * adjusted_a * (x_corner_next - x_corner) / edge_length;
-				Figure.Y[counter2] := y_corner + counter1 * adjusted_a * (y_corner_next - y_corner) / edge_length;
+				Figure.X[counter2] := x_corner + UDINT_TO_REAL(counter1) * adjusted_a * (x_corner_next - x_corner) / edge_length;
+				Figure.Y[counter2] := y_corner + UDINT_TO_REAL(counter1) * adjusted_a * (y_corner_next - y_corner) / edge_length;
 			ELSE
 				Figure.X[counter2] := x_corner;
 				Figure.Y[counter2] := y_corner;
@@ -110,29 +109,78 @@ IF bGenerate THEN
 		END_FOR
  	END_FOR
 	Figure.Visu[counter].iX := REAL_TO_INT((x_corner_next)+ 392/2)*3;
-	Figure.Visu[counter].iY := REAL_TO_INT((y_corner_next)+ 318/2)*3;
-	Figure.VisuLenght := nCornerCount + 1;
+	Figure.Visu[counter].iY := REAL_TO_INT((-y_corner_next)+ 318/2)*3;
+	Figure.VisuLenght := UINT_TO_INT(nCornerCount + 1);
  	Figure.length := counter2;
-	pVisu := ADR(Figure.Visu);
+	Figure.pVisu := ADR(Figure.Visu);
 	bGenerate := FALSE;
+ELSE
+	IF bClockwise THEN
+		nDir := -1;
+	ELSE
+		nDir := 1;
+	END_IF
+	IF bStar THEN
+		nCornerCount := 2 * nCornercountInp;
+		bStarIntern := TRUE;
+	ELSE
+		nCornerCount := nCornercountInp;
+		bStarIntern := FALSE;
+	END_IF
+	rAngleOffsetRad := rAngleOffset / 360;
+	IF bStar			<>	bStarOld			OR
+		nCornerCountInp	<>	nCornerCountInpOld	OR
+		bClockwise		<>	bClockwiseOld		OR
+		rRadius1		<>	rRadius1Old			OR
+		rRadius2		<>	rRadius2Old			OR
+		rAngleOffset	<>	rAngleOffsetOld		THEN;
+		bStarOld			:= bStar;
+		bClockwise			:= bClockwiseOld;
+		nCornerCountInpOld	:= nCornerCountInp;
+		rRadius1Old			:= rRadius1;
+		rRadius2Old			:= rRadius2;
+		rAngleOffsetOld		:= rAngleOffset;
+		FOR counter := 0 TO nCornerCount-1 BY 1 DO
+			IF bStarIntern AND counter MOD 2 = 0 THEN
+				rRadius := rRadius1;
+				rRadius_next := rRadius2;
+			ELSIF bStarIntern AND counter MOD 2 <> 0 THEN
+				rRadius := rRadius2;
+				rRadius_next := rRadius1;
+			ELSE
+				rRadius := rRadius1;
+				rRadius_next := rRadius1;
+			END_IF
+			// Calculate corner coordinates
+			angle := 2 * PI * (UINT_TO_REAL(counter) / UINT_TO_REAL(nCornerCount) + rAngleOffsetRad) * INT_TO_REAL(nDir) ;
+			x_corner := rRadius * COS(angle);
+			y_corner := rRadius * SIN(angle);
+		
+			// Calculate next corner coordinates
+			angle_next := 2 * PI * (UINT_TO_REAL(counter + 1) / UINT_TO_REAL(nCornerCount)+ rAngleOffsetRad) * INT_TO_REAL(nDir) ;
+			x_corner_next := rRadius_next * COS(angle_next);
+			y_corner_next := rRadius_next * SIN(angle_next);  
+		
+			// Generate points on this edge
+			Visu[counter].iX := REAL_TO_INT((x_corner)+ 392/2)*3;
+			Visu[counter].iY := REAL_TO_INT((-y_corner)+ 318/2)*3;
+		END_FOR
+		Visu[counter].iX := REAL_TO_INT((x_corner_next)+ 392/2)*3;
+		Visu[counter].iY := REAL_TO_INT((-y_corner_next)+ 318/2)*3;
+		VisuLenght := UINT_TO_INT(nCornerCount + 1);
+		pVisu := ADR(Visu);
+		bGenerate := FALSE;
+	END_IF	
 END_IF	]]></ST>
     </Implementation>
     <LineIds Name="FB_FigureGenerator">
       <LineId Id="13" Count="3" />
       <LineId Id="92" Count="0" />
       <LineId Id="137" Count="0" />
+      <LineId Id="467" Count="0" />
       <LineId Id="77" Count="0" />
       <LineId Id="20" Count="0" />
-      <LineId Id="197" Count="1" />
-      <LineId Id="200" Count="1" />
-      <LineId Id="199" Count="0" />
-      <LineId Id="202" Count="0" />
-      <LineId Id="172" Count="1" />
-      <LineId Id="189" Count="0" />
-      <LineId Id="175" Count="1" />
-      <LineId Id="191" Count="0" />
-      <LineId Id="174" Count="0" />
-      <LineId Id="203" Count="0" />
+      <LineId Id="327" Count="0" />
       <LineId Id="90" Count="0" />
       <LineId Id="21" Count="0" />
       <LineId Id="179" Count="1" />
@@ -157,6 +205,24 @@ END_IF	]]></ST>
       <LineId Id="89" Count="0" />
       <LineId Id="99" Count="0" />
       <LineId Id="96" Count="0" />
+      <LineId Id="330" Count="0" />
+      <LineId Id="332" Count="4" />
+      <LineId Id="338" Count="6" />
+      <LineId Id="331" Count="0" />
+      <LineId Id="355" Count="0" />
+      <LineId Id="358" Count="0" />
+      <LineId Id="528" Count="0" />
+      <LineId Id="359" Count="2" />
+      <LineId Id="522" Count="0" />
+      <LineId Id="529" Count="0" />
+      <LineId Id="524" Count="2" />
+      <LineId Id="521" Count="0" />
+      <LineId Id="366" Count="19" />
+      <LineId Id="394" Count="3" />
+      <LineId Id="408" Count="3" />
+      <LineId Id="413" Count="0" />
+      <LineId Id="365" Count="0" />
+      <LineId Id="364" Count="0" />
       <LineId Id="91" Count="0" />
     </LineIds>
   </POU>

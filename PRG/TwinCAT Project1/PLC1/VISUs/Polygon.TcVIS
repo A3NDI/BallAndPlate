@@ -5,7 +5,7 @@
       <Data>
         <o xml:space="preserve" t="VisualObject">
           <n n="LastVisuLanguageModelEntry" />
-          <v n="UniqueIdGenerator">"3"</v>
+          <v n="UniqueIdGenerator">"4"</v>
           <o n="VisualElemList" t="VisualElemList">
             <l n="VisualElementList" t="VisualElemCollection" cet="GenericVisualElem">
               <o>
@@ -1076,11 +1076,11 @@
                     </o>
                     <o>
                       <v n="Id">1285906596L</v>
-                      <v n="Value">"MAIN.FB_FigureGenerator.pVisu"</v>
+                      <v n="Value">"pVisu"</v>
                     </o>
                     <o>
                       <v n="Id">3184209983L</v>
-                      <v n="Value">"MAIN.FB_FigureGenerator.Figure.VisuLenght"</v>
+                      <v n="Value">"VisuLenght"</v>
                     </o>
                     <o>
                       <v n="Id">3560616238L</v>
@@ -1270,7 +1270,12 @@
               <o>
                 <v n="Id">3L</v>
                 <n n="Tag" />
-                <v n="Text">"	"</v>
+                <v n="Text">"	pVisu : POINTER TO ARRAY[0..999] OF VisuElems.VisuStructPoint;"</v>
+              </o>
+              <o>
+                <v n="Id">4L</v>
+                <n n="Tag" />
+                <v n="Text">"	VisuLenght : INT;"</v>
               </o>
               <o>
                 <v n="Id">1L</v>

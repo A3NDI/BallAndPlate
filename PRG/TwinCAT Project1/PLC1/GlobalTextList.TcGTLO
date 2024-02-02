@@ -264,6 +264,26 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"2104"</v>
+              <v n="TextDefault">"Clockwise"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1646"</v>
+              <v n="TextDefault">"Continuous"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"825"</v>
+              <v n="TextDefault">"Continus"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"2084"</v>
+              <v n="TextDefault">"Corner Count"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"897"</v>
               <v n="TextDefault">"CX-4B8894 (192.168.0.101.1.1)"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -342,6 +362,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
             <o>
               <v n="TextID">"1909"</v>
               <v n="TextDefault">"fFrequenz"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"73"</v>
+              <v n="TextDefault">"FigureGenerator"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -1103,6 +1128,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
             <o>
               <v n="TextID">"430"</v>
               <v n="TextDefault">"spiegelung an x=y"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"209"</v>
+              <v n="TextDefault">"Star"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

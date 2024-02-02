@@ -50,6 +50,10 @@ Id;Default
 1170;bRauschen
 158;bReset
 514;bSpiegelungXgY
+2104;Clockwise
+1646;Continuous
+825;Continus
+2084;Corner Count
 897;CX-4B8894 (192.168.0.101.1.1)
 595;Down
 711;DOWN
@@ -66,6 +70,7 @@ Id;Default
 921;fDifferential
 18;fE
 1909;fFrequenz
+73;FigureGenerator
 710;filtertyp
 208;fIntegral
 1487;fK
@@ -215,6 +220,7 @@ Id;Default
 852;Sollposition
 178;Sollposition Achse 1
 430;spiegelung an x=y
+209;Star
 561;start logger
 930;Status R$R$N%x
 1350;Steigungswinkel!
