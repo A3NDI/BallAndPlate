@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Visu Name="Visu_Achse" Id="{36645ab4-a1e8-4b07-807e-2f552a651f05}">
     <XmlArchive>
       <Data>
@@ -932,14 +932,14 @@
                             <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                               <v n="AttrFlags">65536UL</v>
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
-                                <v>DisplayTextId</v>
-                                <v>TL_ElementProperties.DiagramType</v>
                                 <v>Category</v>
                                 <v>Simple|Standard</v>
-                                <v>''NORMAL__COMMENT</v>
-                                <v> The type of diagram</v>
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_ScaleLocation</v>
+                                <v>DisplayTextId</v>
+                                <v>TL_ElementProperties.DiagramType</v>
+                                <v>''NORMAL__COMMENT</v>
+                                <v> The type of diagram</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -979,20 +979,16 @@
                             <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                               <v n="AttrFlags">134545408UL</v>
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
-                                <v>DescriptionTextId</v>
-                                <v>TL_ElementProperties.Desc_BarOrientation</v>
-                                <v>RebuildPropertiesOnChanges</v>
-                                <v></v>
-                                <v>UseInitValue</v>
-                                <v></v>
-                                <v>ElementOrientation</v>
-                                <v></v>
-                                <v>Editable</v>
-                                <v>False</v>
-                                <v>DisplayTextId</v>
-                                <v>TL_ElementProperties.Orientation</v>
                                 <v>Category</v>
                                 <v>Simple|Standard</v>
+                                <v>DescriptionTextId</v>
+                                <v>TL_ElementProperties.Desc_BarOrientation</v>
+                                <v>DisplayTextId</v>
+                                <v>TL_ElementProperties.Orientation</v>
+                                <v>Editable</v>
+                                <v>False</v>
+                                <v>ElementOrientation</v>
+                                <v></v>
                                 <v>''NORMAL__COMMENT</v>
                                 <v> The orientation of the bar
  The property tree needs a rebuilt after change of this component, because the
@@ -1000,6 +996,10 @@
  This attribute is needed, of this property is editable
  This component is not editable in the property tree, because this component
  is derived from the width and height of the bar display</v>
+                                <v>RebuildPropertiesOnChanges</v>
+                                <v></v>
+                                <v>UseInitValue</v>
+                                <v></v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -1039,18 +1039,18 @@
                             <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                               <v n="AttrFlags">134283264UL</v>
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
-                                <v>''DOCU__COMMENT</v>
-                                <v> The running direction if the orientation is horizontal</v>
-                                <v>DescriptionTextId</v>
-                                <v>TL_ElementProperties.Desc_RunningDirection</v>
                                 <v>Category</v>
                                 <v>Simple|Standard</v>
+                                <v>DescriptionTextId</v>
+                                <v>TL_ElementProperties.Desc_RunningDirection</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.RunningDirection</v>
-                                <v>VisibleIf</v>
-                                <v>ValueOfNodeWithAttr,ElementOrientation,String,HORIZONTAL</v>
+                                <v>''DOCU__COMMENT</v>
+                                <v> The running direction if the orientation is horizontal</v>
                                 <v>UseInitValue</v>
                                 <v></v>
+                                <v>VisibleIf</v>
+                                <v>ValueOfNodeWithAttr,ElementOrientation,String,HORIZONTAL</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -1090,18 +1090,18 @@
                             <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                               <v n="AttrFlags">134283264UL</v>
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
-                                <v>''DOCU__COMMENT</v>
-                                <v> The running direction if the orientation is vertical.</v>
-                                <v>DescriptionTextId</v>
-                                <v>TL_ElementProperties.Desc_RunningDirection</v>
                                 <v>Category</v>
                                 <v>Simple|Standard</v>
+                                <v>DescriptionTextId</v>
+                                <v>TL_ElementProperties.Desc_RunningDirection</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.RunningDirection</v>
-                                <v>VisibleIf</v>
-                                <v>ValueOfNodeWithAttr,ElementOrientation,String,VERTICAL</v>
+                                <v>''DOCU__COMMENT</v>
+                                <v> The running direction if the orientation is vertical.</v>
                                 <v>UseInitValue</v>
                                 <v></v>
+                                <v>VisibleIf</v>
+                                <v>ValueOfNodeWithAttr,ElementOrientation,String,VERTICAL</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -1132,18 +1132,18 @@
                             <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                               <v n="AttrFlags">134283264UL</v>
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
-                                <v>DescriptionTextId</v>
-                                <v>TL_ElementProperties.Desc_BarOptimumSize</v>
                                 <v>Category</v>
                                 <v>Standard</v>
+                                <v>DescriptionTextId</v>
+                                <v>TL_ElementProperties.Desc_BarOptimumSize</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.BarOptimumSize</v>
-                                <v>VisibleIf</v>
-                                <v>NotWithStyle,STYLE9_FLAT,STYLE_WHITE</v>
                                 <v>''NORMAL__COMMENT</v>
                                 <v> not visible for flat style and white style</v>
                                 <v>UseInitValue</v>
                                 <v></v>
+                                <v>VisibleIf</v>
+                                <v>NotWithStyle,STYLE9_FLAT,STYLE_WHITE</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -1164,24 +1164,24 @@
                         <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                           <v n="AttrFlags">81920UL</v>
                           <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
+                            <v>Category</v>
+                            <v>Simple|Standard</v>
+                            <v>conditionalshow</v>
+                            <v>visu_coredev</v>
+                            <v>DescriptionTextId</v>
+                            <v>TL_ElementProperties.Desc_GeneralConfiguration</v>
+                            <v>DisplayTextId</v>
+                            <v>TL_ElementProperties.Bar</v>
                             <v>DisplayValue</v>
                             <v></v>
                             <v>''DOCU__COMMENT</v>
                             <v> The configuration of the bar</v>
                             <v>SortFlag</v>
                             <v>300000</v>
-                            <v>DescriptionTextId</v>
-                            <v>TL_ElementProperties.Desc_GeneralConfiguration</v>
-                            <v>DisplayTextId</v>
-                            <v>TL_ElementProperties.Bar</v>
-                            <v>Category</v>
-                            <v>Simple|Standard</v>
-                            <v>StoreTypeNode</v>
-                            <v></v>
-                            <v>conditionalshow</v>
-                            <v>visu_coredev</v>
                             <v>Storable</v>
                             <v>True</v>
+                            <v>StoreTypeNode</v>
+                            <v></v>
                           </d>
                           <v n="ConvDone">true</v>
                         </o>
@@ -1312,14 +1312,14 @@
                                   <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                                     <v n="AttrFlags">0UL</v>
                                     <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
-                                      <v>DisplayTextId</v>
-                                      <v>TL_ElementProperties.AreaBegin</v>
-                                      <v>''NORMAL__COMMENT</v>
-                                      <v> The begin of the color area</v>
                                       <v>ConstantWithOptionalExpression</v>
                                       <v></v>
                                       <v>DescriptionTextId</v>
                                       <v>TL_ElementProperties.Desc_AreaBegin</v>
+                                      <v>DisplayTextId</v>
+                                      <v>TL_ElementProperties.AreaBegin</v>
+                                      <v>''NORMAL__COMMENT</v>
+                                      <v> The begin of the color area</v>
                                     </d>
                                     <v n="ConvDone">false</v>
                                   </o>
@@ -1350,14 +1350,14 @@
                                   <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                                     <v n="AttrFlags">0UL</v>
                                     <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
-                                      <v>DisplayTextId</v>
-                                      <v>TL_ElementProperties.AreaEnd</v>
-                                      <v>''NORMAL__COMMENT</v>
-                                      <v> The end of the color area</v>
                                       <v>ConstantWithOptionalExpression</v>
                                       <v></v>
                                       <v>DescriptionTextId</v>
                                       <v>TL_ElementProperties.Desc_AreaEnd</v>
+                                      <v>DisplayTextId</v>
+                                      <v>TL_ElementProperties.AreaEnd</v>
+                                      <v>''NORMAL__COMMENT</v>
+                                      <v> The end of the color area</v>
                                     </d>
                                     <v n="ConvDone">false</v>
                                   </o>
@@ -1388,16 +1388,16 @@
                                   <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                                     <v n="AttrFlags">8740929536UL</v>
                                     <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
+                                      <v>DescriptionTextId</v>
+                                      <v>TL_ElementProperties.Desc_AreaColor</v>
                                       <v>DisplayTextId</v>
                                       <v>TL_ElementProperties.Color</v>
+                                      <v>''DOCU__COMMENT</v>
+                                      <v> The background color of the color area</v>
                                       <v>EditorType</v>
                                       <v>Color</v>
                                       <v>UseInitValue</v>
                                       <v></v>
-                                      <v>''DOCU__COMMENT</v>
-                                      <v> The background color of the color area</v>
-                                      <v>DescriptionTextId</v>
-                                      <v>TL_ElementProperties.Desc_AreaColor</v>
                                     </d>
                                     <v n="ConvDone">false</v>
                                   </o>
@@ -1418,15 +1418,15 @@
                               <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                                 <v n="AttrFlags">0UL</v>
                                 <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
-                                  <v>ieccodeconversion_creategenericsetter</v>
-                                  <v></v>
                                   <v>conditionalshow</v>
                                   <v>visu_coredev</v>
-                                  <v>ProvideDeleteButton</v>
-                                  <v></v>
                                   <v>''DOCU__COMMENT</v>
                                   <v> This structure represents the properties of a color area</v>
                                   <v>ieccodeconversion_createarrayfactorymethod</v>
+                                  <v></v>
+                                  <v>ieccodeconversion_creategenericsetter</v>
+                                  <v></v>
+                                  <v>ProvideDeleteButton</v>
                                   <v></v>
                                 </d>
                                 <v n="ConvDone">true</v>
@@ -1448,10 +1448,10 @@
                             <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                               <v n="AttrFlags">0UL</v>
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
-                                <v>DescriptionUseFromParent</v>
-                                <v></v>
                                 <v>DefaultArraySize</v>
                                 <v>100</v>
+                                <v>DescriptionUseFromParent</v>
+                                <v></v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.Areas</v>
                                 <v>''DOCU__COMMENT</v>
@@ -1510,22 +1510,22 @@
                         <o n="TypeNodeAttributes" t="TypeNodeAttributes2">
                           <v n="AttrFlags">0UL</v>
                           <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
+                            <v>conditionalshow</v>
+                            <v>visu_coredev</v>
+                            <v>DescriptionTextId</v>
+                            <v>TL_ElementProperties.Desc_ColorAreas</v>
+                            <v>DisplayTextId</v>
+                            <v>TL_ElementProperties.ColorAreas</v>
                             <v>DisplayValue</v>
                             <v></v>
                             <v>''DOCU__COMMENT</v>
                             <v> This structure contains the definition of the color areas of the meter.</v>
-                            <v>DescriptionTextId</v>
-                            <v>TL_ElementProperties.Desc_ColorAreas</v>
-                            <v>ProvideInsertButton</v>
-                            <v></v>
-                            <v>DisplayTextId</v>
-                            <v>TL_ElementProperties.ColorAreas</v>
                             <v>DynamicArray</v>
                             <v></v>
-                            <v>conditionalshow</v>
-                            <v>visu_coredev</v>
                             <v>''NORMAL__COMMENT</v>
                             <v> the structure with the dynamic array nodes	</v>
+                            <v>ProvideInsertButton</v>
+                            <v></v>
                           </d>
                           <v n="ConvDone">true</v>
                         </o>
@@ -3742,7 +3742,7 @@
                     <o>
                       <v n="AssignExpr">""</v>
                       <n n="Assign" />
-                      <v n="Assign33">"Touch"</v>
+                      <v n="Assign33">"FigurePlayer"</v>
                       <v n="Type" t="ChangeVisuType">Assignment</v>
                     </o>
                   </a>
@@ -3942,80 +3942,80 @@
           <o n="GeneratedLMMDescriptions" t="GeneratedLanguageModelEntriesData">
             <o n="GeneratedVisuFbDescription" t="GenericFbDescription">
               <d n="FbMethods" t="CaseInsensitiveHashtable_1" ckt="String" cvt="Guid">
-                <v>HasVisibilityAccess</v>
-                <v>d6581fb6-49c7-49df-9fe2-44ae7e91cfb5</v>
                 <v>ContainsPoint</v>
                 <v>d5ea3efe-634a-41f6-be4a-951b3a724c9b</v>
-                <v>HasInputAccess</v>
-                <v>a82837b0-0e08-4d5c-84e8-60b31b298d6f</v>
-                <v>HasInputAccessIntern</v>
-                <v>f2fdd810-40d3-42b8-9a2d-73d3d79c255e</v>
-                <v>GetTooltip</v>
-                <v>611d5957-3232-4343-8686-6d3182b9c40f</v>
-                <v>GetDialogInterfaceSize</v>
-                <v>223d5ba4-26ad-4088-9cb2-27e7a2f925a4</v>
-                <v>GetUpdateRects</v>
-                <v>fbaf81d7-b905-4190-977f-c50ed2efbcfa</v>
-                <v>GetNamespace</v>
-                <v>46ff763f-590e-4915-9928-de1c2ee23215</v>
-                <v>SetResult</v>
-                <v>371c1a54-8885-4d10-af69-8490e52c2bfa</v>
-                <v>GetTranslator</v>
-                <v>5731b5bd-bb3a-4755-a35e-f564caa8a210</v>
-                <v>Update</v>
-                <v>bfc2a05a-1235-4f44-be08-32aafcc2f356</v>
-                <v>SetClientData</v>
-                <v>a0dd3f6b-a306-4cb7-946a-ee9dae9b4152</v>
-                <v>HasVisibilityAccessIntern</v>
-                <v>b18c32e4-aef1-466f-bcf6-1e041ceaf794</v>
-                <v>GetInstance</v>
-                <v>348f897a-d3e8-4497-8dad-cc219fb7d6b5</v>
-                <v>GetClientData</v>
-                <v>7890d914-f948-4276-9db3-fe8f687cbf18</v>
-                <v>Paint</v>
-                <v>65c1c3d2-4543-45f9-9af4-b654f75de507</v>
-                <v>GetElementArray</v>
-                <v>3cd6e1f2-454b-4b0b-ae15-4d0a780ac20c</v>
-                <v>SetVisuFlagsInternal</v>
-                <v>d35ef154-8f5a-42bc-b17b-aac1b1ae47f5</v>
-                <v>GetText</v>
-                <v>84406422-6676-490c-a73d-26193c7bf083</v>
-                <v>GetTextProperties</v>
-                <v>c0745025-9f6c-4c1b-aa30-193ada54c56d</v>
-                <v>IsAntialiasingInactive</v>
-                <v>4f1d92cd-fc57-43ee-b4de-c686cf892b1f</v>
-                <v>Initialize</v>
-                <v>eaf97506-3132-414a-a168-c13bec4186a6</v>
                 <v>Destruct</v>
                 <v>2869f6c3-4920-4b7b-9629-2bfdfd12b0ce</v>
-                <v>SetStaticState</v>
-                <v>50358e73-b216-40ae-9824-6aa1dd7e018e</v>
-                <v>GetSurroundingRect</v>
-                <v>c45dea64-9c22-454d-8bad-c8409e195c09</v>
-                <v>GetResult</v>
-                <v>bd53bfb7-604e-4aa6-ade6-d37e03fa0210</v>
+                <v>ElementInfo</v>
+                <v>ee090795-9f52-4873-a171-65ab966e0160</v>
+                <v>FB_Exit</v>
+                <v>b7bd4f0d-3262-445d-908f-be1d452226fb</v>
+                <v>FB_Reinit</v>
+                <v>ac7d715b-dc6c-4305-81df-72a9ae534eca</v>
+                <v>GetClientData</v>
+                <v>7890d914-f948-4276-9db3-fe8f687cbf18</v>
+                <v>GetDialogInterface</v>
+                <v>9f92427a-9ca2-4b93-8168-6cb1c1dd1e79</v>
+                <v>GetDialogInterfaceSize</v>
+                <v>223d5ba4-26ad-4088-9cb2-27e7a2f925a4</v>
+                <v>GetElementArray</v>
+                <v>3cd6e1f2-454b-4b0b-ae15-4d0a780ac20c</v>
+                <v>GetElementIdArray</v>
+                <v>2da630f6-d557-411d-8386-0563fe069759</v>
+                <v>GetInitializeVersion</v>
+                <v>a58cc15b-2dfe-4329-9c99-244cb6b8346d</v>
+                <v>GetInstance</v>
+                <v>348f897a-d3e8-4497-8dad-cc219fb7d6b5</v>
                 <v>GetLocalUsergroup</v>
                 <v>d5614f1e-0b38-45ef-920f-6efa1b6262f5</v>
                 <v>GetName</v>
                 <v>41da89c7-1e8e-4e22-a0ff-64985c18ad47</v>
+                <v>GetNamespace</v>
+                <v>46ff763f-590e-4915-9928-de1c2ee23215</v>
+                <v>GetResult</v>
+                <v>bd53bfb7-604e-4aa6-ade6-d37e03fa0210</v>
                 <v>GetSize</v>
                 <v>f3d1ab9e-3b1c-44da-82eb-5cd3519b7351</v>
-                <v>SetDialogInterface</v>
-                <v>3760cbdf-8811-4c61-a7cf-de197863e038</v>
-                <v>FB_Reinit</v>
-                <v>ac7d715b-dc6c-4305-81df-72a9ae534eca</v>
-                <v>FB_Exit</v>
-                <v>b7bd4f0d-3262-445d-908f-be1d452226fb</v>
-                <v>GetInitializeVersion</v>
-                <v>a58cc15b-2dfe-4329-9c99-244cb6b8346d</v>
-                <v>GetDialogInterface</v>
-                <v>9f92427a-9ca2-4b93-8168-6cb1c1dd1e79</v>
-                <v>GetElementIdArray</v>
-                <v>2da630f6-d557-411d-8386-0563fe069759</v>
+                <v>GetSurroundingRect</v>
+                <v>c45dea64-9c22-454d-8bad-c8409e195c09</v>
+                <v>GetText</v>
+                <v>84406422-6676-490c-a73d-26193c7bf083</v>
+                <v>GetTextProperties</v>
+                <v>c0745025-9f6c-4c1b-aa30-193ada54c56d</v>
+                <v>GetTooltip</v>
+                <v>611d5957-3232-4343-8686-6d3182b9c40f</v>
+                <v>GetTranslator</v>
+                <v>5731b5bd-bb3a-4755-a35e-f564caa8a210</v>
+                <v>GetUpdateRects</v>
+                <v>fbaf81d7-b905-4190-977f-c50ed2efbcfa</v>
                 <v>HandleInput</v>
                 <v>973e18ac-4edc-42e0-a1ee-0f6b36237217</v>
-                <v>ElementInfo</v>
-                <v>ee090795-9f52-4873-a171-65ab966e0160</v>
+                <v>HasInputAccess</v>
+                <v>a82837b0-0e08-4d5c-84e8-60b31b298d6f</v>
+                <v>HasInputAccessIntern</v>
+                <v>f2fdd810-40d3-42b8-9a2d-73d3d79c255e</v>
+                <v>HasVisibilityAccess</v>
+                <v>d6581fb6-49c7-49df-9fe2-44ae7e91cfb5</v>
+                <v>HasVisibilityAccessIntern</v>
+                <v>b18c32e4-aef1-466f-bcf6-1e041ceaf794</v>
+                <v>Initialize</v>
+                <v>eaf97506-3132-414a-a168-c13bec4186a6</v>
+                <v>IsAntialiasingInactive</v>
+                <v>4f1d92cd-fc57-43ee-b4de-c686cf892b1f</v>
+                <v>Paint</v>
+                <v>65c1c3d2-4543-45f9-9af4-b654f75de507</v>
+                <v>SetClientData</v>
+                <v>a0dd3f6b-a306-4cb7-946a-ee9dae9b4152</v>
+                <v>SetDialogInterface</v>
+                <v>3760cbdf-8811-4c61-a7cf-de197863e038</v>
+                <v>SetResult</v>
+                <v>371c1a54-8885-4d10-af69-8490e52c2bfa</v>
+                <v>SetStaticState</v>
+                <v>50358e73-b216-40ae-9824-6aa1dd7e018e</v>
+                <v>SetVisuFlagsInternal</v>
+                <v>d35ef154-8f5a-42bc-b17b-aac1b1ae47f5</v>
+                <v>Update</v>
+                <v>bfc2a05a-1235-4f44-be08-32aafcc2f356</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{36645ab4-a1e8-4b07-807e-2f552a651f05}</v>
@@ -4026,10 +4026,10 @@
             <d n="GeneratedAllElementsEntries" t="Hashtable" />
             <o n="VisuRegDesc" t="GenericFbDescription">
               <d n="FbMethods" t="CaseInsensitiveHashtable_1" ckt="String" cvt="Guid">
-                <v>FB_Init</v>
-                <v>75e20979-61b6-40f1-9cb8-074ceefd6b94</v>
                 <v>FB_Exit</v>
                 <v>c1b73e43-58c6-43cc-9275-d798c21daf95</v>
+                <v>FB_Init</v>
+                <v>75e20979-61b6-40f1-9cb8-074ceefd6b94</v>
                 <v>FB_Reinit</v>
                 <v>3c224c5d-6035-4c05-a2ae-c652640fe21e</v>
               </d>
@@ -4041,34 +4041,34 @@
             <n n="MemManPou" />
             <o n="InputsPou" t="GenericFbDescription">
               <d n="FbMethods" t="CaseInsensitiveHashtable_1" ckt="String" cvt="Guid">
-                <v>ExecuteLooseCapture</v>
-                <v>67eb4c90-cc1a-4bc7-bbb1-9eb58817c402</v>
-                <v>ExecuteMouseDblClick</v>
-                <v>9cdd149b-c562-4e8e-b6fc-5a23e4720078</v>
-                <v>ExecuteMouseDown</v>
-                <v>2b31d29b-bda5-4267-9ccc-b2262287c8e5</v>
-                <v>ExecuteMouseUp</v>
-                <v>6cf872a2-ad80-40c7-9cdb-dd4f0eb4c4ec</v>
-                <v>GetElementInfo</v>
-                <v>e07dd8a8-4ee2-4c9f-887f-ce557b4e4a15</v>
                 <v>abstrGetDefaultCursor</v>
                 <v>3dfc1eb5-f731-4b18-8a57-d2bd60db1181</v>
                 <v>ExecuteDialogClosed</v>
                 <v>9c03d837-d552-4f37-993c-cc8dc042c8ad</v>
-                <v>ExecuteKeyUp</v>
-                <v>d7b02e94-3165-4a47-bd16-5e07fab10eb3</v>
                 <v>ExecuteKeyDown</v>
                 <v>3c14c3f5-4efe-4d53-bdcf-8e3c8ffe1067</v>
-                <v>ExecuteMouseMove</v>
-                <v>ab7dd6be-0359-4eb5-8d9d-f0fb5d7c62b6</v>
-                <v>Initialize</v>
-                <v>c60bf3d1-8e93-400a-a12f-90bde70a3e47</v>
+                <v>ExecuteKeyUp</v>
+                <v>d7b02e94-3165-4a47-bd16-5e07fab10eb3</v>
+                <v>ExecuteLooseCapture</v>
+                <v>67eb4c90-cc1a-4bc7-bbb1-9eb58817c402</v>
+                <v>ExecuteMouseClick</v>
+                <v>ebe02679-2cb0-417f-ac15-4eae61e1b5b0</v>
+                <v>ExecuteMouseDblClick</v>
+                <v>9cdd149b-c562-4e8e-b6fc-5a23e4720078</v>
+                <v>ExecuteMouseDown</v>
+                <v>2b31d29b-bda5-4267-9ccc-b2262287c8e5</v>
                 <v>ExecuteMouseEnter</v>
                 <v>6c0397a8-b638-4e1d-b97a-dd8f00ce30ec</v>
                 <v>ExecuteMouseLeave</v>
                 <v>a1bb6365-1d04-40c2-bed2-24b07740df1c</v>
-                <v>ExecuteMouseClick</v>
-                <v>ebe02679-2cb0-417f-ac15-4eae61e1b5b0</v>
+                <v>ExecuteMouseMove</v>
+                <v>ab7dd6be-0359-4eb5-8d9d-f0fb5d7c62b6</v>
+                <v>ExecuteMouseUp</v>
+                <v>6cf872a2-ad80-40c7-9cdb-dd4f0eb4c4ec</v>
+                <v>GetElementInfo</v>
+                <v>e07dd8a8-4ee2-4c9f-887f-ce557b4e4a15</v>
+                <v>Initialize</v>
+                <v>c60bf3d1-8e93-400a-a12f-90bde70a3e47</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{95b42261-9bf7-4469-b675-76707243e0d9}</v>

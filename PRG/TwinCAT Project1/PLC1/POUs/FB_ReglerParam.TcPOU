@@ -30,7 +30,7 @@ END_VAR
 		KP			:= -0.06;
 		Ti			:= 25;
 		Td			:= 1.13;
-		Tvz			:= 0.05;
+		Tvz			:= 0.03;
 	1:
 		rTotband	:= T_rTotband;                  
 		Reglertyp 	:= T_Reglertyp; 	

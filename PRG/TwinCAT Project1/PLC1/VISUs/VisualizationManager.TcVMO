@@ -665,7 +665,7 @@
         <Data>
           <o xml:space="preserve" t="WebVisualizationObject">
             <o n="ViewSettings" t="WebVisualizationViewSettings">
-              <v n="StartVisu">"Mainvisu"</v>
+              <v n="StartVisu">"Home"</v>
               <v n="HtmFileName">"webvisu"</v>
               <v n="MainStartHtm">true</v>
               <v n="UpdateRate">200</v>
@@ -673,7 +673,7 @@
               <v n="BestFit">false</v>
               <v n="ClientSizeMode" t="VisualClientSizeMode">Specified</v>
               <v n="ClientSizeX">1920</v>
-              <v n="ClientSizeY">3000</v>
+              <v n="ClientSizeY">960</v>
               <v n="ForceWebVisuClient">false</v>
               <v n="Antialiasing">true</v>
               <v n="ClientOperationType" t="eDefaultInputSetting">Keyboard</v>

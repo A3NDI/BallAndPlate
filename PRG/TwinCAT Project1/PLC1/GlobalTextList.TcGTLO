@@ -51,8 +51,18 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"2389"</v>
+              <v n="TextDefault">"%1i"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"141"</v>
               <v n="TextDefault">"%d"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1768"</v>
+              <v n="TextDefault">"%f"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -113,6 +123,11 @@
             <o>
               <v n="TextID">"1133"</v>
               <v n="TextDefault">"amplitude"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1666"</v>
+              <v n="TextDefault">"Angle Offset"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -500,6 +515,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"861"</v>
+              <v n="TextDefault">"Generate Figure"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"376"</v>
               <v n="TextDefault">"Geschwindigkeit"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -507,6 +527,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
             <o>
               <v n="TextID">"1719"</v>
               <v n="TextDefault">"Grundposition"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"732"</v>
+              <v n="TextDefault">"Home"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -532,6 +557,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
             <o>
               <v n="TextID">"155"</v>
               <v n="TextDefault">"I"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"634"</v>
+              <v n="TextDefault">"i%"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -870,6 +900,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1006"</v>
+              <v n="TextDefault">"Radius"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"1126"</v>
               <v n="TextDefault">"rampensteilheit"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -1165,6 +1200,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
             <o>
               <v n="TextID">"1575"</v>
               <v n="TextDefault">"test"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"2284"</v>
+              <v n="TextDefault">"Time for Figure"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

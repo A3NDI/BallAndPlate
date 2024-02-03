@@ -12,7 +12,10 @@ VAR_OUTPUT
 	rW_x : REAL;
 	rW_y : REAL;
 END_VAR
-VAR
+VAR	
+	Visu : ARRAY[0..999] OF VisuElems.VisuStructPoint;
+	VisuLenght : INT := 0;
+	pVisu : POINTER TO ARRAY[0..999] OF VisuElems.VisuStructPoint;
 	counter: UDINT;
 END_VAR
 ]]></Declaration>
@@ -25,7 +28,8 @@ ELSE
 	rW_x := rW_xIn;
 	rW_y := rW_yIn;
 	counter := 0;
-END_IF]]></ST>
+END_IF
+]]></ST>
     </Implementation>
     <LineIds Name="FB_FigurePlayer">
       <LineId Id="9" Count="0" />
@@ -35,6 +39,7 @@ END_IF]]></ST>
       <LineId Id="21" Count="1" />
       <LineId Id="18" Count="0" />
       <LineId Id="15" Count="0" />
+      <LineId Id="40" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

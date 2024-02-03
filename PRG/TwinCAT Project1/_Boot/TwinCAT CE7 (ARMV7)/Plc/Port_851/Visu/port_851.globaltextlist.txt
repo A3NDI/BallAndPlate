@@ -8,7 +8,9 @@ Id;Default
 425;%1.3f
 947;%1.4f
 1140;%1.5f
+2389;%1i
 141;%d
+1768;%f
 715;%i
 506;%s
 762;A DOWN
@@ -21,6 +23,7 @@ Id;Default
 431;aktiviert
 467;Allgemeine Einstellungen
 1133;amplitude
+1666;Angle Offset
 1204;anti-windup ll
 1195;anti-windup ul
 423;AntiWindUp
@@ -97,13 +100,16 @@ Id;Default
 962;fY_FF
 380;fY_RE
 264;fZeta
+861;Generate Figure
 376;Geschwindigkeit
 1719;Grundposition
+732;Home
 931;Homing
 143;Homingposition
 894;http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
 793;http://localhost/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
 155;I
+634;i%
 830;iCount
 424;Instance: %s
 484;Integrator
@@ -168,6 +174,7 @@ Id;Default
 132;rA1
 133;rA2
 134;rA3
+1006;Radius
 1126;rampensteilheit
 521;Rauschen
 298;rB
@@ -227,6 +234,7 @@ Id;Default
 224;Strecke
 796;T$R$N%1.01f °
 1575;test
+2284;Time for Figure
 504;Touch
 1104;typ
 1188;UP

@@ -51,6 +51,8 @@ VAR
 	rRadius1Old			: REAL;
 	rRadius2Old			: REAL;
 	rAngleOffsetOld		: REAL;
+	sRadius1			: STRING := 'Radius 1';
+	sRadius2			: STRING := 'Radius 2';
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -77,12 +79,12 @@ IF bGenerate THEN
 			rRadius_next := rRadius1;
 		END_IF
 		// Calculate corner coordinates
-		angle := 2 * PI * (UINT_TO_REAL(counter) / UINT_TO_REAL(nCornerCount) + rAngleOffsetRad) * INT_TO_REAL(nDir) ;
+		angle := 2 * PI * (UINT_TO_REAL(counter) / UINT_TO_REAL(nCornerCount) * INT_TO_REAL(nDir) + rAngleOffsetRad) ;
 		x_corner := rRadius * COS(angle);
 		y_corner := rRadius * SIN(angle);
 	
 		// Calculate next corner coordinates
-		angle_next := 2 * PI * (UINT_TO_REAL(counter + 1) / UINT_TO_REAL(nCornerCount)+ rAngleOffsetRad) * INT_TO_REAL(nDir) ;
+		angle_next := 2 * PI * (UINT_TO_REAL(counter + 1) / UINT_TO_REAL(nCornerCount) * INT_TO_REAL(nDir) + rAngleOffsetRad) ;
 		x_corner_next := rRadius_next * COS(angle_next);
 		y_corner_next := rRadius_next * SIN(angle_next);
 	
@@ -135,7 +137,7 @@ ELSE
 		rRadius2		<>	rRadius2Old			OR
 		rAngleOffset	<>	rAngleOffsetOld		THEN;
 		bStarOld			:= bStar;
-		bClockwise			:= bClockwiseOld;
+		bClockwiseOld		:= bClockwise;
 		nCornerCountInpOld	:= nCornerCountInp;
 		rRadius1Old			:= rRadius1;
 		rRadius2Old			:= rRadius2;
@@ -152,12 +154,12 @@ ELSE
 				rRadius_next := rRadius1;
 			END_IF
 			// Calculate corner coordinates
-			angle := 2 * PI * (UINT_TO_REAL(counter) / UINT_TO_REAL(nCornerCount) + rAngleOffsetRad) * INT_TO_REAL(nDir) ;
+			angle := 2 * PI * (UINT_TO_REAL(counter) / UINT_TO_REAL(nCornerCount) * INT_TO_REAL(nDir) + rAngleOffsetRad) ;
 			x_corner := rRadius * COS(angle);
 			y_corner := rRadius * SIN(angle);
 		
 			// Calculate next corner coordinates
-			angle_next := 2 * PI * (UINT_TO_REAL(counter + 1) / UINT_TO_REAL(nCornerCount)+ rAngleOffsetRad) * INT_TO_REAL(nDir) ;
+			angle_next := 2 * PI * (UINT_TO_REAL(counter + 1) / UINT_TO_REAL(nCornerCount) * INT_TO_REAL(nDir) + rAngleOffsetRad);
 			x_corner_next := rRadius_next * COS(angle_next);
 			y_corner_next := rRadius_next * SIN(angle_next);  
 		
