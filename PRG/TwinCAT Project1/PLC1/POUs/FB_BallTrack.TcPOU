@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_BallTrack" Id="{53e91473-62f9-4d48-a305-2587dc9848f9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_BallTrack
+VAR	
+	Visu : ARRAY[0..999] OF VisuElems.VisuStructPoint;
+	VisuLenght : INT := 200;
+	pVisu : POINTER TO ARRAY[0..999] OF VisuElems.VisuStructPoint;
+	counter: INT;
+	counter1: INT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF counter1 >= 100 THEN
+	FOR counter := 0 TO VisuLenght-1 DO
+		Visu[counter].iX := Visu[counter+1].iX;
+		Visu[counter].iY := Visu[counter+1].iY;	
+	END_FOR
+	Visu[counter].iX := REAL_TO_INT((CONTROLLER.rX_x)+ 392/2)*3;
+	Visu[counter].iY := REAL_TO_INT((-CONTROLLER.rX_y)+ 318/2)*3;
+	counter1 := 0;
+END_IF
+counter1 := counter1 + 1;
+pVisu := ADR(Visu);]]></ST>
+    </Implementation>
+    <LineIds Name="FB_BallTrack">
+      <LineId Id="66" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="60" Count="1" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="64" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

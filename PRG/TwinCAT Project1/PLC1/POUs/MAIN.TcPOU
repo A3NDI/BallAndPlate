@@ -27,6 +27,7 @@ VAR
 	bBallOnPlate		: BOOL;
 	bBallonPlateButton	: BOOL := FALSE;
 	FB_FigureGenerator	: FB_FigureGenerator;
+	FB_BallTrack		: FB_BallTrack;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[Axis_R(stAxisName:='Achse 1');
@@ -37,6 +38,7 @@ AC_ModeSelection();
 AC_TouchPos();
 CONTROLLER();
 FB_FigureGenerator();
+FB_BallTrack();
 
 ]]></ST>
     </Implementation>
@@ -158,6 +160,7 @@ END_IF]]></ST>
       <LineId Id="210" Count="0" />
       <LineId Id="179" Count="0" />
       <LineId Id="236" Count="0" />
+      <LineId Id="263" Count="0" />
       <LineId Id="156" Count="0" />
       <LineId Id="151" Count="0" />
     </LineIds>

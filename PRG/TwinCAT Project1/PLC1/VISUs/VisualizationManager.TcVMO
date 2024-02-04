@@ -21,7 +21,7 @@
             <v n="FileTransferMode">true</v>
             <v n="VisuStyle">"Default, 3.1.6.0 (Beckhoff Automation GmbH)"</v>
             <v n="MaxNumOfClients">100</v>
-            <n n="Language" />
+            <v n="Language">"de"</v>
             <v n="NumpadDialog">"VisuDialogs.Numpad"</v>
             <v n="KeypadDialog">"VisuDialogs.Keypad"</v>
             <v n="InputWithLimitsDialog">"VisuDialogs.TextinputWithLimits"</v>
@@ -512,12 +512,12 @@
             <a n="Data" cet="VisualizationInstantiationExplicitEntry">
               <o>
                 <v n="NumberOfInstances">1</v>
-                <v n="Id">549756862464L</v>
+                <v n="Id">549760008192L</v>
                 <o n="VisuId" t="VisualObjectIdentification">
-                  <v n="LibDispName">""</v>
-                  <v n="ObjectGuid">{4c19cea1-475c-4ab7-8047-42bdc9d69985}</v>
+                  <v n="LibDispName">"visudialogs, 3.5.12.0 (system)"</v>
+                  <v n="ObjectGuid">{1bf66efb-f74f-42f1-b35f-03458e1bb5b2}</v>
                   <v n="ReadOnly">true</v>
-                  <v n="ObjectName">"Visualization"</v>
+                  <v n="ObjectName">"Numpad"</v>
                 </o>
                 <o n="Behaviour" t="VisualizationInstantiationClientBehaviour">
                   <d2 n="Data" ckt="VisualizationMainApplicationDownloadClientsReference" cvt="VisualizationClientInstantiationBehaviour">
@@ -532,12 +532,12 @@
               </o>
               <o>
                 <v n="NumberOfInstances">1</v>
-                <v n="Id">549757911040L</v>
+                <v n="Id">549761056768L</v>
                 <o n="VisuId" t="VisualObjectIdentification">
-                  <v n="LibDispName">""</v>
-                  <v n="ObjectGuid">{fa5ecd32-dea3-4a41-a2b1-2ed4d2f4536c}</v>
+                  <v n="LibDispName">"visudialogs, 3.5.12.0 (system)"</v>
+                  <v n="ObjectGuid">{7778b5cf-37e1-42e9-9fdb-6d3833412d09}</v>
                   <v n="ReadOnly">true</v>
-                  <v n="ObjectName">"Visu_Achse3T_OLD"</v>
+                  <v n="ObjectName">"Keypad"</v>
                 </o>
                 <o n="Behaviour" t="VisualizationInstantiationClientBehaviour">
                   <d2 n="Data" ckt="VisualizationMainApplicationDownloadClientsReference" cvt="VisualizationClientInstantiationBehaviour">
@@ -552,12 +552,12 @@
               </o>
               <o>
                 <v n="NumberOfInstances">1</v>
-                <v n="Id">549758959616L</v>
+                <v n="Id">549762105344L</v>
                 <o n="VisuId" t="VisualObjectIdentification">
-                  <v n="LibDispName">""</v>
-                  <v n="ObjectGuid">{28911e40-3ff5-488a-9166-4871138dc69a}</v>
+                  <v n="LibDispName">"visudialogs, 3.5.12.0 (system)"</v>
+                  <v n="ObjectGuid">{9d3ca242-bca0-4b1c-84cf-06993c954e75}</v>
                   <v n="ReadOnly">true</v>
-                  <v n="ObjectName">"Visu_Achse2S_OLD"</v>
+                  <v n="ObjectName">"TextinputWithLimits"</v>
                 </o>
                 <o n="Behaviour" t="VisualizationInstantiationClientBehaviour">
                   <d2 n="Data" ckt="VisualizationMainApplicationDownloadClientsReference" cvt="VisualizationClientInstantiationBehaviour">
@@ -566,7 +566,7 @@
                         <v>e26594ea-01dc-4a80-b188-d363176e0783</v>
                       </a>
                     </o>
-                    <v>Deactivated</v>
+                    <v>UseDefault</v>
                   </d2>
                 </o>
               </o>
@@ -574,7 +574,7 @@
             <o n="Ids" t="IdCalculationHelper">
               <v n="IdMin">549756862464L</v>
               <v n="IdMax">618475290623L</v>
-              <v n="Id">549760008192L</v>
+              <v n="Id">549763153920L</v>
               <v n="IdMask">618474242048L</v>
               <v n="IdStep">1048576L</v>
             </o>

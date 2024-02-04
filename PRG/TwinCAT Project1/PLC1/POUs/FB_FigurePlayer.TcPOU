@@ -12,10 +12,7 @@ VAR_OUTPUT
 	rW_x : REAL;
 	rW_y : REAL;
 END_VAR
-VAR	
-	Visu : ARRAY[0..999] OF VisuElems.VisuStructPoint;
-	VisuLenght : INT := 0;
-	pVisu : POINTER TO ARRAY[0..999] OF VisuElems.VisuStructPoint;
+VAR
 	counter: UDINT;
 END_VAR
 ]]></Declaration>

@@ -33,6 +33,7 @@ Id;Default
 677;Auto
 1270;Automatik
 311;AWU
+2434;Axis Homing
 301;Axis R Error ID$R$N%x
 731;Axis S Error ID$R$N%x
 1070;Axis T Error ID$R$N%x
@@ -58,6 +59,7 @@ Id;Default
 825;Continus
 2084;Corner Count
 897;CX-4B8894 (192.168.0.101.1.1)
+2311;Debug
 595;Down
 711;DOWN
 138;DT1
@@ -73,6 +75,7 @@ Id;Default
 921;fDifferential
 18;fE
 1909;fFrequenz
+486;Figure Generator
 73;FigureGenerator
 710;filtertyp
 208;fIntegral
@@ -147,6 +150,7 @@ Id;Default
 370;OK
 600;P
 1162;phasenverschiebung [°]
+976;Play Figure
 971;Position
 498;Position 
 745;Position & Zustand
@@ -228,6 +232,8 @@ Id;Default
 178;Sollposition Achse 1
 430;spiegelung an x=y
 209;Star
+1178;Start  BNP
+339;Start Figure
 561;start logger
 930;Status R$R$N%x
 1350;Steigungswinkel!

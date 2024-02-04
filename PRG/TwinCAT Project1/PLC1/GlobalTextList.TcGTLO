@@ -176,6 +176,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"2434"</v>
+              <v n="TextDefault">"Axis Homing"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"301"</v>
               <v n="TextDefault">"Axis R Error ID
 %x"</v>
@@ -304,6 +309,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"2311"</v>
+              <v n="TextDefault">"Debug"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"595"</v>
               <v n="TextDefault">"Down"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -377,6 +387,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
             <o>
               <v n="TextID">"1909"</v>
               <v n="TextDefault">"fFrequenz"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"486"</v>
+              <v n="TextDefault">"Figure Generator"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -760,6 +775,11 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
             <o>
               <v n="TextID">"1162"</v>
               <v n="TextDefault">"phasenverschiebung [°]"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"976"</v>
+              <v n="TextDefault">"Play Figure"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -1168,6 +1188,16 @@ http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm"</v>
             <o>
               <v n="TextID">"209"</v>
               <v n="TextDefault">"Star"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1178"</v>
+              <v n="TextDefault">"Start  BNP"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"339"</v>
+              <v n="TextDefault">"Start Figure"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

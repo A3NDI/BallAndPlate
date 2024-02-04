@@ -621,12 +621,12 @@
                       <v n="Value">false</v>
                     </o>
                     <o>
-                      <v n="Id">3749497726L</v>
-                      <v n="Value">"MAIN.FB_FigureGenerator.pVisu"</v>
-                    </o>
-                    <o>
                       <v n="Id">1496140634L</v>
                       <v n="Value">"MAIN.FB_FigureGenerator.VisuLenght"</v>
+                    </o>
+                    <o>
+                      <v n="Id">3749497726L</v>
+                      <v n="Value">"MAIN.FB_FigureGenerator.pVisu"</v>
                     </o>
                   </l>
                 </o>
@@ -801,11 +801,11 @@
                     </o>
                     <o>
                       <v n="Id">3560616238L</v>
-                      <v n="Value">"Touchpanel.touch_scale_x.rX_mm*3"</v>
+                      <v n="Value">"Touchpanel.touch_scale_x.rX_mm*2.5"</v>
                     </o>
                     <o>
                       <v n="Id">2738717112L</v>
-                      <v n="Value">"-Touchpanel.touch_scale_y.rX_mm*3"</v>
+                      <v n="Value">"-Touchpanel.touch_scale_y.rX_mm*2.5"</v>
                     </o>
                     <o>
                       <v n="Id">2880254039L</v>
