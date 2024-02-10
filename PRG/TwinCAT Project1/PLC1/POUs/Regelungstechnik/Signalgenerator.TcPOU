@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Signalgenerator" Id="{ee390241-7c36-4cd3-a477-9bf10c5520db}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide_all_locals' := ''}
+{attribute 'FBVisuCreator' := ''}
+{attribute 'FBVisuCreatorPrefix' := 'RET_VISU_'}
+FUNCTION_BLOCK Signalgenerator
+VAR_INPUT
+	{attribute 'FBVisuCreatorFormatString' := 'd'}
+	eTyp: eSignalform := eSignalform.OFF;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fOffset: REAL := 0.0;
+	/// entspricht Steilheit der Rampe, d.h. 1.0 --> 1.0 dW/dt
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fAmplitude: REAL := 1.0;
+	{attribute 'FBVisuCreatorFormatString' := '%1.5f'}
+	fFrequenz: REAL := 1.0;
+	{attribute 'FBVisuCreatorFormatString' := '%1.1f'}
+	fPhi: REAL := 0.0;
+	{attribute 'FBVisuCreatorBoolColor' := 'Red'}
+	bRauschen: BOOL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fRauschen: REAL;
+END_VAR
+VAR_OUTPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fY: REAL;
+END_VAR
+VAR
+	{attribute 'hide'}
+	fZeit: REAL;
+	{attribute 'hide'}
+	fSumme: REAL;
+	{attribute 'hide'}
+	fbRauschen: Rauschen := (fVerstaerkung := 1.0);
+	{attribute 'hide'}
+	fYsin: REAL;
+	{attribute 'hide'}
+	fYasin: REAL;
+END_VAR
+VAR CONSTANT
+	{attribute 'hide'}
+	fPi: REAL := 3.14159265358979;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fZeit := fZeit + RET_COMMON.fDt;
+
+CASE eTyp OF
+	eSignalform.OFF:
+		fY := 0.0;
+		fSumme := 0.0;
+	
+	eSignalform.OFFSET:
+		fY := fOffset;
+		
+	eSignalform.RECHTECK:
+		fY := SIN(2*fPi*fFrequenz*fZeit + fPhi*fPi/180.0);
+		IF fY >= 0.0 THEN
+			fY := fAmplitude;
+		ELSIF fY < 0.0 THEN
+			fY :=  -fAmplitude;
+		END_IF
+		// rY := LIMIT(-100.0, rY + rOffset, 100.0);
+		fY := fY + fOffset;
+
+	eSignalform.DREIECK:
+		fYsin := SIN(2*fPi*fFrequenz*fZeit + fPhi*fPi/180.0);
+		fYasin := 2*ASIN(fYsin)/fPi;
+		fY := fAmplitude*fYasin + fOffset;
+		
+	eSignalform.SINUS:
+		fY := fAmplitude*SIN(2*fPi*fFrequenz*fZeit + fPhi*fPi/180.0) + fOffset;
+		
+	ELSE
+		eTyp := eSignalform.OFF;
+END_CASE
+IF bRauschen AND (eTyp <> eSignalform.OFF) THEN
+	fbRauschen(fVerstaerkung := fRauschen);
+	fY := fY + fbRauschen.fY;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Signalgenerator">
+      <LineId Id="3" Count="33" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

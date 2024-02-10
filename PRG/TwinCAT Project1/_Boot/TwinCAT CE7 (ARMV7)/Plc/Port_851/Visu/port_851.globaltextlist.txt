@@ -8,7 +8,9 @@ Id;Default
 425;%1.3f
 947;%1.4f
 1140;%1.5f
+2389;%1i
 141;%d
+1768;%f
 715;%i
 506;%s
 762;A DOWN
@@ -21,6 +23,7 @@ Id;Default
 431;aktiviert
 467;Allgemeine Einstellungen
 1133;amplitude
+1666;Angle Offset
 1204;anti-windup ll
 1195;anti-windup ul
 423;AntiWindUp
@@ -30,6 +33,7 @@ Id;Default
 677;Auto
 1270;Automatik
 311;AWU
+2434;Axis Homing
 301;Axis R Error ID$R$N%x
 731;Axis S Error ID$R$N%x
 1070;Axis T Error ID$R$N%x
@@ -37,15 +41,25 @@ Id;Default
 784;bActAntiWindUp_UL
 959;bAct_LL
 949;bAct_UL
+515;bAktiviert
 321;Ball and Plate
+1072;Ball is placed
 1300;Ball on Plate
 144;Ball onPlate
 427;bEnable
+377;bEnable_AWU
 337;bFrg
+1151;bNichtlinear
 347;bOut
 1170;bRauschen
 158;bReset
+514;bSpiegelungXgY
+2104;Clockwise
+1646;Continuous
+825;Continus
+2084;Corner Count
 897;CX-4B8894 (192.168.0.101.1.1)
+2311;Debug
 595;Down
 711;DOWN
 138;DT1
@@ -54,17 +68,51 @@ Id;Default
 836;Einbefehl
 956;Einszelansteuerung
 1324;Einzelansteuerung
+963;eTyp
+22;fA
+1901;fAmplitude
 557;fdasd$R$Nhttp://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
+921;fDifferential
+18;fE
+1909;fFrequenz
+486;Figure Generator
+73;FigureGenerator
 710;filtertyp
+208;fIntegral
+1487;fK
+375;fKr
 939;FL_vorfilter
+958;fOffset
+265;fOmega
+1014;fPhi
+207;fProportional
+1926;fRauschen
 1148;frequenz [hz]
+351;fT
+68;fT1
+69;fT2
+407;fTi
+493;fTn
+817;fTt
+19;fTv
+20;fTvz
+406;fX
+356;fY
+378;fYlim_max
+379;fYlim_min
+962;fY_FF
+380;fY_RE
+264;fZeta
+861;Generate Figure
 376;Geschwindigkeit
 1719;Grundposition
+732;Home
 931;Homing
 143;Homingposition
 894;http://192.168.0.33/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
 793;http://localhost/Tc3PlcHmiWeb/Port_851/Visu/webvisu.htm
 155;I
+634;i%
 830;iCount
 424;Instance: %s
 484;Integrator
@@ -102,6 +150,7 @@ Id;Default
 370;OK
 600;P
 1162;phasenverschiebung [°]
+976;Play Figure
 971;Position
 498;Position 
 745;Position & Zustand
@@ -112,6 +161,8 @@ Id;Default
 700;Position Achse 2
 661;Position Achse 3
 1821;Position Touchpanel
+646;press this button when you have placed the ball on the plate
+1491;press this button when you have placed the ball on the plate. the machine will then start to balance it
 767;PT1
 618;PT2
 924;PT2s
@@ -127,6 +178,7 @@ Id;Default
 132;rA1
 133;rA2
 134;rA3
+1006;Radius
 1126;rampensteilheit
 521;Rauschen
 298;rB
@@ -179,10 +231,16 @@ Id;Default
 852;Sollposition
 178;Sollposition Achse 1
 430;spiegelung an x=y
+209;Star
+1178;Start  BNP
+339;Start Figure
+561;start logger
 930;Status R$R$N%x
 1350;Steigungswinkel!
+224;Strecke
 796;T$R$N%1.01f °
 1575;test
+2284;Time for Figure
 504;Touch
 1104;typ
 1188;UP

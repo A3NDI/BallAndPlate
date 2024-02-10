@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <GVL Name="Config" Id="{44f76c76-644d-4d0d-a89e-431222c363f1}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+	IO_Link_AMS AT %I* 	: T_AmsNetId := '192.168.0.33.2.3';
+	ADDRCyl1			: E_IolPort := 1;
+	ADDRCyl2			: E_IolPort := 2;
+	ADDRCyl3			: E_IolPort := 3;
+	MaxSpeed_ADR 		: BYTE := 16#42;
+	MaxForce_ADR 		: BYTE := 16#54;
+	MaxACC_ADR 			: BYTE := 16#44;
+	MaxDEC_ADR 			: BYTE := 16#45;
+	MaxTrackingErr_ADR 	: BYTE := 16#46;
+
+	MaxVelo 			: REAL := 300/2.55;			//max Speed in Freepositioning Mode set in Cylinder[mm/s]
+	MaxForce 			: REAL := 800/2.55;			//max Force set in Cylinder [N]
+	MaxACC 				: REAL := 15/2.55;			//max Acceleration (and Deceleration) set in Cylinder [mm/s^2]
+	MaxTrackingErr 		: REAL := 5;				//max Tracking Error (Schleppfehler) [mm]
+	MaxTravel			: REAL := 200;				//max Travel of Axis [mm]
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

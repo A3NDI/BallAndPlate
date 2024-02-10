@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_FigurePlayer" Id="{e03dbe5b-a2fd-4ef6-aba2-1e59fb9a79c7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_FigurePlayer
+VAR_INPUT
+	bStart	: BOOL:= FALSE;
+	pFigure : POINTER TO Figure;
+	rW_xIn : REAL := 0;
+	rW_yIn : REAL := 0;
+END_VAR
+VAR_OUTPUT
+	rW_x : REAL;
+	rW_y : REAL;
+END_VAR
+VAR
+	counter: UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bStart THEN
+	rW_x := pFigure^.X[counter];
+	rW_y := pFigure^.Y[counter];
+	counter := (counter + 1) MOD pFigure^.length;
+ELSE
+	rW_x := rW_xIn;
+	rW_y := rW_yIn;
+	counter := 0;
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_FigurePlayer">
+      <LineId Id="9" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="19" Count="1" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="40" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

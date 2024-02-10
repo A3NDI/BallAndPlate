@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PT1" Id="{2f093388-0eb6-4c81-bab3-d16a5cf0b464}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide_all_locals' := ''}
+{attribute 'FBVisuCreator' := ''}
+{attribute 'FBVisuCreatorPrefix' := 'RET_VISU_'}
+FUNCTION_BLOCK PT1
+VAR_INPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fX: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fK: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fT: REAL;
+	{attribute 'FBVisuCreatorBoolColor' := 'Red'}
+	bReset: BOOL;
+END_VAR
+VAR_OUTPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fY: REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bReset THEN
+	reset();
+END_IF
+
+IF (fT > 0.0) THEN
+	fY := fY + (-fY + fK*fX)/MAX(fT,0.001)*RET_COMMON.fDt;
+ELSE
+	fY := fX;
+END_IF
+
+]]></ST>
+    </Implementation>
+    <Action Name="reset" Id="{08a2d77e-ca23-4c03-ade9-86ab260f4058}">
+      <Implementation>
+        <ST><![CDATA[fY := 0.0;]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="PT1">
+      <LineId Id="3" Count="9" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PT1.reset">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PTt" Id="{1f202316-c998-4f5f-a34c-df5cb6fefc31}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide_all_locals' := ''}
+{attribute 'FBVisuCreator' := ''}
+{attribute 'FBVisuCreatorPrefix' := 'RET_VISU_'}
+FUNCTION_BLOCK PTt
+VAR_INPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fX: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fK: REAL := 1.0;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fTt: REAL;
+	{attribute 'FBVisuCreatorBoolColor' := 'Red'}
+	bReset: BOOL;
+END_VAR
+VAR_OUTPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fY: REAL;
+END_VAR
+VAR
+	{attribute 'hide'}
+	afX: ARRAY[0..5000] OF REAL;
+	{attribute 'hide'}
+	nN: INT;
+	{attribute 'hide'}
+	nI: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bReset THEN
+	fTt := RET_COMMON.fDt;
+	reset();
+END_IF
+
+nN := REAL_TO_INT(fTt/MAX(RET_COMMON.fDt, 0.001));
+nN := LIMIT(1, nN, 5000);
+FOR ni := nN TO 1 BY -1 DO
+	afX[ni] := afX[nI - 1];
+END_FOR
+afX[0] := fX;
+fY := fK*afX[nN];
+]]></ST>
+    </Implementation>
+    <Action Name="reset" Id="{e3b16521-efcf-4c6a-8410-bf3a2fc02f5d}">
+      <Implementation>
+        <ST><![CDATA[fY := 0.0;]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="PTt">
+      <LineId Id="3" Count="11" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PTt.reset">
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

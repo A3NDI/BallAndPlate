@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Logger_RET" Id="{07a08daa-50a6-4b25-9a5b-d6558d0da02e}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide_all_locals' := ''}
+FUNCTION_BLOCK Logger_RET
+VAR_IN_OUT
+	bRunning: BOOL;
+END_VAR
+VAR_INPUT
+	fSignal_1: REAL;
+	fSignal_2: REAL;
+	fSignal_3: REAL;
+	fSignal_4: REAL;
+	fSignal_5: REAL;
+	fSignal_6: REAL;
+	fSignal_7: REAL;
+	fSignal_8: REAL;
+	fSignal_9: REAL;
+	fSignal_10: REAL;
+	nErfassung: UINT;
+END_VAR
+VAR_OUTPUT
+	fActIndexProzent: REAL;
+	afTime: ARRAY[0..nAnzahl] OF REAL;
+	afSignal_1: ARRAY[0..nAnzahl] OF REAL;
+	afSignal_2: ARRAY[0..nAnzahl] OF REAL;
+	afSignal_3: ARRAY[0..nAnzahl] OF REAL;
+	afSignal_4: ARRAY[0..nAnzahl] OF REAL;
+	afSignal_5: ARRAY[0..nAnzahl] OF REAL;
+	afSignal_6: ARRAY[0..nAnzahl] OF REAL;
+	afSignal_7: ARRAY[0..nAnzahl] OF REAL;
+	afSignal_8: ARRAY[0..nAnzahl] OF REAL;
+	afSignal_9: ARRAY[0..nAnzahl] OF REAL;
+	afSignal_10: ARRAY[0..nAnzahl] OF REAL;
+END_VAR
+VAR
+	{attribute 'hide'}
+	nStateLogger: INT := 0;
+	{attribute 'hide'}
+	nN: UINT;
+	{attribute 'hide'}
+	nIndex: UINT;
+END_VAR
+VAR CONSTANT
+	{attribute 'hide'}
+	nAnzahl: UINT := 20000;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Datenlogger zur Erfassung der Sprungantwort
+CASE nStateLogger OF
+	0: // warte auf Sprungantwort
+		fActIndexProzent := 0.0;
+		nIndex := 0;
+		IF bRunning THEN
+			nStateLogger := 1;
+		END_IF
+	
+	1: 	// Reset
+		fActIndexProzent := 0.0;
+		nIndex := 0;
+		FOR nN := 0 TO nAnzahl BY 1 DO
+			afTime[nN] := UINT_TO_REAL(nN)*RET_COMMON.fDt;
+			afSignal_1[nN] := 0.0;
+			afSignal_2[nN] := 0.0;
+			afSignal_3[nN] := 0.0;
+			afSignal_4[nN] := 0.0;
+			afSignal_5[nN] := 0.0;
+			afSignal_6[nN] := 0.0;
+			afSignal_7[nN] := 0.0;
+			afSignal_8[nN] := 0.0;
+			afSignal_9[nN] := 0.0;
+			afSignal_10[nN] := 0.0;
+		END_FOR
+		nStateLogger := 2;
+	
+	2: 
+		afSignal_1[nIndex] := fSignal_1;
+		afSignal_2[nIndex] := fSignal_2;
+		afSignal_3[nIndex] := fSignal_3;
+		afSignal_4[nIndex] := fSignal_4;
+		afSignal_5[nIndex] := fSignal_5;
+		afSignal_6[nIndex] := fSignal_6;
+		afSignal_7[nIndex] := fSignal_7;
+		afSignal_8[nIndex] := fSignal_8;
+		afSignal_9[nIndex] := fSignal_9;
+		afSignal_10[nIndex] := fSignal_10;
+		nIndex := nIndex + 1;
+		IF nIndex > MIN(nErfassung, nAnzahl) THEN
+			nStateLogger := 0;
+			bRunning := FALSE;
+		END_IF
+	
+	ELSE
+		nStateLogger := 0;
+		bRunning := FALSE;
+END_CASE
+fActIndexProzent := UINT_TO_REAL(nIndex)/UINT_TO_REAL(MIN(nErfassung, nAnzahl))*100.0;
+]]></ST>
+    </Implementation>
+    <LineIds Name="Logger_RET">
+      <LineId Id="3" Count="48" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

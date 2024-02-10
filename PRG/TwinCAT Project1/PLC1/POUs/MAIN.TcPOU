@@ -1,25 +1,238 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="MAIN" Id="{60bc0b30-1cdb-42b0-8bc7-ac64af597b82}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR_INPUT
-	Axis_R:FBCylTronicCylinder;
-	Axis_S:FBCyltronicCylinder;
-	Axis_T:FBCyltronicCylinder;
+	Axis_S				: FBCylTronicCylinder;
+	Axis_T				: FBCyltronicCylinder;
+	Axis_R				: FBCyltronicCylinder;
+	rSetPos_R			: REAL := 0;
+	rSetPos_S			: REAL := 0;
+	rSetPos_T			: REAL := 0;
 END_VAR
-]]></Declaration>
+
+VAR
+	Sinus				: FB_CTRL_SIGNAL_GENERATOR;
+	SinusParams			: ST_CTRL_SIGNAL_GENERATOR_PARAMS;
+	SinusMode			: E_CTRL_MODE := E_CTRL_MODE.eCTRL_MODE_ACTIVE;
+	rXBallPos			: REAL; //Ball Position X Axis in mm
+	rYBallPos			: REAL; //Ball Position Y Axis in mm
+	rMaxTouchPos		: REAL := 363 / 2;
+	rSetVelo			: REAL := 300;
+	rSetAcc				: REAL := 2;
+	rSetForce			: REAL := 800;
+	Modus				: Mode;
+	trigDown, trigUp	: R_TRIG;
+	bDOWN, bUp			: BOOL;
+	bBallOnPlate		: BOOL;
+	bBallonPlateButton	: BOOL := FALSE;
+	FB_FigureGenerator	: FB_FigureGenerator;
+	FB_BallTrack		: FB_BallTrack;
+END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[Axis_R(stAxisName:='Achse 1');
 Axis_S(stAxisName:='Achse 2');
 Axis_T(stAxisName:='Achse 3');
 Touchpanel();
-Allgemein();]]></ST>
+AC_ModeSelection();
+AC_TouchPos();
+CONTROLLER();
+FB_FigureGenerator();
+FB_BallTrack();
+
+]]></ST>
     </Implementation>
+    <Action Name="AC_ModeSelection" Id="{2f31f6c9-d783-4214-bd42-62c52be136ef}">
+      <Implementation>
+        <ST><![CDATA[
+//Ausschaltbedingungen (Prio 1)
+IF NOT gvl.Einbefehl OR NOT gvl.NOTAUS THEN
+	Axis_R.bEnable := FALSE;
+	Axis_S.bEnable := FALSE;
+	Axis_T.bEnable := FALSE;
+	Modus := Mode.Off;
+	GVL.V48Einbefehl := FALSE;
+END_IF
+
+IF NOT GVL.NOTAUS THEN
+	GVL.Einbefehl := FALSE;
+END_IF
+
+//Resetbefehl
+IF gvl.reset THEN
+	Axis_R.bReset := TRUE;
+	Axis_S.bReset := TRUE;
+	Axis_T.bReset := TRUE;
+	Modus := Mode.Off;
+END_IF
+
+Axis_R.rSetForce	:= rSetForce;
+Axis_S.rSetForce	:= rSetForce;
+Axis_T.rSetForce	:= rSetForce;
+Axis_R.rSetAcc		:= rSetAcc;
+Axis_S.rSetAcc		:= rSetAcc;
+Axis_T.rSetAcc		:= rSetAcc;
+Axis_R.rSetVelo		:= rSetVelo;
+Axis_S.rSetVelo		:= rSetVelo;
+Axis_T.rSetVelo		:= rSetVelo;
+Axis_R.bHoming 		:= FALSE;
+Axis_S.bHoming 		:= FALSE;
+Axis_T.bHoming 		:= FALSE;
+
+IF (NOT Axis_R.Ready OR NOT Axis_S.Ready OR NOT Axis_T.Ready) AND gvl.Einbefehl AND gvl.NOTAUS THEN
+	GVL.V48Einbefehl := TRUE;
+	Modus := Mode.Homing;
+ELSIF GVL.Grundposition THEN
+	Modus := Mode.Position;
+ELSIF gvl.BndP THEN
+	Modus:=Mode.BallundPlate;
+ELSIF gvl.Sinus THEN
+	Modus:=Mode.Sinus;
+ELSIF GVL.Tilt THEN
+	Modus:=Mode.Tilt;
+ELSIF gvl.Homing THEN
+	Modus:=Mode.Homing;
+END_IF
+
+GVL.Sinus_Aktiv := FALSE;
+GVL.BNP_Aktiv	:= FALSE;
+IF Modus <> Mode.BallundPlate THEN
+	bBallOnPlateButton := FALSE;
+	bBallOnPlate := FALSE;
+END_IF
+
+CASE Modus OF
+	Mode.Off:
+		;
+		
+	Mode.Homing:
+		Axis_R.bEnable := TRUE;
+		Axis_S.bEnable := TRUE;
+		Axis_T.bEnable := TRUE;
+		Axis_R.bHoming := TRUE;
+		Axis_S.bHoming := TRUE;
+		Axis_T.bHoming := TRUE;
+		gvl.eingabesperre:=TRUE;
+		
+	Mode.Position:
+		IF gvl.Automatik THEN
+			rSetPos_R := rSetPos_S := rSetPos_T	:= gvl.Eingabe_Sollposition;
+		END_IF
+	
+	Mode.Tilt:
+		;
+	
+	Mode.Sinus:
+		SinusParams.eSignalType := E_CTRL_SIGNAL_TYPE.eCTRL_SINUS;
+		SinusParams.fAmplitude := (MaxTravel - 2 ) / 2;
+		SinusParams.fOffset := MaxTravel / 2;
+		SinusParams.tCtrlCycleTime := T#2MS;
+		SinusParams.tCylceDuration := T#2S;
+		SinusParams.tTaskCycleTime := T#2MS;
+		Sinus(stParams := SinusParams);
+		Sinus.eMode := SinusMode;
+		rSetPos_R := rSetPos_S := rSetPos_T := LREAL_TO_REAL(Sinus.fOut);
+	
+	Mode.BallundPlate:
+		bBallOnPlate := bBallOnPlateButton;
+	
+		;
+END_CASE
+Axis_R.rSetPos	:= rSetPos_R;
+Axis_S.rSetPos	:= rSetPos_S;
+Axis_T.rSetPos	:= rSetPos_T;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="AC_TouchPos" Id="{a5abb554-29a7-45b2-a1a8-90708d4f4208}">
+      <Implementation>
+        <ST><![CDATA[IF CONTROLLER.bReAktiv THEN
+	rXBallPos := Touchpanel.touch_scale_x.rX_mm;
+	rYBallPos := Touchpanel.touch_scale_y.rX_mm;
+ELSE
+	rXBallPos := -180;
+	rYBallPos := -142;
+END_IF]]></ST>
+      </Implementation>
+    </Action>
     <LineIds Name="MAIN">
-      <LineId Id="28" Count="0" />
-      <LineId Id="16" Count="1" />
-      <LineId Id="10" Count="0" />
-      <LineId Id="35" Count="0" />
+      <LineId Id="146" Count="3" />
+      <LineId Id="155" Count="0" />
+      <LineId Id="210" Count="0" />
+      <LineId Id="179" Count="0" />
+      <LineId Id="236" Count="0" />
+      <LineId Id="263" Count="0" />
+      <LineId Id="156" Count="0" />
+      <LineId Id="151" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.AC_ModeSelection">
+      <LineId Id="225" Count="3" />
+      <LineId Id="382" Count="1" />
+      <LineId Id="416" Count="0" />
+      <LineId Id="466" Count="0" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="510" Count="0" />
+      <LineId Id="509" Count="0" />
+      <LineId Id="511" Count="1" />
+      <LineId Id="232" Count="2" />
+      <LineId Id="384" Count="1" />
+      <LineId Id="235" Count="1" />
+      <LineId Id="238" Count="0" />
+      <LineId Id="386" Count="0" />
+      <LineId Id="239" Count="0" />
+      <LineId Id="401" Count="0" />
+      <LineId Id="400" Count="0" />
+      <LineId Id="387" Count="0" />
+      <LineId Id="402" Count="1" />
+      <LineId Id="388" Count="0" />
+      <LineId Id="399" Count="0" />
+      <LineId Id="398" Count="0" />
+      <LineId Id="470" Count="1" />
+      <LineId Id="469" Count="0" />
+      <LineId Id="444" Count="0" />
+      <LineId Id="432" Count="0" />
+      <LineId Id="468" Count="0" />
+      <LineId Id="433" Count="10" />
+      <LineId Id="389" Count="0" />
+      <LineId Id="452" Count="0" />
+      <LineId Id="445" Count="0" />
+      <LineId Id="453" Count="0" />
+      <LineId Id="505" Count="1" />
+      <LineId Id="508" Count="0" />
+      <LineId Id="507" Count="0" />
+      <LineId Id="502" Count="0" />
+      <LineId Id="240" Count="1" />
+      <LineId Id="261" Count="0" />
+      <LineId Id="417" Count="0" />
+      <LineId Id="262" Count="0" />
+      <LineId Id="410" Count="1" />
+      <LineId Id="409" Count="0" />
+      <LineId Id="464" Count="1" />
+      <LineId Id="463" Count="0" />
+      <LineId Id="264" Count="0" />
+      <LineId Id="446" Count="0" />
+      <LineId Id="282" Count="0" />
+      <LineId Id="287" Count="0" />
+      <LineId Id="290" Count="1" />
+      <LineId Id="316" Count="1" />
+      <LineId Id="462" Count="0" />
+      <LineId Id="500" Count="0" />
+      <LineId Id="334" Count="0" />
+      <LineId Id="337" Count="0" />
+      <LineId Id="455" Count="4" />
+      <LineId Id="341" Count="0" />
+      <LineId Id="460" Count="1" />
+      <LineId Id="350" Count="0" />
+      <LineId Id="363" Count="0" />
+      <LineId Id="501" Count="0" />
+      <LineId Id="504" Count="0" />
+      <LineId Id="370" Count="0" />
+      <LineId Id="187" Count="0" />
+      <LineId Id="450" Count="1" />
+      <LineId Id="449" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.AC_TouchPos">
+      <LineId Id="2" Count="5" />
+      <LineId Id="1" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

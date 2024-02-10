@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="eSignalform" Id="{46e6c729-4ba4-4487-96ae-c873b4278d9a}">
+    <Declaration><![CDATA[TYPE eSignalform :
+(
+	OFF := 1,
+	OFFSET := 2,
+	RECHTECK := 3,
+	DREIECK := 4,
+	SINUS := 5
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

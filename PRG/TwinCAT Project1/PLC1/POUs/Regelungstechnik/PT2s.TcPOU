@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PT2s" Id="{6a40dc06-492f-41dd-a803-d5d2799b6bff}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide_all_locals' := ''}
+{attribute 'FBVisuCreator' := ''}
+{attribute 'FBVisuCreatorPrefix' := 'RET_VISU_'}
+FUNCTION_BLOCK PT2s
+VAR_INPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fX: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fK: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fZeta: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fOmega: REAL;
+	{attribute 'FBVisuCreatorBoolColor' := 'Red'}
+	bReset: BOOL;
+END_VAR
+VAR_OUTPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fY: REAL;
+END_VAR
+VAR
+	{attribute 'hide'}
+	fXX: REAL;
+	{attribute 'hide'}
+	fDx: REAL;
+	{attribute 'hide'}
+	fDy: REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fDy := RET_COMMON.fDt*fOmega*fXX;
+fDx := RET_COMMON.fDt*fOmega*(fK*fX - fY - 2*fZeta*fXX);
+fXX := fXX + fDx;
+fY := fY + fDy;
+
+IF bReset THEN
+	reset();
+END_IF]]></ST>
+    </Implementation>
+    <Action Name="reset" Id="{2682f867-340b-4886-ab96-4b023d721e7b}">
+      <Implementation>
+        <ST><![CDATA[fXX := 0.0;
+fY := 0.0;]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="PT2s">
+      <LineId Id="3" Count="6" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PT2s.reset">
+      <LineId Id="2" Count="0" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

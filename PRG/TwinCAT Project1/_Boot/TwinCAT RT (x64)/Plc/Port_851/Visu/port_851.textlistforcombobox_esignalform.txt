@@ -4,5 +4,4 @@ Id;Default
 3;RECHTECK
 4;DREIECK
 5;SINUS
-6;RAMPE
 ;

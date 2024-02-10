@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="DT1" Id="{1fcd262f-2269-4900-88a5-f4e83b9bf5b7}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide_all_locals' := ''}
+{attribute 'FBVisuCreator' := ''}
+{attribute 'FBVisuCreatorPrefix' := 'RET_VISU_'}
+FUNCTION_BLOCK DT1
+VAR_INPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fE: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fTv: REAL;
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fTvz: REAL;
+	{attribute 'FBVisuCreatorBoolColor' := 'Red'}
+	bReset: BOOL;
+END_VAR
+VAR_OUTPUT
+	{attribute 'FBVisuCreatorFormatString' := '%1.3f'}
+	fA: REAL;
+END_VAR
+VAR
+	{attribute 'hide'}
+	fDxe: REAL;
+	{attribute 'hide'}
+	fDxa: REAL;
+	{attribute 'hide'}
+	fEold: REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (fTvz > 0.0) THEN
+	fDxe := fTv/fTvz*(fE - fEold);
+	fEold := fE;
+	fDxa := fA/fTvz*RET_COMMON.fDt;
+END_IF
+fA := fA + fDxe - fDxa;
+
+IF bReset THEN
+	reset();
+END_IF]]></ST>
+    </Implementation>
+    <Action Name="reset" Id="{b08a723e-ffd2-46d8-b535-fa65044486ca}">
+      <Implementation>
+        <ST><![CDATA[fA := 0.0;
+fEold := 0.0;
+fDxe := 0.0;
+fDxa := 0.0;]]></ST>
+      </Implementation>
+    </Action>
+    <LineIds Name="DT1">
+      <LineId Id="3" Count="8" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="DT1.reset">
+      <LineId Id="2" Count="2" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
