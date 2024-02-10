@@ -28,9 +28,9 @@ END_VAR
 		rTotband	:= 0;
 		Reglertyp 	:= eReglertyp.PIDT1;
 		KP			:= -0.06;
-		Ti			:= 25;
+		Ti			:= 10;
 		Td			:= 1.13;
-		Tvz			:= 0.03;
+		Tvz			:= 0.05;
 	1:
 		rTotband	:= T_rTotband;                  
 		Reglertyp 	:= T_Reglertyp; 	
